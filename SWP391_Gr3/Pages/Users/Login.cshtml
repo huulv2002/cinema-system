@@ -1,0 +1,58 @@
+﻿@page
+@model SWP391_Gr3.Pages.Users.LoginModel
+@{
+	ViewData["Title"] = "Đăng nhập";
+}
+<style>
+    body {
+        background: url('/images/food-login-bg.jpg') no-repeat center center fixed;
+        background-size: cover;
+    }
+
+    .login-container {
+        max-width: 400px;
+        margin: auto;
+        margin-top: 50px;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+        .login-container input:focus {
+            border-color: #ff6b6b;
+            box-shadow: 0 0 8px rgba(255, 107, 107, 0.8);
+        }
+
+    .btn-login {
+        background-color: #ff6b6b;
+        border: none;
+    }
+
+        .btn-login:hover {
+            background-color: #e63946;
+        }
+</style>
+<div class="login-container">
+    <h2 class="text-center text-danger">Đăng nhập</h2>
+    @if (Model.ErrorMessage != null)
+    {
+        <div class="alert alert-danger">@Model.ErrorMessage</div>
+    }
+    <form method="post">
+        <div class="form-group">
+            <label for="email">📧 Email</label>
+            <input asp-for="Email" class="form-control" required placeholder="Nhập email" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="form-group mt-3">
+            <label for="password">🔑 Mật khẩu</label>
+            <input type="password" asp-for="Password" class="form-control" required placeholder="Nhập mật khẩu" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-danger btn-block mt-4 btn-login">🔓 Đăng nhập</button>
+    </form>
+    <p class="mt-3 text-center">
+        Bạn chưa có tài khoản? <a asp-page="./Register" class="text-danger">Đăng ký ngay</a>
+    </p>
+</div>

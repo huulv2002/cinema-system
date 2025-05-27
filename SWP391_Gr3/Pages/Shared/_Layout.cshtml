@@ -3,16 +3,128 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - SWP391_Gr3</title>
+    <title>@ViewData["Title"] - OMTB</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/SWP391_Gr3.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/OnlineMovieTicketBookingSystem.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background: url('https://thesciencesurvey.com/wp-content/uploads/2021/11/whoops-900x596.png') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .navbar {
+            background-color: red !important;
+        }
+
+        .navbar-brand {
+            font-family: 'Pacifico', cursive;
+            font-size: 24px;
+            color: #fff !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: #fff !important;
+            font-weight: 500;
+        }
+
+            .navbar-nav .nav-link:hover {
+                background-color: rgba(255, 255, 255, 0.2);
+                border-radius: 5px;
+            }
+
+        /* Footer */
+        footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+        }
+
+            footer a {
+                color: #ffcc00;
+                text-decoration: none;
+            }
+
+                footer a:hover {
+                    text-decoration: underline;
+                }
+
+        .card-custom {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            border-radius: 8px;
+            border: none;
+            background: linear-gradient(90deg, #ff0000, #ff4d4d);
+            color: #fff;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+
+            .btn:hover {
+                background: linear-gradient(90deg, #ff4d4d, #ff0000);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            }
+
+            .btn:active {
+                transform: translateY(0);
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            }
+
+            .btn i {
+                margin-right: 8px;
+            }
+
+        .btn-primary {
+            background: linear-gradient(90deg, #ff0000, #ff4d4d);
+            color: #fff;
+        }
+
+            .btn-primary:hover {
+                background: linear-gradient(90deg, #ff4d4d, #ff0000);
+            }
+
+        .btn-secondary {
+            background: linear-gradient(90deg, #333, #555);
+            color: #fff;
+        }
+
+            .btn-secondary:hover {
+                background: linear-gradient(90deg, #555, #333);
+            }
+
+        .btn:disabled, .btn.disabled {
+            background: #ccc;
+            color: #666;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+    </style>
+
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">SWP391_Gr3</a>
+                <a class="navbar-brand" asp-page="/Index">Online Ticket Booking</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -20,11 +132,59 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                            <a class="nav-link text-dark" asp-page="/Index">Trang chủ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-page="/Promotions">Tin mới & ưu đãi</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-page="/MyTickets">Vé của tôi</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-page="/Contact">Liên hệ</a>
+                        </li>
+                        @if (Context.Session.GetString("UserRole") == "Admin" || Context.Session.GetString("UserRole") == "Owner")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-page="/Users/Index">Quản lý tài khoản</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-page="/Users/">Quản lý Khách Hàng</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-page="/Reports">Doanh thu</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-page="/Movies/Manage">Quản lý danh mục phim</a>
+                            </li>
+                        }
+                        @if (Context.Session.GetString("UserRole") == "Customer")
+                        {
+                            var userId = Context.Session.GetString("UserId");
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-page="/Orders" asp-route-userId="@userId">Đơn hàng của tôi</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-page="/Users/Profile" asp-route-id="@userId">Profile của tôi</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-page="/Reviews">ĐÁNH GIÁ</a>
+                            </li>
+                        }
+                    </ul>
+                    <ul class="navbar-nav">
+                        @if (Context.Session.GetString("UserRole") != null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-page="/Users/Logout">Đăng xuất</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-page="/Users/Login">Đăng nhập</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -35,17 +195,14 @@
             @RenderBody()
         </main>
     </div>
-
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2025 - SWP391_Gr3 - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            © 2025 - OMTB - <a asp-page="/About">Giới thiệu</a>
         </div>
     </footer>
-
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

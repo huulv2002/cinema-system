@@ -1,0 +1,49 @@
+﻿@page "/"
+@model SWP391_Gr3.Pages.Home.IndexModel
+@{
+    ViewData["Title"] = "Trang chủ";
+}
+<div class="hero-section">
+    <div class="overlay"></div> <!-- Hiệu ứng mờ -->
+    <div class="hero-content text-center">
+        <h1 class="display-4 text-white fw-bold">Chào mừng đến với OMTB </h1>
+        <p class="lead text-white">Khám phá những bộ phim mới nhất  </p>
+        <a href="/Movies/index" class="btn btn-warning btn-lg shadow mt-3"> Xem </a>
+    </div>
+</div>
+<style>
+    .hero-section {
+        position: relative;
+        background: url('https://learnenglishteens.britishcouncil.org/sites/teens/files/styles/section_block_landing_image/public/field/image/RS9247_GettyImages-1334662982-hig.jpg?itok=nO7pZDv9') center/cover no-repeat;
+        height: 80vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: white;
+    }
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5); /* Hiệu ứng mờ */
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 1;
+    }
+
+    .btn-warning {
+        transition: 0.3s ease-in-out;
+    }
+
+        .btn-warning:hover {
+            background-color: #ffcc00;
+            transform: scale(1.05);
+        }
+</style>
+

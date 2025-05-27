@@ -1,0 +1,80 @@
+﻿@page
+@model SWP391_Gr3.Pages.Users.RegisterModel
+@{
+	ViewData["Title"] = "Đăng ký tài khoản";
+}
+<div class="register-container">
+    <h2 class="text-center">Đăng ký tài khoản</h2>
+    @if (Model.ErrorMessage != null)
+    {
+        <div class="alert alert-danger">@Model.ErrorMessage</div>
+    }
+    <form method="post" onsubmit="return validateForm()">
+        <div class="form-group">
+            <label asp-for="RegisterUser.FullName">Họ và tên</label>
+            <input asp-for="RegisterUser.FullName" class="form-control" required placeholder="Nhập họ và tên" />
+            <span asp-validation-for="RegisterUser.FullName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="RegisterUser.Email">Email</label>
+            <input asp-for="RegisterUser.Email" class="form-control" required placeholder="Nhập email" />
+            <span asp-validation-for="RegisterUser.Email" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="RegisterUser.PhoneNumber">Số điện thoại</label>
+            <input asp-for="RegisterUser.PhoneNumber" class="form-control" required placeholder="Nhập số điện thoại" />
+            <span asp-validation-for="RegisterUser.PhoneNumber" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="RegisterUser.address">Địa chỉ</label>
+            <input asp-for="RegisterUser.address" class="form-control" required placeholder="Nhập địa chỉ" />
+            <span asp-validation-for="RegisterUser.address" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="RegisterUser.HashPass">Mật khẩu</label>
+            <input type="password" asp-for="RegisterUser.HashPass" id="HashPass" class="form-control" required placeholder="Nhập mật khẩu" />
+            <span asp-validation-for="RegisterUser.HashPass" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="confirmPasswordHash">Xác nhận mật khẩu</label>
+            <input type="password" id="confirmPasswordHash" name="confirmPasswordHash" class="form-control" required placeholder="Nhập lại mật khẩu" />
+            <small id="passwordError" class="text-danger d-none">Mật khẩu không khớp!</small>
+        </div>
+        <button type="submit" class="btn btn-success btn-block mt-3">Đăng ký</button>
+    </form>
+    <p class="mt-3 text-center">
+        Đã có tài khoản? <a asp-page="./Login">Đăng nhập ngay</a>
+    </p>
+</div>
+<style>
+    .register-container {
+        max-width: 400px;
+        margin: 50px auto;
+        padding: 30px;
+        background: #fff;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }
+
+    .btn-success {
+        width: 100%;
+    }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+</style>
+<script>
+    function validateForm() {
+        let password = document.getElementById("HashPass").value;
+        let confirmPassword = document.getElementById("confirmPasswordHash").value;
+        let errorText = document.getElementById("passwordError");
+        if (password !== confirmPassword) {
+            errorText.classList.remove("d-none");
+            return false;
+        } else {
+            errorText.classList.add("d-none");
+            return true;
+        }
+    }
+</script>
