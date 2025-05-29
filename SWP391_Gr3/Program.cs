@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SWP391_Gr3.Models;
 using SWP391_Gr3.Repositories;
 using SWP391_Gr3.Services;
+using SWP391_Gr3.Util;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +25,13 @@ builder.Services.AddScoped<SWP391_Gr3.Repositories.IUserRepository, SWP391_Gr3.R
 
 builder.Services.AddScoped<SWP391_Gr3.Services.IRoleSer, SWP391_Gr3.Services.RoleSer>();
 builder.Services.AddScoped<SWP391_Gr3.Repositories.IRoleRepo, SWP391_Gr3.Repositories.RoleRepo>();
+var emailSettings = builder.Configuration
+    .GetSection("EmailSettings")
+    .Get<EmailSettings>();
+
+builder.Services.AddSingleton(emailSettings);
+builder.Services.AddTransient<IEmailService, EmailService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
