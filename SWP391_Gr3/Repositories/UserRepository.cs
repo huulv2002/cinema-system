@@ -74,5 +74,61 @@ namespace SWP391_Gr3.Repositories
 
             return user?.Role?.Name;
         }
+        public async Task<User?> GetUserById(int userId)
+        {
+            return await _context.Users.FirstOrDefaultAsync(c => c.Id == userId);
+        }
+        public async Task<bool> UpdateProfile(User user)
+        {
+
+            var existingUser = await _context.Users.FindAsync(user.Id);
+            if (existingUser == null)
+            {
+                return false; 
+            }
+
+
+            existingUser.FullName = user.FullName;
+            
+            existingUser.PhoneNumber = user.PhoneNumber;
+
+            existingUser.Address = user.Address;
+
+            return await _context.SaveChangesAsync() > 0;
+        }
+        public async Task<bool> UpdateVerification(User user)
+        {
+
+            var existingUser = await _context.Users.FindAsync(user.Id);
+            if (existingUser == null)
+            {
+                return false;
+            }
+
+
+            existingUser.CodeExpiration = user.CodeExpiration;
+
+            existingUser.VerificationCode = user.VerificationCode;
+
+        
+
+            return await _context.SaveChangesAsync() > 0;
+        }
+        public async Task<bool> UpdatePassword(string email, string password)
+        {
+
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            if (user == null) return false;
+
+
+            user.HashPass = password;
+
+            user.VerificationCode = null;
+            user.CodeExpiration = null;
+
+           return await _context.SaveChangesAsync() > 0;
+        }
+
+       
     }
 }

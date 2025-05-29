@@ -1,4 +1,5 @@
-﻿using SWP391_Gr3.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using SWP391_Gr3.Models;
 using SWP391_Gr3.Repositories;
 
 namespace SWP391_Gr3.Services
@@ -58,6 +59,29 @@ namespace SWP391_Gr3.Services
 
             var roleName = await _userRepo.GetRoleNameAsync(userId);
             return roleName ?? "Unknown Role";
+        }
+        public async Task<User?> GetUserById(int userId)
+        {
+            return await _userRepo.GetUserById(userId);
+        }
+        public async Task<bool> UpdateProfile(User user)
+        {
+            return await _userRepo.UpdateProfile(user);
+        }
+
+        public async Task<User?> GetUserByEmailAsync(string email)
+        {
+            return await _userRepo.GetUserByEmailAsync(email);
+        }
+
+        public async Task<bool> UpdateVerification(User user)
+        {
+            return await _userRepo.UpdateVerification(user);
+        }
+
+        public async Task<bool> UpdatePassword(string email, String password)
+        {
+            return await _userRepo.UpdatePassword(email, password);
         }
     }
 }

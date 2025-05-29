@@ -9,65 +9,77 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = SWP391_Gr3
 build_property.RootNamespace = SWP391_Gr3
-build_property.ProjectDir = D:\SWP391\SWP391_Gr3\
+build_property.ProjectDir = C:\Users\sontra\Source\Repos\cinema-system\SWP391_Gr3\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\SWP391\SWP391_Gr3
+build_property.MSBuildProjectDirectory = C:\Users\sontra\Source\Repos\cinema-system\SWP391_Gr3
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 8.0
 build_property.EnableCodeStyleSeverity = 
 
-[D:/SWP391/SWP391_Gr3/Pages/Error.cshtml]
+[C:/Users/sontra/Source/Repos/cinema-system/SWP391_Gr3/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/SWP391/SWP391_Gr3/Pages/Home/AccessDenied.cshtml]
+[C:/Users/sontra/Source/Repos/cinema-system/SWP391_Gr3/Pages/Home/AccessDenied.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZVxBY2Nlc3NEZW5pZWQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/SWP391/SWP391_Gr3/Pages/Home/Index.cshtml]
+[C:/Users/sontra/Source/Repos/cinema-system/SWP391_Gr3/Pages/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/SWP391/SWP391_Gr3/Pages/Privacy.cshtml]
+[C:/Users/sontra/Source/Repos/cinema-system/SWP391_Gr3/Pages/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/SWP391/SWP391_Gr3/Pages/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/sontra/Source/Repos/cinema-system/SWP391_Gr3/Pages/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/SWP391/SWP391_Gr3/Pages/Users/AdminRegister.cshtml]
+[C:/Users/sontra/Source/Repos/cinema-system/SWP391_Gr3/Pages/Users/AdminRegister.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcQWRtaW5SZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/SWP391/SWP391_Gr3/Pages/Users/Index.cshtml]
+[C:/Users/sontra/Source/Repos/cinema-system/SWP391_Gr3/Pages/Users/ChangePassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcQ2hhbmdlUGFzc3dvcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sontra/Source/Repos/cinema-system/SWP391_Gr3/Pages/Users/ForgotPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcRm9yZ290UGFzc3dvcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sontra/Source/Repos/cinema-system/SWP391_Gr3/Pages/Users/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/SWP391/SWP391_Gr3/Pages/Users/Login.cshtml]
+[C:/Users/sontra/Source/Repos/cinema-system/SWP391_Gr3/Pages/Users/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcTG9naW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/SWP391/SWP391_Gr3/Pages/Users/Logout.cshtml]
+[C:/Users/sontra/Source/Repos/cinema-system/SWP391_Gr3/Pages/Users/Logout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcTG9nb3V0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/SWP391/SWP391_Gr3/Pages/Users/Register.cshtml]
+[C:/Users/sontra/Source/Repos/cinema-system/SWP391_Gr3/Pages/Users/Profile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcUHJvZmlsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sontra/Source/Repos/cinema-system/SWP391_Gr3/Pages/Users/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcUmVnaXN0ZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/SWP391/SWP391_Gr3/Pages/_ViewImports.cshtml]
+[C:/Users/sontra/Source/Repos/cinema-system/SWP391_Gr3/Pages/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/SWP391/SWP391_Gr3/Pages/_ViewStart.cshtml]
+[C:/Users/sontra/Source/Repos/cinema-system/SWP391_Gr3/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/SWP391/SWP391_Gr3/Pages/Shared/_Layout.cshtml]
+[C:/Users/sontra/Source/Repos/cinema-system/SWP391_Gr3/Pages/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-uuf19me35x

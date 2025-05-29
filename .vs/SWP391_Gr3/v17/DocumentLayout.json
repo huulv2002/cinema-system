@@ -1,33 +1,161 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\SWP391\\",
+  "WorkspaceRootPath": "C:\\Users\\sontra\\source\\repos\\cinema-system\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|d:\\swp391\\swp391_gr3\\pages\\users\\adminregister.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\pages\\users\\adminregister.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|c:\\users\\sontra\\source\\repos\\cinema-system\\swp391_gr3\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|d:\\swp391\\swp391_gr3\\pages\\users\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\pages\\users\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|c:\\users\\sontra\\source\\repos\\cinema-system\\swp391_gr3\\util\\emailsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\util\\emailsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|d:\\swp391\\swp391_gr3\\pages\\users\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|c:\\users\\sontra\\source\\repos\\cinema-system\\swp391_gr3\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|c:\\users\\sontra\\source\\repos\\cinema-system\\swp391_gr3\\repositories\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\repositories\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|c:\\users\\sontra\\source\\repos\\cinema-system\\swp391_gr3\\pages\\users\\profile.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\pages\\users\\profile.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|c:\\users\\sontra\\source\\repos\\cinema-system\\swp391_gr3\\pages\\users\\profile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\pages\\users\\profile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|c:\\users\\sontra\\source\\repos\\cinema-system\\swp391_gr3\\services\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\services\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|c:\\users\\sontra\\source\\repos\\cinema-system\\swp391_gr3\\services\\iemailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\services\\iemailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|c:\\users\\sontra\\source\\repos\\cinema-system\\swp391_gr3\\pages\\privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\pages\\privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|c:\\users\\sontra\\source\\repos\\cinema-system\\swp391_gr3\\pages\\error.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\pages\\error.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|c:\\users\\sontra\\source\\repos\\cinema-system\\swp391_gr3\\pages\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\pages\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|c:\\users\\sontra\\source\\repos\\cinema-system\\swp391_gr3\\pages\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\pages\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|c:\\users\\sontra\\source\\repos\\cinema-system\\swp391_gr3\\pages\\users\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\pages\\users\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|c:\\users\\sontra\\source\\repos\\cinema-system\\swp391_gr3\\pages\\users\\logout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\pages\\users\\logout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|c:\\users\\sontra\\source\\repos\\cinema-system\\swp391_gr3\\pages\\users\\login.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\pages\\users\\login.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|c:\\users\\sontra\\source\\repos\\cinema-system\\swp391_gr3\\pages\\users\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\pages\\users\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|d:\\swp391\\swp391_gr3\\pages\\users\\adminregister.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\pages\\users\\adminregister.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|c:\\users\\sontra\\source\\repos\\cinema-system\\swp391_gr3\\pages\\users\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\pages\\users\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|d:\\swp391\\swp391_gr3\\pages\\home\\accessdenied.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\pages\\home\\accessdenied.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|c:\\users\\sontra\\source\\repos\\cinema-system\\swp391_gr3\\pages\\users\\forgotpassword.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\pages\\users\\forgotpassword.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|d:\\swp391\\swp391_gr3\\pages\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|c:\\users\\sontra\\source\\repos\\cinema-system\\swp391_gr3\\pages\\users\\forgotpassword.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\pages\\users\\forgotpassword.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|c:\\users\\sontra\\source\\repos\\cinema-system\\swp391_gr3\\pages\\users\\adminregister.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\pages\\users\\adminregister.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|c:\\users\\sontra\\source\\repos\\cinema-system\\swp391_gr3\\pages\\users\\changepassword.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\pages\\users\\changepassword.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|c:\\users\\sontra\\source\\repos\\cinema-system\\swp391_gr3\\repositories\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\repositories\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|c:\\users\\sontra\\source\\repos\\cinema-system\\swp391_gr3\\repositories\\rolerepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\repositories\\rolerepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|c:\\users\\sontra\\source\\repos\\cinema-system\\swp391_gr3\\services\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\services\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|c:\\users\\sontra\\source\\repos\\cinema-system\\swp391_gr3\\services\\iroleser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\services\\iroleser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|c:\\users\\sontra\\source\\repos\\cinema-system\\swp391_gr3\\services\\roleser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\services\\roleser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|c:\\users\\sontra\\source\\repos\\cinema-system\\swp391_gr3\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|c:\\users\\sontra\\source\\repos\\cinema-system\\swp391_gr3\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|c:\\users\\sontra\\source\\repos\\cinema-system\\swp391_gr3\\repositories\\irolerepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\repositories\\irolerepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|c:\\users\\sontra\\source\\repos\\cinema-system\\swp391_gr3\\pages\\users\\changepassword.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\pages\\users\\changepassword.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|c:\\users\\sontra\\source\\repos\\cinema-system\\swp391_gr3\\swp391_gr3.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\swp391_gr3.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|c:\\users\\sontra\\source\\repos\\cinema-system\\swp391_gr3\\models\\theater.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\models\\theater.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|c:\\users\\sontra\\source\\repos\\cinema-system\\swp391_gr3\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|c:\\users\\sontra\\source\\repos\\cinema-system\\swp391_gr3\\autho\\authorizeroleattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\autho\\authorizeroleattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|c:\\users\\sontra\\source\\repos\\cinema-system\\swp391_gr3\\pages\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\pages\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|d:\\swp391\\swp391_gr3\\pages\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|c:\\users\\sontra\\source\\repos\\cinema-system\\swp391_gr3\\pages\\users\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\pages\\users\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|c:\\users\\sontra\\source\\repos\\cinema-system\\swp391_gr3\\pages\\users\\adminregister.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\pages\\users\\adminregister.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|c:\\users\\sontra\\source\\repos\\cinema-system\\swp391_gr3\\pages\\home\\accessdenied.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\pages\\home\\accessdenied.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|c:\\users\\sontra\\source\\repos\\cinema-system\\swp391_gr3\\pages\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{482B486F-449D-4C91-9049-94146CFADB12}|SWP391_Gr3\\SWP391_Gr3.csproj|solutionrelative:swp391_gr3\\pages\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
@@ -38,8 +166,21 @@
       "DocumentGroups": [
         {
           "DockedHeight": 401,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 9,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "IEmailService.cs",
+              "DocumentMoniker": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Services\\IEmailService.cs",
+              "RelativeDocumentMoniker": "SWP391_Gr3\\Services\\IEmailService.cs",
+              "ToolTip": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Services\\IEmailService.cs",
+              "RelativeToolTip": "SWP391_Gr3\\Services\\IEmailService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-28T18:06:24.521Z",
+              "IsPinned": true
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
@@ -50,94 +191,461 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Profile.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\Users\\Profile.cshtml.cs",
+              "RelativeDocumentMoniker": "SWP391_Gr3\\Pages\\Users\\Profile.cshtml.cs",
+              "ToolTip": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\Users\\Profile.cshtml.cs",
+              "RelativeToolTip": "SWP391_Gr3\\Pages\\Users\\Profile.cshtml.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAowDgAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-28T16:46:30.733Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UserRepository.cs",
+              "DocumentMoniker": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Repositories\\UserRepository.cs",
+              "RelativeDocumentMoniker": "SWP391_Gr3\\Repositories\\UserRepository.cs",
+              "ToolTip": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Repositories\\UserRepository.cs",
+              "RelativeToolTip": "SWP391_Gr3\\Repositories\\UserRepository.cs",
+              "ViewState": "AgIAAFkAAAAAAAAAAAAUwCYAAABTAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-28T16:47:20.785Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "D:\\SWP391\\SWP391_Gr3\\Pages\\Users\\Index.cshtml",
-              "RelativeDocumentMoniker": "SWP391_Gr3\\Pages\\Users\\Index.cshtml",
-              "ToolTip": "D:\\SWP391\\SWP391_Gr3\\Pages\\Users\\Index.cshtml",
-              "RelativeToolTip": "SWP391_Gr3\\Pages\\Users\\Index.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-27T12:08:34.091Z",
-              "EditorCaption": ""
+              "Title": "UserService.cs",
+              "DocumentMoniker": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Services\\UserService.cs",
+              "RelativeDocumentMoniker": "SWP391_Gr3\\Services\\UserService.cs",
+              "ToolTip": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Services\\UserService.cs",
+              "RelativeToolTip": "SWP391_Gr3\\Services\\UserService.cs",
+              "ViewState": "AgIAAEUAAAAAAAAAAAAIwFcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-28T16:47:49.481Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Index.cshtml.cs",
-              "DocumentMoniker": "D:\\SWP391\\SWP391_Gr3\\Pages\\Users\\Index.cshtml.cs",
-              "RelativeDocumentMoniker": "SWP391_Gr3\\Pages\\Users\\Index.cshtml.cs",
-              "ToolTip": "D:\\SWP391\\SWP391_Gr3\\Pages\\Users\\Index.cshtml.cs",
-              "RelativeToolTip": "SWP391_Gr3\\Pages\\Users\\Index.cshtml.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "EmailSettings.cs",
+              "DocumentMoniker": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Util\\EmailSettings.cs",
+              "RelativeDocumentMoniker": "SWP391_Gr3\\Util\\EmailSettings.cs",
+              "ToolTip": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Util\\EmailSettings.cs",
+              "RelativeToolTip": "SWP391_Gr3\\Util\\EmailSettings.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-27T12:08:33.491Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "AccessDenied.cshtml",
-              "DocumentMoniker": "D:\\SWP391\\SWP391_Gr3\\Pages\\Home\\AccessDenied.cshtml",
-              "RelativeDocumentMoniker": "SWP391_Gr3\\Pages\\Home\\AccessDenied.cshtml",
-              "ToolTip": "D:\\SWP391\\SWP391_Gr3\\Pages\\Home\\AccessDenied.cshtml",
-              "RelativeToolTip": "SWP391_Gr3\\Pages\\Home\\AccessDenied.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-27T12:03:27.324Z",
+              "WhenOpened": "2025-05-28T17:32:31.647Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "D:\\SWP391\\SWP391_Gr3\\Pages\\Home\\Index.cshtml",
-              "RelativeDocumentMoniker": "SWP391_Gr3\\Pages\\Home\\Index.cshtml",
-              "ToolTip": "D:\\SWP391\\SWP391_Gr3\\Pages\\Home\\Index.cshtml",
-              "RelativeToolTip": "SWP391_Gr3\\Pages\\Home\\Index.cshtml",
+              "Title": "EmailService.cs",
+              "DocumentMoniker": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Services\\EmailService.cs",
+              "RelativeDocumentMoniker": "SWP391_Gr3\\Services\\EmailService.cs",
+              "ToolTip": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Services\\EmailService.cs",
+              "RelativeToolTip": "SWP391_Gr3\\Services\\EmailService.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABIAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-28T17:18:09.8Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Privacy.cshtml",
+              "DocumentMoniker": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\Privacy.cshtml",
+              "RelativeDocumentMoniker": "SWP391_Gr3\\Pages\\Privacy.cshtml",
+              "ToolTip": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\Privacy.cshtml",
+              "RelativeToolTip": "SWP391_Gr3\\Pages\\Privacy.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-26T18:10:14.152Z",
+              "WhenOpened": "2025-05-29T03:58:11.554Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\appsettings.json",
+              "RelativeDocumentMoniker": "SWP391_Gr3\\appsettings.json",
+              "ToolTip": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\appsettings.json*",
+              "RelativeToolTip": "SWP391_Gr3\\appsettings.json*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-05-28T16:54:03.83Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "_Layout.cshtml",
-              "DocumentMoniker": "D:\\SWP391\\SWP391_Gr3\\Pages\\Shared\\_Layout.cshtml",
-              "RelativeDocumentMoniker": "SWP391_Gr3\\Pages\\Shared\\_Layout.cshtml",
-              "ToolTip": "D:\\SWP391\\SWP391_Gr3\\Pages\\Shared\\_Layout.cshtml",
-              "RelativeToolTip": "SWP391_Gr3\\Pages\\Shared\\_Layout.cshtml",
-              "ViewState": "AgIAABIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "Profile.cshtml",
+              "DocumentMoniker": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\Users\\Profile.cshtml",
+              "RelativeDocumentMoniker": "SWP391_Gr3\\Pages\\Users\\Profile.cshtml",
+              "ToolTip": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\Users\\Profile.cshtml",
+              "RelativeToolTip": "SWP391_Gr3\\Pages\\Users\\Profile.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-26T18:10:11.253Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-28T16:45:46.649Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "AdminRegister.cshtml.cs",
-              "DocumentMoniker": "D:\\SWP391\\SWP391_Gr3\\Pages\\Users\\AdminRegister.cshtml.cs",
-              "RelativeDocumentMoniker": "SWP391_Gr3\\Pages\\Users\\AdminRegister.cshtml.cs",
-              "ToolTip": "D:\\SWP391\\SWP391_Gr3\\Pages\\Users\\AdminRegister.cshtml.cs",
-              "RelativeToolTip": "SWP391_Gr3\\Pages\\Users\\AdminRegister.cshtml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAA0AAAAAAAAAA==",
+              "DocumentIndex": 9,
+              "Title": "Error.cshtml",
+              "DocumentMoniker": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\Error.cshtml",
+              "RelativeDocumentMoniker": "SWP391_Gr3\\Pages\\Error.cshtml",
+              "ToolTip": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\Error.cshtml",
+              "RelativeToolTip": "SWP391_Gr3\\Pages\\Error.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-29T03:58:10.886Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "_ViewStart.cshtml",
+              "DocumentMoniker": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\_ViewStart.cshtml",
+              "RelativeDocumentMoniker": "SWP391_Gr3\\Pages\\_ViewStart.cshtml",
+              "ToolTip": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\_ViewStart.cshtml",
+              "RelativeToolTip": "SWP391_Gr3\\Pages\\_ViewStart.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-29T03:58:10.314Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "_ViewImports.cshtml",
+              "DocumentMoniker": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\_ViewImports.cshtml",
+              "RelativeDocumentMoniker": "SWP391_Gr3\\Pages\\_ViewImports.cshtml",
+              "ToolTip": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\_ViewImports.cshtml",
+              "RelativeToolTip": "SWP391_Gr3\\Pages\\_ViewImports.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-29T03:58:09.698Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Register.cshtml",
+              "DocumentMoniker": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\Users\\Register.cshtml",
+              "RelativeDocumentMoniker": "SWP391_Gr3\\Pages\\Users\\Register.cshtml",
+              "ToolTip": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\Users\\Register.cshtml",
+              "RelativeToolTip": "SWP391_Gr3\\Pages\\Users\\Register.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-29T03:58:09.141Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Login.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\Users\\Login.cshtml.cs",
+              "RelativeDocumentMoniker": "SWP391_Gr3\\Pages\\Users\\Login.cshtml.cs",
+              "ToolTip": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\Users\\Login.cshtml.cs",
+              "RelativeToolTip": "SWP391_Gr3\\Pages\\Users\\Login.cshtml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-26T17:57:41.507Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-29T03:49:49.244Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 17,
+              "Title": "ForgotPassword.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\Users\\ForgotPassword.cshtml.cs",
+              "RelativeDocumentMoniker": "SWP391_Gr3\\Pages\\Users\\ForgotPassword.cshtml.cs",
+              "ToolTip": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\Users\\ForgotPassword.cshtml.cs",
+              "RelativeToolTip": "SWP391_Gr3\\Pages\\Users\\ForgotPassword.cshtml.cs",
+              "ViewState": "AgIAAFAAAAAAAAAAAAAnwGYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-28T17:09:10.9Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\Users\\Login.cshtml",
+              "RelativeDocumentMoniker": "SWP391_Gr3\\Pages\\Users\\Login.cshtml",
+              "ToolTip": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\Users\\Login.cshtml",
+              "RelativeToolTip": "SWP391_Gr3\\Pages\\Users\\Login.cshtml",
+              "ViewState": "AgIAACEAAAAAAAAAAAAmwD0AAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-28T16:57:58.699Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\Users\\Index.cshtml",
+              "RelativeDocumentMoniker": "SWP391_Gr3\\Pages\\Users\\Index.cshtml",
+              "ToolTip": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\Users\\Index.cshtml",
+              "RelativeToolTip": "SWP391_Gr3\\Pages\\Users\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-27T12:08:34.091Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Logout.cshtml",
+              "DocumentMoniker": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\Users\\Logout.cshtml",
+              "RelativeDocumentMoniker": "SWP391_Gr3\\Pages\\Users\\Logout.cshtml",
+              "ToolTip": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\Users\\Logout.cshtml",
+              "RelativeToolTip": "SWP391_Gr3\\Pages\\Users\\Logout.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-29T03:49:31.116Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "ForgotPassword.cshtml",
+              "DocumentMoniker": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\Users\\ForgotPassword.cshtml",
+              "RelativeDocumentMoniker": "SWP391_Gr3\\Pages\\Users\\ForgotPassword.cshtml",
+              "ToolTip": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\Users\\ForgotPassword.cshtml",
+              "RelativeToolTip": "SWP391_Gr3\\Pages\\Users\\ForgotPassword.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-28T16:59:39.26Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "ChangePassword.cshtml",
+              "DocumentMoniker": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\Users\\ChangePassword.cshtml",
+              "RelativeDocumentMoniker": "SWP391_Gr3\\Pages\\Users\\ChangePassword.cshtml",
+              "ToolTip": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\Users\\ChangePassword.cshtml",
+              "RelativeToolTip": "SWP391_Gr3\\Pages\\Users\\ChangePassword.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-28T16:59:54.43Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "IUserRepository.cs",
+              "DocumentMoniker": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Repositories\\IUserRepository.cs",
+              "RelativeDocumentMoniker": "SWP391_Gr3\\Repositories\\IUserRepository.cs",
+              "ToolTip": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Repositories\\IUserRepository.cs",
+              "RelativeToolTip": "SWP391_Gr3\\Repositories\\IUserRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-28T16:47:04.413Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
               "Title": "AdminRegister.cshtml",
-              "DocumentMoniker": "D:\\SWP391\\SWP391_Gr3\\Pages\\Users\\AdminRegister.cshtml",
+              "DocumentMoniker": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\Users\\AdminRegister.cshtml",
               "RelativeDocumentMoniker": "SWP391_Gr3\\Pages\\Users\\AdminRegister.cshtml",
-              "ToolTip": "D:\\SWP391\\SWP391_Gr3\\Pages\\Users\\AdminRegister.cshtml",
+              "ToolTip": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\Users\\AdminRegister.cshtml",
               "RelativeToolTip": "SWP391_Gr3\\Pages\\Users\\AdminRegister.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAC4AAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-26T17:57:27.92Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-26T17:57:27.92Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "RoleRepo.cs",
+              "DocumentMoniker": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Repositories\\RoleRepo.cs",
+              "RelativeDocumentMoniker": "SWP391_Gr3\\Repositories\\RoleRepo.cs",
+              "ToolTip": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Repositories\\RoleRepo.cs",
+              "RelativeToolTip": "SWP391_Gr3\\Repositories\\RoleRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-28T20:35:33.421Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "IUserService.cs",
+              "DocumentMoniker": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Services\\IUserService.cs",
+              "RelativeDocumentMoniker": "SWP391_Gr3\\Services\\IUserService.cs",
+              "ToolTip": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Services\\IUserService.cs",
+              "RelativeToolTip": "SWP391_Gr3\\Services\\IUserService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-28T16:47:10.042Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "IRoleSer.cs",
+              "DocumentMoniker": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Services\\IRoleSer.cs",
+              "RelativeDocumentMoniker": "SWP391_Gr3\\Services\\IRoleSer.cs",
+              "ToolTip": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Services\\IRoleSer.cs",
+              "RelativeToolTip": "SWP391_Gr3\\Services\\IRoleSer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-28T23:13:01.241Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "RoleSer.cs",
+              "DocumentMoniker": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Services\\RoleSer.cs",
+              "RelativeDocumentMoniker": "SWP391_Gr3\\Services\\RoleSer.cs",
+              "ToolTip": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Services\\RoleSer.cs",
+              "RelativeToolTip": "SWP391_Gr3\\Services\\RoleSer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-28T17:53:48.101Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Program.cs",
+              "RelativeDocumentMoniker": "SWP391_Gr3\\Program.cs",
+              "ToolTip": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Program.cs",
+              "RelativeToolTip": "SWP391_Gr3\\Program.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAAAB8AAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-28T16:54:08.626Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Models\\User.cs",
+              "RelativeDocumentMoniker": "SWP391_Gr3\\Models\\User.cs",
+              "ToolTip": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Models\\User.cs",
+              "RelativeToolTip": "SWP391_Gr3\\Models\\User.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABoAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-28T18:25:14.526Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "IRoleRepo.cs",
+              "DocumentMoniker": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Repositories\\IRoleRepo.cs",
+              "RelativeDocumentMoniker": "SWP391_Gr3\\Repositories\\IRoleRepo.cs",
+              "ToolTip": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Repositories\\IRoleRepo.cs",
+              "RelativeToolTip": "SWP391_Gr3\\Repositories\\IRoleRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-28T20:35:30.36Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "ChangePassword.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\Users\\ChangePassword.cshtml.cs",
+              "RelativeDocumentMoniker": "SWP391_Gr3\\Pages\\Users\\ChangePassword.cshtml.cs",
+              "ToolTip": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\Users\\ChangePassword.cshtml.cs",
+              "RelativeToolTip": "SWP391_Gr3\\Pages\\Users\\ChangePassword.cshtml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-28T17:09:58.735Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "SWP391_Gr3.csproj",
+              "DocumentMoniker": "C:\\Users\\sontra\\Source\\Repos\\cinema-system\\SWP391_Gr3\\SWP391_Gr3.csproj",
+              "RelativeDocumentMoniker": "SWP391_Gr3\\SWP391_Gr3.csproj",
+              "ToolTip": "C:\\Users\\sontra\\Source\\Repos\\cinema-system\\SWP391_Gr3\\SWP391_Gr3.csproj",
+              "RelativeToolTip": "SWP391_Gr3\\SWP391_Gr3.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-05-28T17:22:15.646Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "Theater.cs",
+              "DocumentMoniker": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Models\\Theater.cs",
+              "RelativeDocumentMoniker": "SWP391_Gr3\\Models\\Theater.cs",
+              "ToolTip": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Models\\Theater.cs",
+              "RelativeToolTip": "SWP391_Gr3\\Models\\Theater.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-28T18:19:51.208Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": ".gitignore",
+              "DocumentMoniker": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\.gitignore",
+              "RelativeDocumentMoniker": "SWP391_Gr3\\.gitignore",
+              "ToolTip": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\.gitignore",
+              "RelativeToolTip": "SWP391_Gr3\\.gitignore",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-05-28T18:05:39.011Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "AuthorizeRoleAttribute.cs",
+              "DocumentMoniker": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Autho\\AuthorizeRoleAttribute.cs",
+              "RelativeDocumentMoniker": "SWP391_Gr3\\Autho\\AuthorizeRoleAttribute.cs",
+              "ToolTip": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Autho\\AuthorizeRoleAttribute.cs",
+              "RelativeToolTip": "SWP391_Gr3\\Autho\\AuthorizeRoleAttribute.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-28T17:22:13.989Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "Index.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\Users\\Index.cshtml.cs",
+              "RelativeDocumentMoniker": "SWP391_Gr3\\Pages\\Users\\Index.cshtml.cs",
+              "ToolTip": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\Users\\Index.cshtml.cs",
+              "RelativeToolTip": "SWP391_Gr3\\Pages\\Users\\Index.cshtml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAIBJwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-27T12:08:33.491Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "SWP391_Gr3\\Pages\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "SWP391_Gr3\\Pages\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAFEAAAAAAAAAAIBJwKsAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-26T18:10:11.253Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "AccessDenied.cshtml",
+              "DocumentMoniker": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\Home\\AccessDenied.cshtml",
+              "RelativeDocumentMoniker": "SWP391_Gr3\\Pages\\Home\\AccessDenied.cshtml",
+              "ToolTip": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\Home\\AccessDenied.cshtml",
+              "RelativeToolTip": "SWP391_Gr3\\Pages\\Home\\AccessDenied.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-27T12:03:27.324Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "SWP391_Gr3\\Pages\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\Home\\Index.cshtml",
+              "RelativeToolTip": "SWP391_Gr3\\Pages\\Home\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-26T18:10:14.152Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "AdminRegister.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\Users\\AdminRegister.cshtml.cs",
+              "RelativeDocumentMoniker": "SWP391_Gr3\\Pages\\Users\\AdminRegister.cshtml.cs",
+              "ToolTip": "C:\\Users\\sontra\\source\\repos\\cinema-system\\SWP391_Gr3\\Pages\\Users\\AdminRegister.cshtml.cs",
+              "RelativeToolTip": "SWP391_Gr3\\Pages\\Users\\AdminRegister.cshtml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-26T17:57:41.507Z"
             }
           ]
         },
@@ -148,6 +656,10 @@
             {
               "$type": "Bookmark",
               "Name": "ST:17:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
             }
           ]
         },
