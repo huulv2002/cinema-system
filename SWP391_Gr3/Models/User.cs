@@ -23,8 +23,10 @@ public partial class User
 
     public int? TheaterId { get; set; }
 
-    public string? VerificationCode {  get; set; }
+    public string? VerificationCode { get; set; }
+
     public DateTime? CodeExpiration { get; set; }
+
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 
     public virtual Role? Role { get; set; }

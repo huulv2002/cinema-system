@@ -17,7 +17,7 @@
             <div><b>Đạo diễn:</b> @movie.Director</div>
             <div><b>Diễn viên:</b> @movie.Performer</div>
             <div><b>Thể loại:</b> @string.Join(", ", movie.Genres.Select(g => g.Name))</div>
-            <div><b>Khởi chiếu:</b> @(movie.Showtimes.OrderBy(s => s.StartTime).FirstOrDefault()?.StartTime?.ToString("dd/MM/yyyy") ?? "-")</div>
+            <div><b>Khởi chiếu:</b> @(movie.ReleaseDate.HasValue ? movie.ReleaseDate.Value.ToString("dd-MM-yyyy") : "-")</div>
             <div><b>Thời lượng:</b> @(movie.Duration ?? 0) phút</div>
             <div><b>Ngôn ngữ:</b> @movie.Language</div>
             <div class="movie-detail-rating">

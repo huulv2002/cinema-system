@@ -21,6 +21,8 @@ public partial class Movie
 
     public string? Language { get; set; }
 
+    public DateOnly? ReleaseDate { get; set; }
+
     public virtual ICollection<Image> Images { get; set; } = new List<Image>();
 
     public virtual ICollection<Showtime> Showtimes { get; set; } = new List<Showtime>();

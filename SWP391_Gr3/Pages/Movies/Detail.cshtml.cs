@@ -30,7 +30,6 @@ namespace SWP391_Gr3.Pages.Movies
                 return NotFound();
             }
 
-            // Check if trailer file exists in wwwroot/trailers/{movie.Id}.mp4
             var trailerFile = Path.Combine("wwwroot", "trailers", $"{Movie.Id}.mp4");
             if (System.IO.File.Exists(trailerFile))
             {

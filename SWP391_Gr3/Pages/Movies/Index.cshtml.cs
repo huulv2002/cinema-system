@@ -19,12 +19,11 @@ namespace SWP391_Gr3.Pages.Movies
 
         [BindProperty(SupportsGet = true)]
         public int? GenreId { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public DateOnly? MinReleaseDate { get; set; }
 
         [BindProperty(SupportsGet = true)]
-        public int? MinDuration { get; set; }
-
-        [BindProperty(SupportsGet = true)]
-        public int? MaxDuration { get; set; }
+        public DateOnly? MaxReleaseDate { get; set; }
 
         public async Task OnGetAsync()
         {
@@ -41,14 +40,13 @@ namespace SWP391_Gr3.Pages.Movies
                 query = query.Where(m => m.Genres.Any(g => g.Id == GenreId.Value));
             }
 
-            if (MinDuration.HasValue)
+            if (MinReleaseDate.HasValue)
             {
-                query = query.Where(m => m.Duration >= MinDuration.Value);
+                query = query.Where(m => m.ReleaseDate >= MinReleaseDate.Value);
             }
-
-            if (MaxDuration.HasValue)
+            if (MaxReleaseDate.HasValue)
             {
-                query = query.Where(m => m.Duration <= MaxDuration.Value);
+                query = query.Where(m => m.ReleaseDate <= MaxReleaseDate.Value);
             }
 
             Movies = await query.ToListAsync();
