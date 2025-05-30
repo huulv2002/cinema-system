@@ -1,0 +1,140 @@
+﻿@page
+@model SWP391_Gr3.Pages.Movies.IndexModel
+@{
+    ViewData["Title"] = "Phim Đang Chiếu";
+}
+
+<h2 class="movie-title-main">Phim Đang Chiếu</h2>
+
+<form method="get" class="filter-form" style="margin-bottom: 24px; text-align: center;">
+    <select name="GenreId" asp-for="GenreId">
+        <option value="">-- Thể loại --</option>
+        @foreach (var genre in Model.Genres)
+        {
+            <option value="@genre.Id" selected="@(Model.GenreId == genre.Id ? "selected" : null)">@genre.Name</option>
+        }
+    </select>
+    <input type="number" name="MinDuration" asp-for="MinDuration" placeholder="Thời lượng từ (phút)" style="width:130px;" value="@(Model.MinDuration.HasValue ? Model.MinDuration.Value.ToString() : "")" />
+    <input type="number" name="MaxDuration" asp-for="MaxDuration" placeholder="Đến (phút)" style="width:110px;" value="@(Model.MaxDuration.HasValue ? Model.MaxDuration.Value.ToString() : "")" />
+    <button type="submit" class="btn btn-warning">Lọc</button>
+    <a href="/Movies/Index" class="btn btn-secondary" style="margin-left:8px;">Reset</a>
+</form>
+
+<div class="movie-list-grid">
+    @foreach (var movie in Model.Movies)
+    {
+        <a href="/Movies/Detail?id=@movie.Id" class="movie-card-link">
+            <div class="movie-card">
+                <div class="movie-poster">
+                    <img src="@(movie.Images.FirstOrDefault()?.Url ?? "/images/no-image.png")" alt="@movie.Title" />
+                </div>
+                <div class="movie-info">
+                    <div class="movie-title">@movie.Title</div>
+                    <div class="movie-meta">
+                        <span><b>Thể loại:</b> @string.Join(", ", movie.Genres.Select(g => g.Name))</span><br />
+                        <span><b>Thời lượng:</b> @(movie.Duration ?? 0) phút</span><br />
+                        <span><b>Khởi chiếu:</b> @(movie.Showtimes.OrderBy(s => s.StartTime).FirstOrDefault()?.StartTime?.ToString("dd-MM-yyyy") ?? "-")</span>
+                    </div>
+                    <div class="movie-actions">
+                        <button class="btn-buy" type="button">MUA VÉ</button>
+                    </div>
+                </div>
+            </div>
+        </a>
+    }
+</div>
+
+
+<style>
+    body {
+        background: #fdf6e3;
+    }
+
+    .movie-card-link {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+    }
+
+        .movie-card-link:hover .movie-card {
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            transform: translateY(-6px) scale(1.03);
+        }
+    .movie-title-main {
+        font-size: 2rem;
+        font-weight: bold;
+        margin: 30px 0 20px 0;
+        text-align: center;
+        letter-spacing: 1px;
+    }
+
+    .movie-list-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 32px;
+        justify-content: center;
+        padding-bottom: 40px;
+    }
+
+    .movie-card {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        width: 220px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 16px 12px 20px 12px;
+        transition: transform 0.2s;
+    }
+
+        .movie-card:hover {
+            transform: translateY(-6px) scale(1.03);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+    .movie-poster img {
+        width: 180px;
+        height: 260px;
+        object-fit: cover;
+        border-radius: 6px;
+        margin-bottom: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+    }
+
+    .movie-title {
+        font-size: 1.1rem;
+        font-weight: bold;
+        margin-bottom: 8px;
+        text-align: center;
+        min-height: 48px;
+    }
+
+    .movie-meta {
+        font-size: 0.95rem;
+        color: #444;
+        margin-bottom: 12px;
+        text-align: left;
+    }
+
+    .movie-actions {
+        text-align: center;
+    }
+
+    .btn-buy {
+        background: #ff2e00;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        padding: 7px 18px;
+        font-weight: bold;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+        .btn-buy:hover {
+            background: #ff9900;
+            color: #222;
+        }
+</style>

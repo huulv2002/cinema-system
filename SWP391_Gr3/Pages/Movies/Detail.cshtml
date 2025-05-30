@@ -1,0 +1,158 @@
+﻿@page
+@model SWP391_Gr3.Pages.Movies.DetailModel
+@{
+    ViewData["Title"] = "Nội Dung Phim";
+    var movie = Model.Movie;
+}
+
+<h2 class="detail-title">Nội Dung Phim</h2>
+<hr />
+<div class="movie-detail-container">
+    <div class="movie-detail-poster">
+        <img src="@(movie.Images.FirstOrDefault()?.Url ?? "/images/no-image.png")" alt="@movie.Title" />
+    </div>
+    <div class="movie-detail-info">
+        <h3 class="movie-detail-name">@movie.Title</h3>
+        <div class="movie-detail-meta">
+            <div><b>Đạo diễn:</b> @movie.Director</div>
+            <div><b>Diễn viên:</b> @movie.Performer</div>
+            <div><b>Thể loại:</b> @string.Join(", ", movie.Genres.Select(g => g.Name))</div>
+            <div><b>Khởi chiếu:</b> @(movie.Showtimes.OrderBy(s => s.StartTime).FirstOrDefault()?.StartTime?.ToString("dd/MM/yyyy") ?? "-")</div>
+            <div><b>Thời lượng:</b> @(movie.Duration ?? 0) phút</div>
+            <div><b>Ngôn ngữ:</b> @movie.Language</div>
+            <div class="movie-detail-rating">
+                <span class="badge badge-age">@(movie.OverAge != null ? $"T{movie.OverAge}" : "")</span>
+            </div>
+        </div>
+        <div class="movie-detail-actions">
+            <button class="btn-buy">MUA VÉ</button>
+            <button class="btn-trailer" type="button" onclick="toggleTrailer()">Xem Trailer</button>
+        </div>
+        <div id="trailer-box" style="display:none; margin-top:20px;">
+            @if (!string.IsNullOrEmpty(Model.TrailerUrl))
+            {
+                <video width="560" height="315" controls poster="@(movie.Images.FirstOrDefault()?.Url ?? "/images/no-image.png")">
+                    <source src="@Model.TrailerUrl" type="video/mp4" />
+                    Trình duyệt của bạn không hỗ trợ video.
+                </video>
+            }
+            else
+            {
+                <div>Trailer chưa được cập nhật.</div>
+            }
+        </div>
+        <div class="movie-detail-desc">
+            @movie.Description
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function toggleTrailer() {
+            var box = document.getElementById('trailer-box');
+            box.style.display = box.style.display === 'none' ? 'block' : 'none';
+        }
+    </script>
+}
+<style>
+    body {
+        background: #fdf6e3;
+    }
+
+    .detail-title {
+        font-size: 2rem;
+        font-weight: bold;
+        margin: 30px 0 10px 0;
+        letter-spacing: 1px;
+    }
+
+    .movie-detail-container {
+        display: flex;
+        gap: 40px;
+        margin: 30px 0 40px 0;
+        align-items: flex-start;
+    }
+
+    .movie-detail-poster img {
+        width: 240px;
+        height: 340px;
+        object-fit: cover;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+    }
+
+    .movie-detail-info {
+        flex: 1;
+        min-width: 300px;
+    }
+
+    .movie-detail-name {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 12px;
+    }
+
+    .movie-detail-meta > div {
+        margin-bottom: 6px;
+        font-size: 1rem;
+    }
+
+    .movie-detail-rating {
+        margin: 10px 0;
+    }
+
+    .badge-age {
+        background: #ffcc00;
+        color: #222;
+        font-weight: bold;
+        border-radius: 4px;
+        padding: 2px 10px;
+        font-size: 1rem;
+        margin-right: 8px;
+        border: 1px solid #e0b800;
+    }
+
+    .movie-detail-actions {
+        margin: 18px 0 12px 0;
+    }
+
+    .btn-buy, .btn-trailer {
+        background: #ff2e00;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        padding: 7px 18px;
+        font-weight: bold;
+        font-size: 1rem;
+        cursor: pointer;
+        margin-right: 10px;
+        transition: background 0.2s;
+    }
+
+        .btn-buy:hover, .btn-trailer:hover {
+            background: #ff9900;
+            color: #222;
+        }
+
+    .movie-detail-desc {
+        margin-top: 18px;
+        font-size: 1.05rem;
+        color: #444;
+        line-height: 1.6;
+    }
+    media (max-width: 900px) {
+        .movie-detail-container
+
+    {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .movie-detail-poster img {
+        width: 180px;
+        height: 260px;
+    }
+
+    }
+</style>
