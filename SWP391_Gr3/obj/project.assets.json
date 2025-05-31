@@ -4209,23 +4209,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\huulv\\.nuget\\packages\\": {},
+    "C:\\Users\\admin\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\PRN231\\SWP391_Gr3\\SWP391_Gr3\\SWP391_Gr3.csproj",
+      "projectUniqueName": "C:\\Users\\admin\\Source\\Repos\\cinema-system\\SWP391_Gr3\\SWP391_Gr3.csproj",
       "projectName": "SWP391_Gr3",
-      "projectPath": "D:\\PRN231\\SWP391_Gr3\\SWP391_Gr3\\SWP391_Gr3.csproj",
-      "packagesPath": "C:\\Users\\huulv\\.nuget\\packages\\",
-      "outputPath": "D:\\PRN231\\SWP391_Gr3\\SWP391_Gr3\\obj\\",
+      "projectPath": "C:\\Users\\admin\\Source\\Repos\\cinema-system\\SWP391_Gr3\\SWP391_Gr3.csproj",
+      "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\admin\\Source\\Repos\\cinema-system\\SWP391_Gr3\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\huulv\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -4252,7 +4252,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.200"
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net8.0": {
@@ -4302,7 +4302,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

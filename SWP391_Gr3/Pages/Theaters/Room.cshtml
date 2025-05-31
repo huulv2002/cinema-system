@@ -1,0 +1,63 @@
+﻿@page
+@model SWP391_Gr3.Pages.Theaters.RoomModel
+@{
+    ViewData["Title"] = "Danh sách phòng chiếu";
+}
+
+<div class="manage-theaters-container">
+    <h2>Danh sách phòng chiếu tại rạp: @Model.TheaterName</h2>
+
+    @if (Model.Rooms == null || Model.Rooms.Count == 0)
+    {
+        <p>Không có phòng chiếu nào trong rạp này.</p>
+    }
+    else
+    {
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Mã phòng</th>
+                    <th>Số lượng ghế</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var room in Model.Rooms)
+                {
+                    var totalSeats = room.Seats.Count;
+                    var activeSeats = room.Seats.Count(s => s.IsActive == true); // hoặc s.Status == true
+                                                                                 <tr>
+                                                                                     <td>@room.Code</td>
+                                                                                     <td>@activeSeats / @totalSeats</td>
+                                                                                 </tr>
+                }
+            </tbody>
+
+        </table>
+    }
+</div>
+
+<style>
+    .manage-theaters-container {
+        max-width: 1000px;
+        margin: 50px auto;
+        padding: 30px;
+        background: #343a40;
+        color: white;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }
+
+    .table {
+        color: white;
+        background-color: #495057;
+    }
+
+        .table th, .table td {
+            border-color: #6c757d;
+        }
+
+        .table thead th {
+            background-color: #212529;
+            color: white;
+        }
+</style>

@@ -157,6 +157,9 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-page="/Movies/Manage">Quản lý danh mục phim</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-page="/Theaters/ViewTheater">Xem rạp</a>
+                            </li>
                         }
                         @if (Context.Session.GetString("UserRole") == "Customer")
                         {
@@ -168,8 +171,12 @@
                                 <a class="nav-link text-dark" asp-page="/Users/Profile" asp-route-id="@userId">Profile của tôi</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link text-dark" asp-page="/Theaters/ViewTheater">Xem rạp</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link text-dark" asp-page="/Reviews">ĐÁNH GIÁ</a>
                             </li>
+                            
                         }
                     </ul>
                     <ul class="navbar-nav">
