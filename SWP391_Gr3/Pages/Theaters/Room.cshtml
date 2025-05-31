@@ -18,17 +18,22 @@
                 <tr>
                     <th>Mã phòng</th>
                     <th>Số lượng ghế</th>
+                    <th>Chọn phòng</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var room in Model.Rooms)
                 {
                     var totalSeats = room.Seats.Count;
-                    var activeSeats = room.Seats.Count(s => s.IsActive == true); // hoặc s.Status == true
-                                                                                 <tr>
-                                                                                     <td>@room.Code</td>
-                                                                                     <td>@activeSeats / @totalSeats</td>
-                                                                                 </tr>
+                    var activeSeats = room.Seats.Count(s => s.IsActive == true);
+                    <tr>
+                        <td>@room.Code</td>
+                        <td>@activeSeats / @totalSeats</td>
+                        <td>
+                            <a href="/Theaters/Seat?roomId=@room.Id" class="btn btn-primary">Chọn phòng</a>
+                        </td>
+                     </tr>
+
                 }
             </tbody>
 
