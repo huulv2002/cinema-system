@@ -128,7 +128,13 @@ namespace SWP391_Gr3.Repositories
 
            return await _context.SaveChangesAsync() > 0;
         }
+        public async Task<bool> ValidateUser(string email, string password)
+        {
+            var user = await _context.Users
+                .FirstOrDefaultAsync(u => u.Email == email && u.HashPass == password);
 
-       
+            return user != null;
+        }
+
     }
 }
