@@ -83,5 +83,9 @@ namespace SWP391_Gr3.Services
         {
             return await _userRepo.UpdatePassword(email, password);
         }
+        public async Task<bool> ValidateUser(string email, string password)
+        {
+            return await _userRepo.ValidateUser(email, password);
+        }
     }
 }

@@ -16,5 +16,6 @@ namespace SWP391_Gr3.Services
         Task<User?> GetUserByEmailAsync(string email);
         Task<bool> UpdateVerification(User user);
         Task<bool> UpdatePassword(string email, string password);
+        Task<bool> ValidateUser(string email, string password);
     }
 }
