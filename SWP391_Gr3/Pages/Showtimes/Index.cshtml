@@ -1,5 +1,124 @@
 ﻿@page
 @model SWP391_Gr3.Pages.Showtimes.IndexModel
 @{
+    ViewData["Title"] = "Lịch Chiếu";
+    var selectedDate = Model.SelectedDate ?? DateOnly.FromDateTime(DateTime.Today);
 }
-test commit
+
+<!-- Thanh chọn ngày -->
+<div class="showtime-date-bar">
+    @foreach (var date in Model.Dates)
+    {
+        <a href="?SelectedDate=@date@(Model.TheaterId != null ? $"&TheaterId={Model.TheaterId}" : "")@(Model.RoomType != null ? $"&RoomType={Model.RoomType}" : "")"
+           class="date-item @(selectedDate == date ? "active" : "")">
+            <div>@date.Day.ToString("D2")</div>
+            <div>@date.ToString("ddd")</div>
+        </a>
+    }
+</div>
+
+<div class="showtime-theater-bar">
+    <a href="?SelectedDate=@selectedDate" class="theater-item @(Model.TheaterId == null ? "active" : "")">Tất cả rạp</a>
+    @foreach (var theater in Model.Theaters)
+    {
+        <a href="?SelectedDate=@selectedDate&TheaterId=@theater.Id" class="theater-item @(Model.TheaterId == theater.Id ? "active" : "")">@theater.Name</a>
+    }
+</div>
+
+<div class="showtime-roomtype-bar">
+    <a href="?SelectedDate=@selectedDate@(Model.TheaterId != null ? $"&TheaterId={Model.TheaterId}" : "")" class="roomtype-item @(string.IsNullOrEmpty(Model.RoomType) ? "active" : "")">Tất cả</a>
+    @foreach (var type in Model.Showtimes.Select(s => s.Room?.Code).Distinct().Where(c => !string.IsNullOrEmpty(c)))
+    {
+        <a href="?SelectedDate=@selectedDate@(Model.TheaterId != null ? $"&TheaterId={Model.TheaterId}" : "")&RoomType=@type" class="roomtype-item @(Model.RoomType == type ? "active" : "")">@type</a>
+    }
+</div>
+
+@foreach (var theaterGroup in Model.Showtimes.GroupBy(s => s.Room?.Theater))
+{
+    <div class="showtime-theater-block">
+        <div class="theater-name">@theaterGroup.Key?.Name</div>
+        @foreach (var roomGroup in theaterGroup.GroupBy(s => s.Room?.Code))
+        {
+            <div class="room-type">@roomGroup.Key</div>
+            <div class="showtime-list">
+                @foreach (var showtime in roomGroup.OrderBy(s => s.StartTime))
+                {
+                    <a class="showtime-btn" href="@Url.Action("Select", "Seat", new { showtimeId = showtime.Id })">
+                        @showtime.StartTime?.ToString("HH:mm")
+                    </a>
+                }
+            </div>
+        }
+    </div>
+}
+
+<style>
+    .showtime-date-bar, .showtime-theater-bar, .showtime-roomtype-bar {
+        display: flex;
+        gap: 8px;
+        margin: 18px 0;
+        flex-wrap: wrap;
+    }
+
+    .date-item, .theater-item, .roomtype-item {
+        padding: 8px 16px;
+        border-radius: 6px;
+        background: #fff;
+        color: #222;
+        text-decoration: none;
+        border: 1px solid #eee;
+        font-weight: 500;
+        transition: background 0.2s, color 0.2s;
+    }
+
+        .date-item.active, .theater-item.active, .roomtype-item.active {
+            background: #222;
+            color: #fff;
+            border: 1px solid #222;
+        }
+
+    .showtime-theater-block {
+        margin: 32px 0 24px 0;
+        border-bottom: 2px solid #222;
+        padding-bottom: 18px;
+    }
+
+    .theater-name {
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-bottom: 8px;
+        color: yellow;
+    }
+
+    .room-type {
+        font-size: 1rem;
+        font-weight: 500;
+        margin: 8px 0 4px 0;
+    }
+
+    .showtime-list {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 8px;
+    }
+
+    .showtime-btn {
+        background: #fff;
+        border: 1px solid #bbb;
+        border-radius: 4px;
+        padding: 6px 18px;
+        font-size: 1rem;
+        color: #222;
+        margin-bottom: 4px;
+        cursor: pointer;
+        transition: background 0.2s, color 0.2s;
+        display: inline-block;
+    }
+
+        .showtime-btn:hover {
+            background: #ff2e00;
+            color: #fff;
+            border: 1px solid #ff2e00;
+        }
+</style>
