@@ -34,8 +34,6 @@ namespace SWP391_Gr3.Pages.Users
 
         public string? SuccessMessage { get; set; }
         public string? ErrorMessage { get; set; }
-
-        public bool OtpSent { get; set; } = false;
         public bool ShowResetForm { get; set; } = false;
 
         public async Task<IActionResult> OnPostSendOtpAsync()
@@ -63,7 +61,6 @@ namespace SWP391_Gr3.Pages.Users
                 await _userService.UpdateVerification(user);
 
                 SuccessMessage = "Đã gửi mã OTP đến email của bạn.";
-                OtpSent = true;
                 ShowResetForm = true;
             }
             catch
