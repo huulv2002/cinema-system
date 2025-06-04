@@ -36,7 +36,7 @@
                         <span><b>Khởi chiếu:</b> @(movie.ReleaseDate.HasValue ? movie.ReleaseDate.Value.ToString("dd-MM-yyyy") : "-")</span>
                     </div>
                     <div class="movie-actions">
-                        <button class="btn-buy" type="button">MUA VÉ</button>
+                        <a class="btn-buy" href="/Showtimes/Index?movieId=@movie.Id">MUA VÉ</a>
                     </div>
                 </div>
             </div>

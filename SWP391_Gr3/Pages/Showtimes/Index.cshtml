@@ -5,11 +5,10 @@
     var selectedDate = Model.SelectedDate ?? DateOnly.FromDateTime(DateTime.Today);
 }
 
-<!-- Thanh chọn ngày -->
 <div class="showtime-date-bar">
     @foreach (var date in Model.Dates)
     {
-        <a href="?SelectedDate=@date@(Model.TheaterId != null ? $"&TheaterId={Model.TheaterId}" : "")@(Model.RoomType != null ? $"&RoomType={Model.RoomType}" : "")"
+        <a href="?SelectedDate=@date@(Model.MovieId != null ? $"&MovieId={Model.MovieId}" : "")@(Model.TheaterId != null ? $"&TheaterId={Model.TheaterId}" : "")@(Model.RoomType != null ? $"&RoomType={Model.RoomType}" : "")"
            class="date-item @(selectedDate == date ? "active" : "")">
             <div>@date.Day.ToString("D2")</div>
             <div>@date.ToString("ddd")</div>
@@ -18,18 +17,18 @@
 </div>
 
 <div class="showtime-theater-bar">
-    <a href="?SelectedDate=@selectedDate" class="theater-item @(Model.TheaterId == null ? "active" : "")">Tất cả rạp</a>
+    <a href="?SelectedDate=@selectedDate@(Model.MovieId != null ? $"&MovieId={Model.MovieId}" : "")" class="theater-item @(Model.TheaterId == null ? "active" : "")">Tất cả rạp</a>
     @foreach (var theater in Model.Theaters)
     {
-        <a href="?SelectedDate=@selectedDate&TheaterId=@theater.Id" class="theater-item @(Model.TheaterId == theater.Id ? "active" : "")">@theater.Name</a>
+        <a href="?SelectedDate=@selectedDate@(Model.MovieId != null ? $"&MovieId={Model.MovieId}" : "")&TheaterId=@theater.Id" class="theater-item @(Model.TheaterId == theater.Id ? "active" : "")">@theater.Name</a>
     }
 </div>
 
 <div class="showtime-roomtype-bar">
-    <a href="?SelectedDate=@selectedDate@(Model.TheaterId != null ? $"&TheaterId={Model.TheaterId}" : "")" class="roomtype-item @(string.IsNullOrEmpty(Model.RoomType) ? "active" : "")">Tất cả</a>
-    @foreach (var type in Model.Showtimes.Select(s => s.Room?.Code).Distinct().Where(c => !string.IsNullOrEmpty(c)))
+    <a href="?SelectedDate=@selectedDate@(Model.MovieId != null ? $"&MovieId={Model.MovieId}" : "")@(Model.TheaterId != null ? $"&TheaterId={Model.TheaterId}" : "")" class="roomtype-item @(string.IsNullOrEmpty(Model.RoomType) ? "active" : "")">Tất cả</a>
+    @foreach (var type in Model.RoomTypes.Where(c => !string.IsNullOrEmpty(c)))
     {
-        <a href="?SelectedDate=@selectedDate@(Model.TheaterId != null ? $"&TheaterId={Model.TheaterId}" : "")&RoomType=@type" class="roomtype-item @(Model.RoomType == type ? "active" : "")">@type</a>
+        <a href="?SelectedDate=@selectedDate@(Model.MovieId != null ? $"&MovieId={Model.MovieId}" : "")@(Model.TheaterId != null ? $"&TheaterId={Model.TheaterId}" : "")&RoomType=@type" class="roomtype-item @(Model.RoomType == type ? "active" : "")">@type</a>
     }
 </div>
 
@@ -37,17 +36,40 @@
 {
     <div class="showtime-theater-block">
         <div class="theater-name">@theaterGroup.Key?.Name</div>
-        @foreach (var roomGroup in theaterGroup.GroupBy(s => s.Room?.Code))
+        @if (!string.IsNullOrEmpty(Model.RoomType))
         {
-            <div class="room-type">@roomGroup.Key</div>
-            <div class="showtime-list">
-                @foreach (var showtime in roomGroup.OrderBy(s => s.StartTime))
-                {
-                    <a class="showtime-btn" href="@Url.Action("Select", "Seat", new { showtimeId = showtime.Id })">
-                        @showtime.StartTime?.ToString("HH:mm")
-                    </a>
-                }
-            </div>
+            var roomGroup = theaterGroup
+            .Where(s => s.Room?.Code == Model.RoomType)
+            .GroupBy(s => s.Room?.Code)
+            .FirstOrDefault();
+
+            if (roomGroup != null)
+            {
+                <div class="room-type">@roomGroup.Key</div>
+                <div class="showtime-list">
+                    @foreach (var showtime in roomGroup.OrderBy(s => s.StartTime))
+                    {
+                        <a class="showtime-btn" href="/Theaters/Seat?showtimeId=@showtime.Id">
+                            @showtime.StartTime?.ToString("HH:mm")
+                        </a>
+                    }
+                </div>
+            }
+        }
+        else
+        {
+            @foreach (var roomGroup in theaterGroup.GroupBy(s => s.Room?.Code))
+            {
+                <div class="room-type">@roomGroup.Key</div>
+                <div class="showtime-list">
+                    @foreach (var showtime in roomGroup.OrderBy(s => s.StartTime))
+                    {
+                        <a class="showtime-btn" href="/Theaters/Seat?showtimeId=@showtime.Id">
+                            @showtime.StartTime?.ToString("HH:mm")
+                        </a>
+                    }
+                </div>
+            }
         }
     </div>
 }
@@ -94,6 +116,7 @@
         font-size: 1rem;
         font-weight: 500;
         margin: 8px 0 4px 0;
+        color: yellow;
     }
 
     .showtime-list {
