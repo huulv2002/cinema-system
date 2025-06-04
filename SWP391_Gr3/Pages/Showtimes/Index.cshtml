@@ -49,7 +49,7 @@
                 <div class="showtime-list">
                     @foreach (var showtime in roomGroup.OrderBy(s => s.StartTime))
                     {
-                        <a class="showtime-btn" href="/Theaters/Seat?showtimeId=@showtime.Id">
+                        <a class="showtime-btn" href="/Theaters/Seat?roomId=@showtime.RoomId&showtimeId=@showtime.Id">
                             @showtime.StartTime?.ToString("HH:mm")
                         </a>
                     }
@@ -64,7 +64,7 @@
                 <div class="showtime-list">
                     @foreach (var showtime in roomGroup.OrderBy(s => s.StartTime))
                     {
-                        <a class="showtime-btn" href="/Theaters/Seat?showtimeId=@showtime.Id">
+                        <a class="showtime-btn" href="/Theaters/Seat?roomId=@showtime.RoomId&showtimeId=@showtime.Id">
                             @showtime.StartTime?.ToString("HH:mm")
                         </a>
                     }
