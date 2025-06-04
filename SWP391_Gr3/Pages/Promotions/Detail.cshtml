@@ -1,0 +1,71 @@
+﻿@page "{id:int}"
+@model SWP391_Gr3.Pages.Promotions.DetailModel
+@{
+    ViewData["Title"] = "Chi tiết khuyến mãi";
+    var promo = Model.Promotion;
+}
+
+@if (promo == null)
+{
+    <div>Không tìm thấy khuyến mãi.</div>
+}
+else
+{
+    <div class="promo-detail-container">
+        <img src="@(promo.ImageUrl ?? "/images/no-image.png")" alt="@promo.Code" class="promo-detail-img" />
+        <div class="promo-detail-info">
+            <h2>@promo.Code</h2>
+            <div><b>Loại:</b> @promo.Description</div>
+            <div>
+                <b>Thời gian áp dụng:</b>
+                @if (promo.StartDate.HasValue && promo.EndDate.HasValue)
+                {
+                    @($"{promo.StartDate.Value:dd/MM/yyyy} - {promo.EndDate.Value:dd/MM/yyyy}")
+                }
+                else if (promo.StartDate.HasValue)
+                {
+                    @promo.StartDate.Value.ToString("dd/MM/yyyy")
+                }
+            </div>
+            <div><b>Còn lại:</b> @(promo.Stock ?? 0)</div>
+            <div><b>Trạng thái:</b> @(promo.IsActive == true ? "Đang áp dụng" : "Ngừng áp dụng")</div>
+        </div>
+    </div>
+}
+
+<style>
+    .promo-detail-container {
+        max-width: 700px;
+        margin: 40px auto;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+        display: flex;
+        gap: 32px;
+        padding: 32px;
+        align-items: flex-start;
+    }
+
+    .promo-detail-img {
+        width: 260px;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+    }
+
+    .promo-detail-info {
+        flex: 1;
+        font-size: 1.1rem;
+    }
+
+        .promo-detail-info h2 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 18px;
+        }
+
+        .promo-detail-info > div {
+            margin-bottom: 10px;
+        }
+</style>

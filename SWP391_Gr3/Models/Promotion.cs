@@ -21,6 +21,10 @@ public partial class Promotion
 
     public DateTime? EndDate { get; set; }
 
+    public string? ImageUrl { get; set; }
+
+    public string? Description { get; set; }
+
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 
     public virtual PromotionType? PromotionType { get; set; }

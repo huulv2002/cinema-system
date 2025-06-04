@@ -68,7 +68,7 @@ public partial class Swp391Context : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer(GetConnectionString());
+         => optionsBuilder.UseSqlServer(GetConnectionString());
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -248,6 +248,7 @@ public partial class Swp391Context : DbContext
 
             entity.Property(e => e.Code).HasMaxLength(50);
             entity.Property(e => e.EndDate).HasColumnType("datetime");
+            entity.Property(e => e.ImageUrl).HasMaxLength(255);
             entity.Property(e => e.StartDate).HasColumnType("datetime");
             entity.Property(e => e.Value).HasColumnType("decimal(10, 2)");
 
@@ -294,6 +295,7 @@ public partial class Swp391Context : DbContext
             entity.ToTable("Seat");
 
             entity.Property(e => e.Code).HasMaxLength(10);
+            entity.Property(e => e.IsActive).HasDefaultValue(true);
             entity.Property(e => e.Position).HasMaxLength(10);
 
             entity.HasOne(d => d.Room).WithMany(p => p.Seats)

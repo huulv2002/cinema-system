@@ -14,7 +14,9 @@ public partial class Seat
     public string? Code { get; set; }
 
     public int? RoomId { get; set; }
-    public bool? IsActive { get; set; }
+
+    public bool IsActive { get; set; }
+
     public virtual Room? Room { get; set; }
 
     public virtual ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();

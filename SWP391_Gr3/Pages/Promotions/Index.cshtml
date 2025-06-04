@@ -1,30 +1,127 @@
 ﻿@page
 @model SWP391_Gr3.Pages.Promotions.IndexModel
 @{
-    ViewData["Title"] = "Khuyến mãi hiện có";
+    ViewData["Title"] = "Tin Mới Và Ưu Đãi";
 }
 
-<h2 class="text-2xl font-bold mb-4">🎁 Danh sách khuyến mãi</h2>
-
-@if (Model.Promotions.Count == 0)
-{
-    <p>Hiện không có khuyến mãi nào đang diễn ra.</p>
-}
-else
-{
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        @foreach (var promo in Model.Promotions)
-        {
-            <div class="border border-gray-300 p-4 rounded shadow hover:shadow-md transition duration-200">
-                <h3 class="text-lg font-semibold text-blue-700">@promo.Code</h3>
-                <p class="text-sm text-gray-600 italic">@promo.PromotionType?.Title</p>
-                <p><strong>Giá trị:</strong> @promo.Value</p>
-                <p>
-                    <strong>Thời gian:</strong>
-                    @promo.StartDate?.ToString("dd/MM/yyyy") - @promo.EndDate?.ToString("dd/MM/yyyy")
-                </p>
-                <p><strong>Số lượng còn lại:</strong> @(promo.Stock ?? 0)</p>
+<h2 class="promo-title">TIN MỚI VÀ ƯU ĐÃI</h2>
+<div class="promo-filter-bar">
+    <span class="promo-filter active">Xem tất cả</span>
+</div>
+<div class="promo-grid">
+    @foreach (var promo in Model.Promotions)
+    {
+        <a href="/Promotions/Detail/@promo.Id" class="promo-card-link">
+            <div class="promo-card">
+                <img src="@(promo.ImageUrl ?? "/images/no-image.png")" alt="@promo.Code" class="promo-img" />
+                <div class="promo-info">
+                    <div class="promo-code">@promo.Code</div>
+                    <div class="promo-date">
+                        <span class="promo-date-icon">&#128197;</span>
+                        @if (promo.StartDate.HasValue && promo.EndDate.HasValue)
+                        {
+                            @($"{promo.StartDate.Value:dd/MM/yyyy} - {promo.EndDate.Value:dd/MM/yyyy}")
+                        }
+                        else if (promo.StartDate.HasValue)
+                        {
+                            @promo.StartDate.Value.ToString("dd/MM/yyyy")
+                        }
+                    </div>
+                </div>
             </div>
+        </a>
+    }
+</div>
+
+<style>
+    body {
+        background: #fdf6e3;
+    }
+
+    .promo-title {
+        text-align: center;
+        font-size: 2.2rem;
+        font-weight: bold;
+        margin: 30px 0 10px 0;
+        letter-spacing: 2px;
+    }
+
+    .promo-filter-bar {
+        text-align: center;
+        margin-bottom: 24px;
+    }
+
+    .promo-filter {
+        display: inline-block;
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #ff2e00;
+        margin: 0 8px;
+        cursor: pointer;
+    }
+
+        .promo-filter.active {
+            color: #fff;
+            background: #ff2e00;
+            border-radius: 16px;
+            padding: 4px 18px;
         }
-    </div>
-}
+
+    .promo-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 32px;
+        justify-content: center;
+        padding-bottom: 40px;
+    }
+
+    .promo-card {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        width: 260px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 12px 12px 18px 12px;
+        transition: transform 0.2s;
+    }
+
+        .promo-card:hover {
+            transform: translateY(-6px) scale(1.03);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+    .promo-img {
+        width: 220px;
+        height: 140px;
+        object-fit: cover;
+        border-radius: 6px;
+        margin-bottom: 12px;
+    }
+
+    .promo-info {
+        width: 100%;
+        text-align: left;
+    }
+
+    .promo-code {
+        font-size: 1.1rem;
+        font-weight: bold;
+        margin-bottom: 6px;
+        color: #222;
+        min-height: 32px;
+    }
+
+    .promo-date {
+        font-size: 0.95rem;
+        color: #444;
+        display: flex;
+        align-items: center;
+    }
+
+    .promo-date-icon {
+        margin-right: 6px;
+        color: #ff2e00;
+    }
+</style>
