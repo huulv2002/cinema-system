@@ -6,16 +6,6 @@ namespace SWP391_Gr3.Models;
 
 public partial class Swp391Context : DbContext
 {
-    private string? GetConnectionString()
-    {
-        IConfiguration config = new ConfigurationBuilder()
-             .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile("appsettings.json", true, true)
-                    .Build();
-        var strConn = config["ConnectionStrings:MyCnn"];
-
-        return strConn;
-    }
     public Swp391Context()
     {
     }
@@ -68,7 +58,8 @@ public partial class Swp391Context : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer(GetConnectionString());
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-MK7FI4T;Initial Catalog=swp391; Trusted_Connection=SSPI;Encrypt=false;TrustServerCertificate=true");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -248,6 +239,7 @@ public partial class Swp391Context : DbContext
 
             entity.Property(e => e.Code).HasMaxLength(50);
             entity.Property(e => e.EndDate).HasColumnType("datetime");
+            entity.Property(e => e.ImageUrl).HasMaxLength(255);
             entity.Property(e => e.StartDate).HasColumnType("datetime");
             entity.Property(e => e.Value).HasColumnType("decimal(10, 2)");
 
@@ -294,6 +286,7 @@ public partial class Swp391Context : DbContext
             entity.ToTable("Seat");
 
             entity.Property(e => e.Code).HasMaxLength(10);
+            entity.Property(e => e.IsActive).HasDefaultValue(true);
             entity.Property(e => e.Position).HasMaxLength(10);
 
             entity.HasOne(d => d.Room).WithMany(p => p.Seats)

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using SWP391_Gr3.Models;
@@ -12,21 +13,15 @@ namespace SWP391_Gr3.Pages.Promotions
         {
             _context = context;
         }
-
-        public List<Promotion> Promotions { get; set; } = new();
+        public IList<Promotion> Promotions { get; set; } = new List<Promotion>();
 
         public async Task OnGetAsync()
         {
-            var currentDate = DateTime.Now;
             Promotions = await _context.Promotions
-                .Include(p => p.PromotionType)
-                .Where(p => p.IsActive == true &&
-                            p.StartDate <= currentDate &&
-                            p.EndDate >= currentDate &&
-                            (p.Stock == null || p.Stock > 0))
+                .Where(p => p.IsActive == true && (p.EndDate == null || p.EndDate >= DateTime.Today))
                 .OrderByDescending(p => p.StartDate)
                 .ToListAsync();
         }
+
     }
 }
-
