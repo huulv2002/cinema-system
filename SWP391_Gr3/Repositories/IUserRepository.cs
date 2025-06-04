@@ -9,8 +9,6 @@ namespace SWP391_Gr3.Repositories
         Task<User?> GetUserByEmailAsync(string email);
         Task<IEnumerable<User>> GetAllUsersAsync();
         Task<bool> AddUserAsync(User user);
-        Task<bool> UpdateUserAsync(User user);
-        Task<bool> DeleteUserAsync(int userId); 
         Task<User?> GetUserById(int userId); 
  
         Task<bool> UpdateProfile(User user);

@@ -1,7 +1,7 @@
 ﻿@page
 @model SWP391_Gr3.Pages.Users.RegisterModel
 @{
-	ViewData["Title"] = "Đăng ký tài khoản";
+    ViewData["Title"] = "Đăng ký tài khoản";
 }
 <div class="register-container">
     <h2 class="text-center">Đăng ký tài khoản</h2>
@@ -12,23 +12,26 @@
     <form method="post" onsubmit="return validateForm()">
         <div class="form-group">
             <label asp-for="RegisterUser.FullName">Họ và tên</label>
-            <input asp-for="RegisterUser.FullName" class="form-control" required placeholder="Nhập họ và tên" />
+            <input asp-for="RegisterUser.FullName" class="form-control" required placeholder="Nhập họ và tên" oninput="restrictInput(this)" />
             <span asp-validation-for="RegisterUser.FullName" class="text-danger"></span>
+            <small class="text-danger d-none" id="fullNameError">Không được nhập ký tự đặc biệt hoặc icon!</small>
         </div>
         <div class="form-group">
             <label asp-for="RegisterUser.Email">Email</label>
-            <input asp-for="RegisterUser.Email" class="form-control" required placeholder="Nhập email" />
+            <input asp-for="RegisterUser.Email" class="form-control" required placeholder="Nhập email" type="email" />
             <span asp-validation-for="RegisterUser.Email" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="RegisterUser.PhoneNumber">Số điện thoại</label>
-            <input asp-for="RegisterUser.PhoneNumber" class="form-control" required placeholder="Nhập số điện thoại" />
+            <input asp-for="RegisterUser.PhoneNumber" class="form-control" required placeholder="Nhập số điện thoại" oninput="restrictPhoneInput(this)" />
             <span asp-validation-for="RegisterUser.PhoneNumber" class="text-danger"></span>
+            <small class="text-danger d-none" id="phoneError">Chỉ được nhập số!</small>
         </div>
         <div class="form-group">
             <label asp-for="RegisterUser.address">Địa chỉ</label>
-            <input asp-for="RegisterUser.address" class="form-control" required placeholder="Nhập địa chỉ" />
+            <input asp-for="RegisterUser.address" class="form-control" required placeholder="Nhập địa chỉ" oninput="restrictInput(this)" />
             <span asp-validation-for="RegisterUser.address" class="text-danger"></span>
+            <small class="text-danger d-none" id="addressError">Không được nhập ký tự đặc biệt hoặc icon!</small>
         </div>
         <div class="form-group">
             <label asp-for="RegisterUser.HashPass">Mật khẩu</label>
@@ -46,35 +49,12 @@
         Đã có tài khoản? <a asp-page="./Login">Đăng nhập ngay</a>
     </p>
 </div>
-<style>
-    .register-container {
-        max-width: 400px;
-        margin: 50px auto;
-        padding: 30px;
-        background: #fff;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        border-radius: 10px;
-    }
 
-    .btn-success {
-        width: 100%;
-    }
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/register.js"></script>
+}
 
-        .btn-success:hover {
-            background-color: #218838;
-        }
-</style>
-<script>
-    function validateForm() {
-        let password = document.getElementById("HashPass").value;
-        let confirmPassword = document.getElementById("confirmPasswordHash").value;
-        let errorText = document.getElementById("passwordError");
-        if (password !== confirmPassword) {
-            errorText.classList.remove("d-none");
-            return false;
-        } else {
-            errorText.classList.add("d-none");
-            return true;
-        }
-    }
-</script>
+@section Styles {
+    <link rel="stylesheet" href="~/css/register.css" asp-append-version="true" />
+}

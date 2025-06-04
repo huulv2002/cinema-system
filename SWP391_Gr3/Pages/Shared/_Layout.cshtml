@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="~/OnlineMovieTicketBookingSystem.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-
+    @RenderSection("Styles", required: false)
     <style>
         body {
             background: url('https://thesciencesurvey.com/wp-content/uploads/2021/11/whoops-900x596.png') no-repeat center center fixed;
@@ -122,9 +122,12 @@
 </head>
 <body>
     <header>
+        @{
+            var userRole = Context.Session.GetString("UserRole");
+        }
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-page="/Index">Online Ticket Booking</a>
+                <a class="navbar-brand" asp-page="/Home/Index">Online Ticket Booking</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -132,18 +135,13 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-page="/Index">Trang chủ</a>
+                            <a class="nav-link text-dark" asp-page="/Home/Index">Trang chủ</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-page="/Promotions/Index">Tin mới & ưu đãi</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-page="/MyTickets">Vé của tôi</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-page="/Contact">Liên hệ</a>
-                        </li>
-                        @if (Context.Session.GetString("UserRole") == "Admin" || Context.Session.GetString("UserRole") == "Owner")
+                   
+                        @if (userRole == "Admin" || userRole == "Owner")
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-page="/Users/Index">Quản lý tài khoản</a>
@@ -161,20 +159,17 @@
                                 <a class="nav-link text-dark" asp-page="/Theaters/ViewTheater">Xem rạp</a>
                             </li>
                         }
-                        @if (Context.Session.GetString("UserRole") == "Customer")
+                        @if (userRole == "Customer")
                         {
                             var userId = Context.Session.GetString("UserId");
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-page="/Orders" asp-route-userId="@userId">Đơn hàng của tôi</a>
+                                <a class="nav-link text-dark" asp-page="/" asp-route-userId="@userId">Vé của tôi</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-page="/Users/Profile" asp-route-id="@userId">Profile của tôi</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-page="/Theaters/ViewTheater">Xem rạp</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-page="/Reviews">ĐÁNH GIÁ</a>
                             </li>
                             
                         }
@@ -185,11 +180,20 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-page="/Users/Logout">Đăng xuất</a>
                             </li>
+                            if (userRole == "Customer")
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-page="/Contact">Liên hệ</a>
+                                </li>
+                            }
                         }
                         else
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-page="/Users/Login">Đăng nhập</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-page="/Contact">Liên hệ</a>
                             </li>
                         }
                     </ul>

@@ -25,15 +25,5 @@ namespace SWP391_Gr3.Pages.Users
                 : users.Where(u => u.Id.ToString() == userId).ToList();
         }
 
-        public async Task<IActionResult> OnPostDeleteAsync(int id)
-        {
-            var user = await _iusersSer.GetUserByIdAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            await _iusersSer.DeleteUserAsync(id);
-            return RedirectToPage();
-        }
     }
 }

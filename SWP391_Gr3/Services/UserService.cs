@@ -12,10 +12,6 @@ namespace SWP391_Gr3.Services
         {
             _userRepo = userRepo;
         }
-        public async Task<bool> DeleteUserAsync(int userId)
-        {
-            return await _userRepo.DeleteUserAsync(userId);
-        }
 
         public async Task<IEnumerable<User>> GetAllUsersAsync()
         {
@@ -39,10 +35,6 @@ namespace SWP391_Gr3.Services
             }
         }
 
-        public async Task<bool> UpdateUserAsync(User user)
-        {
-            return await _userRepo.UpdateUserAsync(user);
-        }
 
         public async Task<User?> ValidateUserAsync(string email, string password)
         {
