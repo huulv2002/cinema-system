@@ -20,11 +20,15 @@ namespace SWP391_Gr3.Pages.Theaters
         [BindProperty(SupportsGet = true)]
         public int RoomId { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public int ShowtimeId { get; set; }
+
         [BindProperty]
         public int SeatId { get; set; }
 
-        public string RoomCode { get; set; }
-        public List<Seat> Seats { get; set; }
+        public string RoomCode { get; set; } = "";
+        public List<Seat> Seats { get; set; } = new();
+        public List<int> BookedSeatIds { get; set; } = new();
 
         public async Task<IActionResult> OnGetAsync()
         {
@@ -41,21 +45,39 @@ namespace SWP391_Gr3.Pages.Theaters
                 .Include(s => s.Type)
                 .ToListAsync();
 
+            BookedSeatIds = await _context.Tickets
+                .Where(t => t.ShowtimeId == ShowtimeId && t.SeatId != null)
+                .Select(t => t.SeatId.Value)
+                .ToListAsync();
+
             return Page();
         }
 
         public async Task<IActionResult> OnPostBookSeatAsync()
         {
             var seat = await _context.Seats.FindAsync(SeatId);
-            if (seat == null || seat.IsActive == false)
-            {
+            if (seat == null)
                 return NotFound();
-            }
 
-            seat.IsActive = false;
+            // kiểm tra xem ghế đã đặt cho suất chiếu này chưa
+            bool alreadyBooked = await _context.Tickets
+                .AnyAsync(t => t.SeatId == SeatId && t.ShowtimeId == ShowtimeId);
+            if (alreadyBooked)
+                return BadRequest("Ghế đã được đặt.");
+
+            var ticket = new Ticket
+            {
+                SeatId = SeatId,
+                ShowtimeId = ShowtimeId,
+                Code = Guid.NewGuid().ToString().Substring(0, 8),
+                OrderId = null // xử lý sau nếu cần
+            };
+
+            _context.Tickets.Add(ticket);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage(new { RoomId = seat.RoomId });
+            return RedirectToPage(new { RoomId = RoomId, ShowtimeId = ShowtimeId });
+
         }
     }
 }

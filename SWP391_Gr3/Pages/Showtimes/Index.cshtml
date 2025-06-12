@@ -53,6 +53,8 @@
                         <a class="showtime-btn" href="/Theaters/Seat?roomId=@showtime.RoomId&showtimeId=@showtime.Id">
                             @showtime.StartTime?.ToString("HH:mm")
                         </a>
+
+
                     }
                 </div>
             }
@@ -66,6 +68,7 @@
                     @foreach (var showtime in roomGroup.OrderBy(s => s.StartTime))
                     {
                         //change href to Seat page with roomId and showtimeId
+               
                         <a class="showtime-btn" href="/Theaters/Seat?roomId=@showtime.RoomId&showtimeId=@showtime.Id">
                             @showtime.StartTime?.ToString("HH:mm")
                         </a>

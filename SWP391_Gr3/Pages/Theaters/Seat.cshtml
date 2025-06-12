@@ -15,11 +15,12 @@
         <div class="seat-layout">
             @foreach (var seat in Model.Seats)
             {
-                var seatClass = seat.IsActive == true ? "seat active" : "seat inactive";
+                var isBooked = Model.BookedSeatIds.Contains(seat.Id);
+                var seatClass = isBooked ? "seat inactive" : "seat active";
                 var price = seat.Type?.Price ?? 0;
 
                 <button class="@seatClass"
-                        disabled="@(seat.IsActive != true)"
+                        disabled="@isBooked"
                         onclick="showConfirmModal(@seat.Id, '@seat.Code', @price)">
                     @seat.Code
                     @if (seat.Type != null)
@@ -29,8 +30,10 @@
                 </button>
             }
         </div>
+
     }
 </div>
+
 
 <!-- Confirm Modal -->
 <div id="confirmModal" style="display:none;" class="modal-backdrop">
@@ -39,9 +42,13 @@
         <p id="seatInfo"></p>
         <form method="post" asp-page-handler="BookSeat">
             <input type="hidden" id="selectedSeatId" name="SeatId" />
+            <input type="hidden" name="RoomId" value="@Model.RoomId" />
+            <input type="hidden" name="ShowtimeId" value="@Model.ShowtimeId" />
             <button type="submit" class="btn btn-primary">Xác nhận</button>
             <button type="button" class="btn btn-secondary" onclick="closeModal()">Huỷ</button>
         </form>
+
+
     </div>
 </div>
 <style>
