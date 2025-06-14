@@ -24,8 +24,11 @@
     var price = Model.Type?.Price ?? 0;
 }
 
-<button class="@seatClass"
-        disabled="@isBooked"
-        onclick="showConfirmModal(@Model.Id, '@Model.Code', @price)">
+<button class="@seatClass selectable-seat"
+        data-id="@Model.Id"
+        data-code="@Model.Code"
+        data-price="@price"
+        title="Giá: @price đ"
+        disabled="@isBooked">
     @Model.Code
 </button>
