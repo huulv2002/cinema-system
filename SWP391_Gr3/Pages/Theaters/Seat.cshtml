@@ -1,37 +1,242 @@
-﻿@page
-@model SWP391_Gr3.Pages.Theaters.SeatModel
-@{
-    ViewData["Title"] = "Chọn ghế";
-}
-<div class="manage-theaters-container">
-    <h2>Chọn ghế trong phòng: @Model.RoomCode</h2>
+﻿    @page  
+    @model SWP391_Gr3.Pages.Theaters.SeatModel  
+    @{  
+        ViewData["Title"] = "Chọn ghế";  
+    }  
 
-    @if (Model.Seats == null || Model.Seats.Count == 0)
-    {
-        <p>Không có ghế nào trong phòng này.</p>
+    <div class="manage-theaters-container">  
+        <h2>Chọn ghế trong phòng: @Model.RoomCode</h2>  
+
+        @if (Model.Seats == null || Model.Seats.Count == 0)  
+        {  
+            <p>Không có ghế nào trong phòng này.</p>
     }
     else
     {
-        <div class="seat-layout">
-            @foreach (var seat in Model.Seats)
-            {
-                var isBooked = Model.BookedSeatIds.Contains(seat.Id);
-                var seatClass = isBooked ? "seat inactive" : "seat active";
-                var price = seat.Type?.Price ?? 0;
+        int seatsPerRow = 9;
+        int deluxePerRow = 6;
 
-                <button class="@seatClass"
-                        disabled="@isBooked"
-                        onclick="showConfirmModal(@seat.Id, '@seat.Code', @price)">
-                    @seat.Code
-                    @if (seat.Type != null)
-                    {
-                        <small> (@seat.Type.Name)</small>
-                    }
-                </button>
-            }
-        </div>
+        var normalSeats = Model.Seats
+        .Where(s => s.Type?.Name?.ToLower() == "normal")
+        .ToList();
 
-    }
+        var advanceSeats = Model.Seats
+        .Where(s => s.Type?.Name?.ToLower() == "advance")
+        .ToList();
+
+        var deluxeSeats = Model.Seats
+        .Where(s => s.Type?.Name?.ToLower() == "vip")
+        .ToList();
+
+        ViewData["BookedSeatIds"] = Model.BookedSeatIds;
+
+        <!-- Ghế thường (normal) -->
+        @for (int i = 0; i < normalSeats.Count; i += seatsPerRow)
+        {
+            <div class="seat-row">
+                @foreach (var seat in normalSeats.Skip(i).Take(seatsPerRow))
+                {
+                    @await Html.PartialAsync("_SeatButtonPartial", seat, new ViewDataDictionary(ViewData))
+                }
+            </div>
+        }
+
+        <!-- Ghế advance -->
+        @for (int i = 0; i < advanceSeats.Count; i += seatsPerRow)
+        {
+            <div class="seat-row">
+                @foreach (var seat in advanceSeats.Skip(i).Take(seatsPerRow))
+                {
+                    @await Html.PartialAsync("_SeatButtonPartial", seat, new ViewDataDictionary(ViewData))
+                }
+            </div>
+        }
+
+        <!-- Ghế deluxe (VIP) -->
+        @for (int i = 0; i < deluxeSeats.Count; i += deluxePerRow)
+        {
+            <div class="seat-row">
+                @foreach (var seat in deluxeSeats.Skip(i).Take(deluxePerRow))
+                {
+                    @await Html.PartialAsync("_SeatButtonPartial", seat, new ViewDataDictionary(ViewData))
+                }
+            </div>
+        }
+
+        }  
+    </div>  
+
+    <!-- Chú thích loại ghế -->  
+
+    <div class="seat-legend" style="margin-top: 30px; display: flex; justify-content: center;">  
+        <div style="display: flex; gap: 15px; flex-wrap: wrap;">  
+            <span class="seat normal" style="width: 20px; height: 20px;"></span> Ghế thường  
+            <span class="seat advance" style="width: 20px; height: 20px;"></span> Ghế Advance  
+            <span class="seat vip" style="width: 20px; height: 20px;"></span> Ghế Deluxe (VIP)  
+            <span class="seat inactive" style="width: 20px; height: 20px;"></span> Đã đặt  
+        </div>  
+    </div>  
+
+    <!-- Confirm Modal -->  
+    <div id="confirmModal" style="display:none;" class="modal-backdrop">  
+        <div class="modal-box">  
+            <h4>Xác nhận chọn ghế</h4>  
+            <p id="seatInfo"></p>  
+            <form method="post" asp-page-handler="BookSeat">  
+                <input type="hidden" id="selectedSeatId" name="SeatId" />  
+                <input type="hidden" name="RoomId" value="@Model.RoomId" />  
+                <input type="hidden" name="ShowtimeId" value="@Model.ShowtimeId" />  
+                <button type="submit" class="btn btn-primary">Xác nhận</button>  
+                <button type="button" class="btn btn-secondary" onclick="closeModal()">Huỷ</button>  
+            </form>  
+        </div>  
+    </div>  
+
+    <style>  
+        .manage-theaters-container {  
+            max-width: 1000px;  
+            margin: 50px auto;  
+            padding: 30px;  
+            background: #343a40;  
+            color: white;  
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  
+            border-radius: 10px;  
+        }  
+
+        .seat-layout {  
+            display: flex;  
+            flex-wrap: wrap;  
+            gap: 10px;  
+            margin-top: 20px;  
+        }  
+
+        .seat {  
+            padding: 10px;  
+            border: none;  
+            border-radius: 5px;  
+            font-weight: bold;  
+            cursor: pointer;  
+        }  
+
+            .seat.active {  
+                color: white;  
+            }  
+
+            /* Ghế đã đặt */  
+            .seat.inactive {  
+                background-color: #6c757d; /* xám */  
+                color: white;  
+                cursor: not-allowed;  
+            }  
+
+            /* Ghế thường (normal) */  
+            .seat.normal {  
+                background-color: white;  
+                color: black;  
+                border: 1px solid #ccc;  
+            }  
+
+            /* Ghế advance */  
+            .seat.advance {  
+                background-color: #0d6efd; /* xanh */  
+                color: white;  
+                border: none;  
+            }  
+
+            /* Ghế deluxe (VIP) */  
+            .seat.vip {  
+                background-color: white;  
+                color: #dc3545;  
+                border: 2px solid #dc3545;  
+            }  
+
+        .modal-backdrop {  
+            position: fixed;  
+            top: 0;  
+            left: 0;  
+            width: 100vw;  
+            height: 100vh;  
+            background: rgba(0, 0, 0, 0.5);  
+            display: flex;  
+            align-items: center;  
+            justify-content: center;  
+            z-index: 2000;  
+        }  
+
+        .modal-box {  
+            background: white;  
+            color: black;  
+            padding: 30px;  
+            border-radius: 10px;  
+            width: 400px;  
+            max-width: 90%;  
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);  
+            text-align: center;  
+        }  
+
+            .modal-box h4 {  
+                margin-bottom: 15px;  
+                font-size: 20px;  
+            }  
+
+            .modal-box p {  
+                margin-bottom: 25px;  
+            }  
+
+            .modal-box form {  
+                display: flex;  
+                justify-content: space-between;  
+                gap: 10px;  
+            }  
+
+            .modal-box .btn {  
+                padding: 10px 20px;  
+                border-radius: 8px;  
+                font-weight: bold;  
+                cursor: pointer;  
+                font-size: 16px;  
+                width: 100%;  
+            }  
+
+                .modal-box .btn.btn-primary {  
+                    background-color: #dc3545;  
+                    color: white;  
+                    border: none;  
+                }  
+
+                    .modal-box .btn.btn-primary:hover {  
+                        background-color: #b02a37;  
+                    }  
+
+                .modal-box .btn.btn-secondary {  
+                    background-color: #f1f1f1;  
+                    color: black;  
+                    border: 1px solid #ccc;  
+                }  
+
+                    .modal-box .btn.btn-secondary:hover {  
+                        background-color: #ddd;  
+                    }  
+
+        .seat-row {  
+            display: flex;  
+            justify-content: center;  
+            gap: 10px;  
+            margin-bottom: 12px;  
+        }  
+    </style>  
+
+    <script>  
+        function showConfirmModal(seatId, code, price) {  
+            document.getElementById('seatInfo').innerText = `Bạn có muốn chọn ghế ${code}? Giá: ${price} VND`;  
+            document.getElementById('selectedSeatId').value = seatId;  
+            document.getElementById('confirmModal').style.display = 'flex';  
+        }  
+
+        function closeModal() {  
+            document.getElementById('confirmModal').style.display = 'none';  
+        }  
+    </script>
 </div>
 
 
@@ -47,10 +252,9 @@
             <button type="submit" class="btn btn-primary">Xác nhận</button>
             <button type="button" class="btn btn-secondary" onclick="closeModal()">Huỷ</button>
         </form>
-
-
     </div>
 </div>
+
 <style>
     .manage-theaters-container {
         max-width: 1000px;
@@ -78,19 +282,35 @@
     }
 
         .seat.active {
-            background-color: #28a745;
             color: white;
         }
 
+        /* Ghế đã đặt */
         .seat.inactive {
-            background-color: #6c757d;
+            background-color: #6c757d; /* xám */
             color: white;
             cursor: not-allowed;
         }
 
-        .seat small {
-            display: block;
-            font-size: 0.7rem;
+        /* Ghế thường (normal) */
+        .seat.normal {
+            background-color: white;
+            color: black;
+            border: 1px solid #ccc;
+        }
+
+        /* Ghế advance */
+        .seat.advance {
+            background-color: #0d6efd; /* xanh */
+            color: white;
+            border: none;
+        }
+
+        /* Ghế deluxe (VIP) */
+        .seat.vip {
+            background-color: white;
+            color: #dc3545;
+            border: 2px solid #dc3545;
         }
 
     .modal-backdrop {
@@ -99,7 +319,7 @@
         left: 0;
         width: 100vw;
         height: 100vh;
-        background: rgba(0, 0, 0, 0.5); /* nền mờ */
+        background: rgba(0, 0, 0, 0.5);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -160,6 +380,15 @@
                 .modal-box .btn.btn-secondary:hover {
                     background-color: #ddd;
                 }
+
+    .seat-row {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 12px;
+    }
+
+
 </style>
 
 <script>
