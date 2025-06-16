@@ -27,7 +27,7 @@ public partial class User
     [Required(ErrorMessage = "Địa chỉ không được để trống")]
     public string? Address { get; set; }
 
-    public bool? IsActive { get; set; }
+    public bool IsActive { get; set; }
 
     public int? TheaterId { get; set; }
 

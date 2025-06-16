@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SWP391_Gr3.Autho;
 using SWP391_Gr3.Models;
@@ -23,6 +23,38 @@ namespace SWP391_Gr3.Pages.Users
             FilteredUsers = string.IsNullOrEmpty(userId)
                 ? users.ToList()
                 : users.Where(u => u.Id.ToString() == userId).ToList();
+        }
+
+        public async Task<IActionResult> OnPostToggleActiveAsync(int id)
+        {
+
+            int userId = int.Parse(HttpContext.Session.GetString("UserId"));
+            var Owner = await _iusersSer.GetUserById(id);
+            if (Owner == null)
+            {
+                return NotFound();
+            }
+            if (userId == id)
+            {
+                TempData["Message"] = "tài khoản đang đăng nhập không thể tác động";
+                return RedirectToPage("./Index");
+            }
+            if (Owner.RoleId == 3)
+            {
+                TempData["Message"] = "Không đủ thẩm quyền";
+                return RedirectToPage("./Index");
+            }
+            var success = await _iusersSer.ToggleUserActiveStatusAsync(id);
+
+            if (success)
+            {
+                TempData["Message"] = "Cập nhật trạng thái tài khoản thành công!";
+            }
+            else
+            {
+                TempData["Message"] = "Không tìm thấy tài khoản hoặc cập nhật thất bại.";
+            }
+            return RedirectToPage("./Index");
         }
 
     }

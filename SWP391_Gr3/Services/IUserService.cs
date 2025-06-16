@@ -4,6 +4,7 @@ namespace SWP391_Gr3.Services
 {
     public interface IUserService
     {
+        Task<bool> ToggleUserActiveStatusAsync(int userId); // active
         Task<string?> GetRoleNameAsync(int userId);
         Task<User?> GetUserByIdAsync(int userId);
         Task<IEnumerable<User>> GetAllUsersAsync();
