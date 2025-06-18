@@ -1,0 +1,110 @@
+﻿@page
+@model SWP391_Gr3.Pages.Transactions.IndexModel
+@{
+    ViewData["Title"] = "Quản lý giao dịch";
+}
+
+<h2 class="title-yellow">Quản lý giao dịch</h2>
+
+<form method="get" class="filter-form" style="margin-bottom: 24px;">
+    <label class="label-yellow">
+        Trạng thái:
+    </label>
+    <select name="Status" asp-for="Status">
+        <option value="">Tất cả</option>
+        @foreach (var status in Model.StatusList)
+        {
+            <option value="@status" selected="@(Model.Status == status ? "selected" : null)">@status</option>
+        }
+    </select>
+    <label style="margin-left:16px;" class="label-yellow">Ngày tạo:</label>
+    <input type="date" name="Date" asp-for="Date" value="@(Model.Date.HasValue ? Model.Date.Value.ToString("yyyy-MM-dd") : "")" />
+    <button type="submit" class="btn btn-primary" style="margin-left:16px;">Lọc</button>
+    <a href="/Transactions/Index" class="btn btn-secondary" style="margin-left:8px;">Reset</a>
+</form>
+
+@if (Model.Transactions.Count == 0)
+{
+    <div class="label-yellow">Không có giao dịch nào.</div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Mã GD</th>
+                <th>Khách hàng</th>
+                <th>Phòng</th>
+                <th>Ghế</th>
+                <th>Suất chiếu</th>
+                <th>Số tiền</th>
+                <th>Trạng thái</th>
+                <th>Ngày tạo</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var t in Model.Transactions)
+            {
+                <tr>
+                    <td>@t.Id</td>
+                    <td>@t.User?.FullName</td>
+                    <td>@t.Showtime?.Room?.Code</td>
+                    <td>@t.Seat?.Code</td>
+                    <td>@t.Showtime?.StartTime?.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>@t.Amount.ToString("N0") VND</td>
+                    <td>@t.Status</td>
+                    <td>@t.CreatedAt.ToString("dd/MM/yyyy HH:mm")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<style>
+    .filter-form label {
+        font-weight: bold;
+        margin-right: 4px;
+    }
+
+    .filter-form select, .filter-form input[type="date"] {
+        margin-right: 8px;
+        padding: 4px 8px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 24px;
+        background: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+        .table th, .table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+        }
+
+        .table th {
+            background: #f5f5f5;
+            font-weight: bold;
+        }
+
+    .table-striped tbody tr:nth-child(odd) {
+        background: #fafafa;
+    }
+
+    .title-yellow {
+        color: #FFD600;
+    }
+
+    .label-yellow {
+        color: #FFD600;
+        font-weight: bold;
+    }
+
+</style>
