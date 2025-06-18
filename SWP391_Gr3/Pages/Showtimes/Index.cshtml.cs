@@ -24,6 +24,8 @@ namespace SWP391_Gr3.Pages.Showtimes
         [BindProperty(SupportsGet = true)]
         public int? MovieId { get; set; }
 
+        public Movie? Movie { get; set; }
+
         public async Task OnGetAsync()
         {
             var today = DateOnly.FromDateTime(DateTime.Today);
@@ -56,12 +58,15 @@ namespace SWP391_Gr3.Pages.Showtimes
 
             var query = _context.Showtimes
                 .Include(s => s.Room).ThenInclude(r => r.Theater)
-                .Include(s => s.Movie)
+                .Include(s => s.Movie).ThenInclude(m => m.Images)
                 .AsQueryable();
 
             if (MovieId.HasValue)
             {
                 query = query.Where(s => s.MovieId == MovieId.Value);
+                Movie = await _context.Movies
+                    .Include(m => m.Images)
+                    .FirstOrDefaultAsync(m => m.Id == MovieId.Value);
             }
             if (SelectedDate.HasValue)
             {
