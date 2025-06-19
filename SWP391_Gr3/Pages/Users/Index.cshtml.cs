@@ -29,8 +29,9 @@ namespace SWP391_Gr3.Pages.Users
         {
 
             int userId = int.Parse(HttpContext.Session.GetString("UserId"));
-            var Owner = await _iusersSer.GetUserById(id);
-            if (Owner == null)
+            var role = HttpContext.Session.GetString("UserRole");
+            var users = await _iusersSer.GetUserById(id);
+            if (users == null)
             {
                 return NotFound();
             }
@@ -39,10 +40,26 @@ namespace SWP391_Gr3.Pages.Users
                 TempData["Message"] = "tài khoản đang đăng nhập không thể tác động";
                 return RedirectToPage("./Index");
             }
-            if (Owner.RoleId == 3)
+            if (role == "Owner")
             {
-                TempData["Message"] = "Không đủ thẩm quyền";
+                var success1 = await _iusersSer.ToggleUserActiveStatusAsync(id);
+                if (success1)
+                {
+                    TempData["Message"] = "Cập nhật trạng thái tài khoản thành công!";
+                }
+                else
+                {
+                    TempData["Message"] = "Không tìm thấy tài khoản hoặc cập nhật thất bại.";
+                }
                 return RedirectToPage("./Index");
+            }
+            else if (role == "Admin")
+            {
+                if (users.RoleId == 3 || users.RoleId == 1)
+                {
+                    TempData["Message"] = "Không đủ thẩm quyền";
+                    return RedirectToPage("./Index");
+                }
             }
             var success = await _iusersSer.ToggleUserActiveStatusAsync(id);
 

@@ -84,5 +84,9 @@ namespace SWP391_Gr3.Services
         {
             return await _userRepo.ToggleUserActiveStatusAsync(userId);
         }
+        public async Task<bool> UpdateUserRoleAsync(int userId, int roleId)
+        {
+            return await _userRepo.UpdateUserRoleAsync(userId, roleId);
+        }
     }
 }
