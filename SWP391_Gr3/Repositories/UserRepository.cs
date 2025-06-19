@@ -30,7 +30,7 @@ namespace SWP391_Gr3.Repositories
         //findbyid
         public async Task<User?> GetUserByIdAsync(int userId)
         {
-            return await _context.Users.FirstOrDefaultAsync(c => c.Id == userId);
+            return await _context.Users.Include(c=>c.Role).FirstOrDefaultAsync(c => c.Id == userId);
         }
         //getRoleName
 
@@ -113,6 +113,25 @@ namespace SWP391_Gr3.Repositories
             }
 
             user.IsActive = !user.IsActive; // Đảo ngược trạng thái
+            return await _context.SaveChangesAsync() > 0;
+        }
+
+        //update role
+        public async Task<bool> UpdateUserRoleAsync(int userId, int roleId)
+        {
+            var user = await _context.Users.FindAsync(userId);
+            if (user == null)
+            {
+                return false;
+            }
+
+            var role = await _context.Roles.FindAsync(roleId);
+            if (role == null)
+            {
+                return false;
+            }
+
+            user.RoleId = roleId;
             return await _context.SaveChangesAsync() > 0;
         }
     }

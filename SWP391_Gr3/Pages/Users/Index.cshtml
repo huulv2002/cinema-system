@@ -1,120 +1,74 @@
 ﻿@page
 @model SWP391_Gr3.Pages.Users.IndexModel
 @{
-	ViewData["Title"] = "Quản lý tài khoản";
+    ViewData["Title"] = "Quản lý tài khoản";
 }
-@if (TempData["Message"] != null)
-{
-	<div style=" color:green">@TempData["Message"] </div>
-}
+
+
 <div class="manage-users-container">
-	<h2>Quản lý tài khoản</h2>
-	<form method="get" id="searchForm">
-		<label for="searchUserId">Tìm kiếm User ID: </label>
-		<input type="text" id="searchUserId" name="userId" value="@Model.SearchUserId" />
-		<button type="submit" class="btn btn-info">Tìm kiếm</button>
-	</form>
-	<table class="table table-bordered">
-		<thead>
-			<tr>
-				<th>ID</th>
-				<th>Email</th>
-				<th>Vai trò</th>
-				<th>Is Active</th>
-				<th>Hành động</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach (var user in Model.FilteredUsers)
-			{
-				<tr>
-					<td>@user.Id</td>
-					<td>@user.Email</td>
-					<td>@(user.Role?.Name ?? "Unknown")</td>
-					<td>
-						@if (user.IsActive == false)
-						{
-							<div> inactive</div>
-						}
-						else
-						{
-							<div>active</div>
-						}
-					</td>
-					<td>
-						<a asp-page="/Users/UserDetail" asp-route-id="@user.Id" class="btn btn-warning">Chi tiết người dùng</a>
+    <h2>Quản lý tài khoản</h2>
 
-						<form asp-page-handler="ToggleActive" asp-route-id="@user.Id" method="post" style="display:inline;">
-							<button type="submit" class="btn btn-primary">
-								@(user.IsActive == true ? "Khóa" : "Kích hoạt")
-							</button>
-						</form>
+    <!-- Hiển thị thông báo TempData -->
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert-success">@TempData["Message"]</div>
+    }
 
-						<a asp-page="./" class="btn btn-warning">Nâng quyền</a>
-					</td>
-				</tr>
-			}
-		</tbody>
-	</table>
-	<hr />
+    <form method="get" id="searchForm">
+        <label for="searchUserId">Tìm kiếm User ID: </label>
+        <input type="text" id="searchUserId" name="userId" value="@Model.SearchUserId" />
+        <button type="submit" class="btn btn-info">Tìm kiếm</button>
+    </form>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Email</th>
+                <th>Vai trò</th>
+                <th>Is Active</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.FilteredUsers)
+            {
+                <tr>
+                    <td>@user.Id</td>
+                    <td>@user.Email</td>
+                    <td>@(user.Role?.Name ?? "Không có vai trò")</td>
+                    <td>
+                        @if (user.IsActive == false)
+                        {
+                            <div>Inactive</div>
+                        }
+                        else
+                        {
+                            <div>Active</div>
+                        }
+                    </td>
+                    <td>
+                        <a asp-page="/Users/UserDetail" asp-route-id="@user.Id" class="btn btn-warning">Chi tiết</a>
+                        <form asp-page-handler="ToggleActive" asp-route-id="@user.Id" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-primary">
+                                @(user.IsActive ? "Khóa" : "Kích hoạt")
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <hr />
 </div>
-<style>
-	.manage-users-container {
-		max-width: 1200px;
-		margin: 50px auto;
-		padding: 30px;
-		background: #343a40;
-		color: white;
-		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-		border-radius: 10px;
-	}
 
-	.table {
-		color: white;
-		background-color: #495057;
-	}
-
-		.table th, .table td {
-			border-color: #6c757d;
-		}
-
-		.table thead th {
-			background-color: #212529;
-			color: white;
-		}
-
-	label {
-		color: white;
-	}
-
-	.btn-info {
-		background-color: #17a2b8;
-		border-color: #17a2b8;
-		color: white;
-	}
-
-	.btn-warning {
-		background-color: #ffc107;
-		border-color: #ffc107;
-		color: black;
-	}
-
-	.btn-danger {
-		background-color: #dc3545;
-		border-color: #dc3545;
-		color: white;
-	}
-
-	.btn-primary {
-		background-color: #007bff;
-		border-color: #007bff;
-		color: white;
-	}
-</style>
 <script>
-	document.getElementById("searchUserId").addEventListener("input", function () {
-		if (this.value === "") {
-			window.location.href = window.location.pathname;
-		}
-	});
+    document.getElementById("searchUserId").addEventListener("input", function () {
+        if (this.value === "") {
+            window.location.href = window.location.pathname;
+        }
+    });
 </script>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/user_index.css" asp-append-version="true" />
+}

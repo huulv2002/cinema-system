@@ -4,6 +4,7 @@ namespace SWP391_Gr3.Repositories
 {
     public interface IUserRepository
     {
+        Task<bool> UpdateUserRoleAsync(int userId, int roleId); // updating user role
         Task<bool> ToggleUserActiveStatusAsync(int userId); // active
         Task<string?> GetRoleNameAsync(int userId);
         Task<User?> GetUserByIdAsync(int userId);

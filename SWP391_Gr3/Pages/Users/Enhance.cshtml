@@ -1,7 +1,37 @@
-﻿@page
+﻿@page "{id:int}"
 @model SWP391_Gr3.Pages.Users.EnhanceModel
 @{
-	ViewData["Title"] = "Nâng quyền";
+    ViewData["Title"] = "Nâng quyền";
 }
 
+<h2>Nâng quyền người dùng</h2>
 
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Chọn vai trò mới</h4>
+        <form method="post">
+            <input type="hidden" asp-for="UserId" />
+            <div class="form-group">
+                <label asp-for="SelectedRoleId">Vai trò:</label>
+                <select asp-for="SelectedRoleId" class="form-control" asp-items="@(new SelectList(Model.Roles, "Id", "Name"))">
+                    <option value="">-- Chọn vai trò --</option>
+                </select>
+                <span asp-validation-for="SelectedRoleId" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Cập nhật vai trò</button>
+            <a asp-page="/Users/UserDetail" asp-route-id="@Model.UserId" class="btn btn-secondary">Hủy</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/enhance.css" asp-append-version="true" />
+}

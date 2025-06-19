@@ -22,7 +22,7 @@ namespace SWP391_Gr3.Pages.Users
             try
             {
                 // Lấy thông tin người dùng dựa trên id được truyền qua URL
-                SelectedUser = await _userService.GetUserById(id);
+                SelectedUser = await _userService.GetUserByIdAsync(id);
                 if (SelectedUser == null)
                 {
                     ErrorMessage = "Không tìm thấy người dùng";
