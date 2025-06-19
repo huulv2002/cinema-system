@@ -21,7 +21,5 @@ public partial class Seat
 
     public virtual ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
 
-    public virtual ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
-
     public virtual SeatType? Type { get; set; }
 }

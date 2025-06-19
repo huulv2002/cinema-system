@@ -1,0 +1,172 @@
+﻿@page
+@model SWP391_Gr3.Pages.Foods.SelectFoodModel
+@{
+    ViewData["Title"] = "Chọn đồ ăn";
+}
+
+<h2>Chọn đồ ăn</h2>
+<form method="post">
+    <input type="hidden" name="ShowtimeId" value="@Model.ShowtimeId" />
+    <input type="hidden" name="SelectedSeatIds" value="@Model.SelectedSeatIds" />
+
+    <div class="food-combo-container">
+        <div class="food-section">
+            <h3>Đồ ăn riêng</h3>
+            <div class="food-grid">
+                @foreach (var food in Model.FoodList)
+                {
+                    <label class="food-item">
+                        <input type="checkbox" name="SelectedFoodIds" value="@food.Id" class="food-checkbox" style="display:none;" />
+                        <img src="@(food.ImageUrl ?? "/images/no-image.png")" alt="@food.Name" class="food-img" />
+                        <div class="food-name">@food.Name</div>
+                        <div class="food-price">@string.Format(System.Globalization.CultureInfo.InvariantCulture, "{0:N0}", food.Price) đ</div>
+                    </label>
+                }
+            </div>
+        </div>
+        <div class="food-section">
+            <h3>Combo</h3>
+            <div class="food-grid">
+                @foreach (var combo in Model.ComboList)
+                {
+                    <label class="food-item">
+                        <input type="checkbox" name="SelectedComboIds" value="@combo.Id" class="food-checkbox" style="display:none;" />
+                        <div class="food-name">@combo.Title</div>
+                        <div class="food-price">@string.Format(System.Globalization.CultureInfo.InvariantCulture, "{0:N0}", combo.Price) đ</div>
+                        @if (combo.Products != null && combo.Products.Count > 0)
+                        {
+                            <div class="combo-products">
+                                @foreach (var item in combo.Products)
+                                {
+                                    <div class="combo-product">
+                                        <span>@item.Name x @item.Quantity</span>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </label>
+                }
+            </div>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" style="margin-top:20px;">Xác nhận đồ ăn</button>
+</form>
+
+<script>
+    document.querySelectorAll('.food-checkbox').forEach(cb => {
+        cb.addEventListener('change', function () {
+            if (this.checked) {
+                this.closest('.food-item').classList.add('selected');
+            } else {
+                this.closest('.food-item').classList.remove('selected');
+            }
+        });
+    });
+</script>
+
+<style>
+    .food-combo-container {
+        display: flex;
+        gap: 40px;
+        justify-content: center;
+        align-items: flex-start;
+        margin-top: 24px;
+    }
+
+    .food-section {
+        flex: 1;
+        min-width: 320px;
+    }
+
+        .food-section h3 {
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+    .food-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 24px;
+        margin-top: 24px;
+        justify-content: center;
+    }
+
+    .food-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 160px;
+        padding: 16px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        cursor: pointer;
+        transition: box-shadow 0.2s, border-color 0.2s;
+        border: 2px solid transparent;
+        position: relative;
+    }
+
+        .food-item.selected {
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 4px #0d6efd33;
+        }
+
+        .food-item:hover {
+            border-color: #0d6efd;
+        }
+
+    .food-img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        border: 2px solid #eee;
+    }
+
+    .food-name {
+        font-weight: bold;
+        margin-bottom: 4px;
+        color: #222;
+        text-align: center;
+    }
+
+    .food-price {
+        color: #dc3545;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 8px;
+    }
+
+    .combo-products {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        justify-content: center;
+        margin-bottom: 8px;
+    }
+
+    .combo-product {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 13px;
+        margin-bottom: 2px;
+    }
+
+    .combo-desc {
+        font-size: 12px;
+        color: #666;
+        text-align: center;
+        margin-top: 4px;
+    }
+
+    h2 {
+        color: yellow;
+    }
+
+    .food-section h3 {
+        color: yellow;
+    }
+</style>

@@ -94,7 +94,7 @@
 <form method="post" asp-page-handler="BookSeat">
     <div class="ticket-box">
         <div class="ticket-left">
-            <img src="@Model.Movie.Images.FirstOrDefault()?.Url ?? " /images/no-image.png"" alt="@Model.Movie.Title" />
+            <img src="@(Model.Movie.Images.FirstOrDefault()?.Url ?? "/images/no-image.png")" alt="@Model.Movie.Title" />
         </div>
         <div class="ticket-right">
             <div class="ticket-movie-title">@Model.Movie.Title</div>

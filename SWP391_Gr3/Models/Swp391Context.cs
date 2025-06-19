@@ -55,8 +55,6 @@ public partial class Swp391Context : DbContext
 
     public virtual DbSet<Ticket> Tickets { get; set; }
 
-    public virtual DbSet<Transaction> Transactions { get; set; }
-
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -355,33 +353,6 @@ public partial class Swp391Context : DbContext
                 .HasConstraintName("FK__Ticket__Showtime__5AEE82B9");
         });
 
-        modelBuilder.Entity<Transaction>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__Transact__3214EC074F8C6C1F");
-
-            entity.ToTable("Transaction");
-
-            entity.Property(e => e.Amount).HasColumnType("decimal(18, 2)");
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
-            entity.Property(e => e.Status).HasMaxLength(50);
-
-            entity.HasOne(d => d.Seat).WithMany(p => p.Transactions)
-                .HasForeignKey(d => d.SeatId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Transaction_Seat");
-
-            entity.HasOne(d => d.Showtime).WithMany(p => p.Transactions)
-                .HasForeignKey(d => d.ShowtimeId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Transaction_Showtime");
-
-            entity.HasOne(d => d.User).WithMany(p => p.Transactions)
-                .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Transaction_User");
-        });
 
         modelBuilder.Entity<User>(entity =>
         {
