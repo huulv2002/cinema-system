@@ -13,7 +13,7 @@ namespace SWP391_Gr3.ViewModels
         public string HashPass { get; set; }
         public string? PhoneNumber { get; set; }
 
-        public bool? isActive { get; set; } = true;
+        public bool isActive { get; set; } = true;
 
         public string address { get; set; }
 

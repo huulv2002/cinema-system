@@ -79,5 +79,10 @@ namespace SWP391_Gr3.Services
         {
             return await _userRepo.ValidateUser(email, password);
         }
+
+        public async Task<bool> ToggleUserActiveStatusAsync(int userId)
+        {
+            return await _userRepo.ToggleUserActiveStatusAsync(userId);
+        }
     }
 }

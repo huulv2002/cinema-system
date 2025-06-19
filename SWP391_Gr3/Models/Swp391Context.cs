@@ -6,16 +6,6 @@ namespace SWP391_Gr3.Models;
 
 public partial class Swp391Context : DbContext
 {
-    private string? GetConnectionString()
-    {
-        IConfiguration config = new ConfigurationBuilder()
-             .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile("appsettings.json", true, true)
-                    .Build();
-        var strConn = config["ConnectionStrings:MyCnn"];
-
-        return strConn;
-    }
     public Swp391Context()
     {
     }
@@ -65,10 +55,13 @@ public partial class Swp391Context : DbContext
 
     public virtual DbSet<Ticket> Tickets { get; set; }
 
+    public virtual DbSet<Transaction> Transactions { get; set; }
+
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-         => optionsBuilder.UseSqlServer(GetConnectionString());
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-MK7FI4T;Initial Catalog=swp391; Trusted_Connection=SSPI;Encrypt=false;TrustServerCertificate=true");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -364,6 +357,34 @@ public partial class Swp391Context : DbContext
                 .WithMany(p => p.Tickets)         
                 .HasForeignKey(d => d.OrderId)
                 .HasConstraintName("FK__Ticket__OrderId__XXXXXXX");
+        });
+
+        modelBuilder.Entity<Transaction>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Transact__3214EC074F8C6C1F");
+
+            entity.ToTable("Transaction");
+
+            entity.Property(e => e.Amount).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.Status).HasMaxLength(50);
+
+            entity.HasOne(d => d.Seat).WithMany(p => p.Transactions)
+                .HasForeignKey(d => d.SeatId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Transaction_Seat");
+
+            entity.HasOne(d => d.Showtime).WithMany(p => p.Transactions)
+                .HasForeignKey(d => d.ShowtimeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Transaction_Showtime");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Transactions)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Transaction_User");
         });
 
         modelBuilder.Entity<User>(entity =>

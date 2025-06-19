@@ -3,6 +3,10 @@
 @{
 	ViewData["Title"] = "Quản lý tài khoản";
 }
+@if (TempData["Message"] != null)
+{
+	<div style=" color:green">@TempData["Message"] </div>
+}
 <div class="manage-users-container">
 	<h2>Quản lý tài khoản</h2>
 	<form method="get" id="searchForm">
@@ -16,6 +20,7 @@
 				<th>ID</th>
 				<th>Email</th>
 				<th>Vai trò</th>
+				<th>Is Active</th>
 				<th>Hành động</th>
 			</tr>
 		</thead>
@@ -27,7 +32,25 @@
 					<td>@user.Email</td>
 					<td>@(user.Role?.Name ?? "Unknown")</td>
 					<td>
-						<a asp-page="./" asp-route-id="@user.Id" class="btn btn-warning">Chỉnh sửa</a>
+						@if (user.IsActive == false)
+						{
+							<div> inactive</div>
+						}
+						else
+						{
+							<div>active</div>
+						}
+					</td>
+					<td>
+						<a asp-page="/Users/UserDetail" asp-route-id="@user.Id" class="btn btn-warning">Chi tiết người dùng</a>
+
+						<form asp-page-handler="ToggleActive" asp-route-id="@user.Id" method="post" style="display:inline;">
+							<button type="submit" class="btn btn-primary">
+								@(user.IsActive == true ? "Khóa" : "Kích hoạt")
+							</button>
+						</form>
+
+						<a asp-page="./" class="btn btn-warning">Nâng quyền</a>
 					</td>
 				</tr>
 			}

@@ -103,6 +103,17 @@ namespace SWP391_Gr3.Repositories
 
             return user != null;
         }
+        //active
+        public async Task<bool> ToggleUserActiveStatusAsync(int userId)
+        {
+            var user = await _context.Users.FindAsync(userId);
+            if (user == null)
+            {
+                return false;
+            }
 
+            user.IsActive = !user.IsActive; // Đảo ngược trạng thái
+            return await _context.SaveChangesAsync() > 0;
+        }
     }
 }

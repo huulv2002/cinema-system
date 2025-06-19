@@ -5,6 +5,20 @@
     var selectedDate = Model.SelectedDate ?? DateOnly.FromDateTime(DateTime.Today);
 }
 
+@if (Model.Movie != null)
+{
+    <div class="movie-info-block">
+        <img src="@(Model.Movie.Images?.FirstOrDefault()?.Url ?? "/images/no-image.png")" alt="@Model.Movie.Title" class="movie-info-poster" />
+        <div class="movie-info-details">
+            <h2>@Model.Movie.Title</h2>
+            <div><b>Thời lượng:</b> @(Model.Movie.Duration ?? 0) phút</div>
+            <div><b>Khởi chiếu:</b> @(Model.Movie.ReleaseDate?.ToString("dd-MM-yyyy") ?? "-")</div>
+            <div><b>Ngôn ngữ:</b> @Model.Movie.Language</div>
+            <div><b>Mô tả:</b> @Model.Movie.Description</div>
+        </div>
+    </div>
+}
+
 <div class="showtime-date-bar">
     @foreach (var date in Model.Dates)
     {
@@ -49,7 +63,6 @@
                 <div class="showtime-list">
                     @foreach (var showtime in roomGroup.OrderBy(s => s.StartTime))
                     {
-                        //change href to Seat page with roomId and showtimeId
                         <a class="showtime-btn" href="/Theaters/Seat?roomId=@showtime.RoomId&showtimeId=@showtime.Id">
                             @showtime.StartTime?.ToString("HH:mm")
                         </a>
@@ -65,7 +78,6 @@
                 <div class="showtime-list">
                     @foreach (var showtime in roomGroup.OrderBy(s => s.StartTime))
                     {
-                        //change href to Seat page with roomId and showtimeId
                         <a class="showtime-btn" href="/Theaters/Seat?roomId=@showtime.RoomId&showtimeId=@showtime.Id">
                             @showtime.StartTime?.ToString("HH:mm")
                         </a>
@@ -77,6 +89,43 @@
 }
 
 <style>
+    .movie-info-block {
+        display: flex;
+        gap: 28px;
+        align-items: flex-start;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        padding: 24px 32px;
+        margin-bottom: 32px;
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .movie-info-poster {
+        width: 160px;
+        height: 230px;
+        object-fit: cover;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+    }
+
+    .movie-info-details {
+        flex: 1;
+        font-size: 1.08rem;
+    }
+
+        .movie-info-details h2 {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .movie-info-details > div {
+            margin-bottom: 8px;
+        }
+
     .showtime-date-bar, .showtime-theater-bar, .showtime-roomtype-bar {
         display: flex;
         gap: 8px;

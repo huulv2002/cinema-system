@@ -1,0 +1,34 @@
+﻿@model SWP391_Gr3.Models.Seat
+@{
+    var bookedSeatIds = ViewData["BookedSeatIds"] as List<int>;
+    bool isBooked = bookedSeatIds?.Contains(Model.Id) ?? false;
+    string typeName = Model.Type?.Name?.ToLower();
+    string seatClass = "seat";
+
+    if (isBooked)
+    {
+        seatClass += " inactive";
+    }
+    else
+    {
+        seatClass += " active";
+
+        if (typeName == "vip")
+            seatClass += " vip";
+        else if (typeName == "advance")
+            seatClass += " advance";
+        else
+            seatClass += " normal";
+    }
+
+    var price = Model.Type?.Price ?? 0;
+}
+
+<button class="@seatClass selectable-seat"
+        data-id="@Model.Id"
+        data-code="@Model.Code"
+        data-price="@price"
+        title="Giá: @price đ"
+        disabled="@isBooked">
+    @Model.Code
+</button>
