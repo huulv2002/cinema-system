@@ -15,7 +15,7 @@ namespace SWP391_Gr3.Services
         {
             _emailSettings = emailSettings;
         }
-
+        
         public async Task SendEmailAsync(string toEmail, string subject, string body)
         {
             var message = new MimeMessage();

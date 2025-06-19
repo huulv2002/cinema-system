@@ -360,6 +360,10 @@ public partial class Swp391Context : DbContext
             entity.HasOne(d => d.Showtime).WithMany(p => p.Tickets)
                 .HasForeignKey(d => d.ShowtimeId)
                 .HasConstraintName("FK__Ticket__Showtime__5AEE82B9");
+            entity.HasOne(d => d.Order)
+                .WithMany(p => p.Tickets)         
+                .HasForeignKey(d => d.OrderId)
+                .HasConstraintName("FK__Ticket__OrderId__XXXXXXX");
         });
 
         modelBuilder.Entity<User>(entity =>

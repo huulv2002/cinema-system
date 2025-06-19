@@ -1,0 +1,75 @@
+﻿@page "{id:int}"
+
+@model SWP391_Gr3.Pages.Users.ViewBookingHistorytDetailModel
+
+@{
+    ViewData["Title"] = "Chi tiết vé";
+}
+
+<h2>Chi tiết vé</h2>
+
+<div class="card">
+    <div class="card-body">
+        <p><strong>Phim:</strong> @Model.Ticket.Showtime?.Movie?.Title</p>
+        <p><strong>Thời gian chiếu:</strong> @Model.Ticket.Showtime?.StartTime?.ToString("dd/MM/yyyy HH:mm")</p>
+        <p><strong>Ghế:</strong> @Model.Ticket.Seat?.Code (@Model.Ticket.Seat?.Type?.Name)</p>
+        <p><strong>Giá vé:</strong> @Model.Ticket.Seat?.Type?.Price?.ToString("N0") đ</p>
+
+        @if (Model.Promotion != null)
+        {
+            <p><strong>Khuyến mãi:</strong> @Model.Promotion.Code - @Model.Promotion.Value?.ToString("N0") đ</p>
+        }
+
+        <hr />
+        <h5>Combo đi kèm:</h5>
+        @if (Model.OrderCombos.Any())
+        {
+            @foreach (var combo in Model.OrderCombos)
+            {
+                <div class="mb-2">
+                    <p><strong>Combo:</strong> @combo.Combo.Title (x@combo.Quantity)</p>
+                    <ul>
+                        @foreach (var pc in Model.ProductCombos.Where(p => p.ComboId == combo.ComboId))
+                        {
+                            <li>@pc.Product?.Name (x@pc.Quantity)</li>
+                        }
+                    </ul>
+                </div>
+            }
+        }
+        else
+        {
+            <p>Không có combo nào.</p>
+        }
+        <hr />
+        <h5>Sản phẩm mua lẻ:</h5>
+        @if (Model.OrderProducts.Any())
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Tên sản phẩm</th>
+                        <th>Kích cỡ</th>
+                        <th>Số lượng</th>
+                        <th>Giá</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OrderProducts)
+                    {
+                        <tr>
+                            <td>@item.Product?.Name</td>
+                            <td>@item.Product?.Size</td>
+                            <td>@item.Quantity</td>
+                            <td>@item.Product?.Price?.ToString("N0") đ</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>Không có sản phẩm lẻ nào.</p>
+        }
+    </div>
+</div>

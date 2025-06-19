@@ -1,0 +1,73 @@
+﻿@page
+@model SWP391_Gr3.Pages.Users.ViewBookingHistoryModel
+@{
+    ViewData["Title"] = "Lịch sử đặt vé";
+}
+
+
+<h2 class="mb-4">Lịch sử mua vé</h2>
+
+<ul class="nav nav-tabs mb-4" id="ticketTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="unused-tab" data-bs-toggle="tab" data-bs-target="#unused" type="button" role="tab">
+            Vé chưa dùng
+        </button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="used-tab" data-bs-toggle="tab" data-bs-target="#used" type="button" role="tab">
+            Vé đã dùng
+        </button>
+    </li>
+</ul>
+
+<div class="tab-content" id="ticketTabContent">
+    <div class="tab-pane fade show active" id="unused" role="tabpanel">
+        @if (Model.UnusedTickets.Any())
+        {
+            <ul class="list-group">
+                @foreach (var ticket in Model.UnusedTickets)
+                {
+                    <li class="list-group-item">
+                        <strong>Phim:</strong> @ticket.Showtime?.Movie?.Title<br />
+                        <strong>Suất:</strong> @ticket.Showtime?.StartTime?.ToString("dd/MM/yyyy HH:mm")<br />
+                        <strong>Ghế:</strong> @ticket.Seat?.Code
+                        <a class="btn btn-sm btn-primary mt-2"
+                           asp-page="/Users/ViewBookingHistorytDetail"
+                           asp-route-id="@ticket.Id">
+                            Xem chi tiết
+                        </a>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>Không có vé chưa dùng.</p>
+        }
+    </div>
+
+    <div class="tab-pane fade" id="used" role="tabpanel">
+        @if (Model.UsedTickets.Any())
+        {
+            <ul class="list-group">
+                @foreach (var ticket in Model.UsedTickets)
+                {
+                    <li class="list-group-item">
+                        <strong>Phim:</strong> @ticket.Showtime?.Movie?.Title<br />
+                        <strong>Suất:</strong> @ticket.Showtime?.StartTime?.ToString("dd/MM/yyyy HH:mm")<br />
+                        <strong>Ghế:</strong> @ticket.Seat?.Code
+                        <a class="btn btn-sm btn-primary mt-2"
+                           asp-page="/Users/ViewBookingHistorytDetail"
+                           asp-route-id="@ticket.Id">
+                            Xem chi tiết
+                        </a>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>Không có vé đã dùng.</p>
+        }
+    </div>
+</div>
