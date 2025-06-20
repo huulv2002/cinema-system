@@ -15,6 +15,12 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+builder.Services.AddAuthentication("Cookies")
+    .AddCookie("Cookies", options =>
+    {
+        options.LoginPath = "/Users/Login"; // Đường dẫn đến trang đăng nhập của bạn
+        options.AccessDeniedPath = "/Users/AccessDenied"; // (tuỳ chọn)
+    });
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddDbContext<Swp391Context>(options =>
@@ -47,6 +53,7 @@ app.UseStaticFiles();
 app.UseSession();
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();

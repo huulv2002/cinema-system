@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using SWP391_Gr3.Models;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace SWP391_Gr3.Pages.Theaters
 {
+    [Authorize]
     public class SeatModel : PageModel
     {
         private readonly Swp391Context _context;
@@ -104,7 +106,7 @@ namespace SWP391_Gr3.Pages.Theaters
 
             await _context.SaveChangesAsync();
 
-            return RedirectToPage(new { RoomId = RoomId, ShowtimeId = ShowtimeId });
+            return RedirectToPage("/Foods/SelectFood", new { showtimeId = ShowtimeId, seatIds = SelectedSeatIds });
         }
     }
 }
