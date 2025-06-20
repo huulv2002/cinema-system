@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SWP391_Gr3.Services;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace SWP391_Gr3.Pages.Users
 {
@@ -51,11 +54,27 @@ namespace SWP391_Gr3.Pages.Users
                 return Page();
             }
             var roleName = await _userSer.GetRoleNameAsync(user.Id);
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, user.Email ?? ""),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Role, roleName ?? "")
+            };
+
+            // Tạo identity và principal
+            var claimsIdentity = new ClaimsIdentity(claims, "Cookies");
+            var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+
+            // Đăng nhập bằng cookie
+            await HttpContext.SignInAsync("Cookies", claimsPrincipal);
+
+            // (Tùy chọn) Lưu vào session nếu bạn vẫn cần
             HttpContext.Session.SetString("UserId", user.Id.ToString());
             HttpContext.Session.SetString("UserEmail", user.Email);
             HttpContext.Session.SetString("UserRole", roleName);
 
             return RedirectToPage("/Home/Index");
+
         }
     }
 }

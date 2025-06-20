@@ -23,7 +23,11 @@ namespace SWP391_Gr3.Services
             message.To.Add(new MailboxAddress("", toEmail));
             message.Subject = subject;
 
-            message.Body = new TextPart("plain") { Text = body };
+            message.Body = new TextPart("html")
+            {
+                Text = body,
+                ContentTransferEncoding = ContentEncoding.QuotedPrintable
+            };
 
             using var client = new SmtpClient();
             await client.ConnectAsync(_emailSettings.SmtpServer, _emailSettings.SmtpPort, MailKit.Security.SecureSocketOptions.StartTls);
