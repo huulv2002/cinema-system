@@ -1,4 +1,41 @@
 ﻿@page
 @model SWP391_Gr3.Pages.Owner.ViewTransactionsListModel
-@{
-}
+<div style="background-color: white; padding: 30px; border-radius: 10px;">
+    <h2 class="mb-4">Lịch sử giao dịch</h2>
+
+    <table class="table table-hover table-bordered bg-white">
+        <thead class="table-dark">
+            <tr>
+                <th>Mã giao dịch</th>
+                <th>Người thực hiện</th>
+                <th>Số tiền</th>
+                <th>Trạng thái</th>
+                <th>Ngày giao dịch</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model.Payments)
+            {
+                <tr>
+                    <td>@p.Code</td>
+                    <td>@(p.Order?.User?.FullName ?? "Không xác định")</td>
+                    <td>@(p.Amount?.ToString("N0") ?? "0") ₫</td>
+                    <td>
+                        @(p.Status == "0" ? "Đang thanh toán" :
+                            p.Status == "1" ? "Đã thanh toán" : "Không xác định")
+                    </td>
+                    <td>
+                        @if (p.Status == "1")
+                        {
+                            @p.CreatedAt.ToString("dd/MM/yyyy HH:mm")
+                        }
+                        else
+                        {
+                            <span class="text-muted">Chưa thanh toán</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
