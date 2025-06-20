@@ -104,7 +104,7 @@ namespace SWP391_Gr3.Pages.Theaters
 
             await _context.SaveChangesAsync();
 
-            return RedirectToPage(new { RoomId = RoomId, ShowtimeId = ShowtimeId });
+            return RedirectToPage("/Foods/SelectFood", new { showtimeId = ShowtimeId, seatIds = SelectedSeatIds });
         }
     }
 }

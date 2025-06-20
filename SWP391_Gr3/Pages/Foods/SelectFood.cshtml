@@ -9,9 +9,13 @@
     <input type="hidden" name="ShowtimeId" value="@Model.ShowtimeId" />
     <input type="hidden" name="SelectedSeatIds" value="@Model.SelectedSeatIds" />
 
+    <div class="food-nav-bar">
+        <button type="button" class="food-tab active" id="tab-food" onclick="showTab('food')">Đồ ăn riêng</button>
+        <button type="button" class="food-tab" id="tab-combo" onclick="showTab('combo')">Combo</button>
+    </div>
+
     <div class="food-combo-container">
-        <div class="food-section">
-            <h3>Đồ ăn riêng</h3>
+        <div class="food-section" id="section-food">
             <div class="food-grid">
                 @foreach (var food in Model.FoodList)
                 {
@@ -24,8 +28,7 @@
                 }
             </div>
         </div>
-        <div class="food-section">
-            <h3>Combo</h3>
+        <div class="food-section" id="section-combo" style="display:none;">
             <div class="food-grid">
                 @foreach (var combo in Model.ComboList)
                 {
@@ -50,10 +53,26 @@
         </div>
     </div>
 
-    <button type="submit" class="btn btn-primary" style="margin-top:20px;">Xác nhận đồ ăn</button>
+    <div class="food-confirm-btn-container">
+        <button type="submit" class="btn btn-primary">Xác nhận đồ ăn</button>
+    </div>
 </form>
 
 <script>
+    function showTab(tab) {
+        if (tab === 'food') {
+            document.getElementById('section-food').style.display = '';
+            document.getElementById('section-combo').style.display = 'none';
+            document.getElementById('tab-food').classList.add('active');
+            document.getElementById('tab-combo').classList.remove('active');
+        } else {
+            document.getElementById('section-food').style.display = 'none';
+            document.getElementById('section-combo').style.display = '';
+            document.getElementById('tab-food').classList.remove('active');
+            document.getElementById('tab-combo').classList.add('active');
+        }
+    }
+
     document.querySelectorAll('.food-checkbox').forEach(cb => {
         cb.addEventListener('change', function () {
             if (this.checked) {
@@ -66,23 +85,53 @@
 </script>
 
 <style>
+    .food-nav-bar {
+        display: flex;
+        justify-content: center;
+        margin-top: 24px;
+        margin-bottom: 0;
+        gap: 0;
+        border-radius: 8px 8px 0 0;
+        overflow: hidden;
+        background: #222;
+    }
+
+    .food-tab {
+        flex: 1;
+        padding: 14px 0;
+        background: #222;
+        color: #fff;
+        border: none;
+        outline: none;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.2s, color 0.2s;
+    }
+
+        .food-tab.active {
+            background: #0d6efd;
+            color: #fff;
+        }
+
     .food-combo-container {
         display: flex;
-        gap: 40px;
         justify-content: center;
         align-items: flex-start;
-        margin-top: 24px;
+        margin-top: 0;
+        gap: 0;
+        border-radius: 0 0 10px 10px;
+        background: #222;
+        padding: 24px 0 0 0;
     }
 
     .food-section {
         flex: 1;
         min-width: 320px;
+        background: #222;
+        padding: 0 24px 24px 24px;
+        border-radius: 0 0 10px 10px;
     }
-
-        .food-section h3 {
-            text-align: center;
-            margin-bottom: 16px;
-        }
 
     .food-grid {
         display: flex;
@@ -108,8 +157,9 @@
     }
 
         .food-item.selected {
-            border-color: #0d6efd;
-            box-shadow: 0 0 0 4px #0d6efd33;
+            border-color: red !important;
+            box-shadow: 0 0 0 4px #dc354533;
+            background: #fff0f0;
         }
 
         .food-item:hover {
@@ -139,6 +189,11 @@
         margin-bottom: 8px;
     }
 
+    .food-confirm-btn-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
     .combo-products {
         display: flex;
         flex-wrap: wrap;
@@ -168,5 +223,7 @@
 
     .food-section h3 {
         color: yellow;
+        text-align: center;
+        margin-bottom: 16px;
     }
 </style>
