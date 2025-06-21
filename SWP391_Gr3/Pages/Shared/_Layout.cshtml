@@ -1,232 +1,235 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - OMTB</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/OnlineMovieTicketBookingSystem.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-    @RenderSection("Styles", required: false)
-    <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-        }
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - OMTB</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/OnlineMovieTicketBookingSystem.styles.css" asp-append-version="true" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+	<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+	@RenderSection("Styles", required: false)
+	<style>
+		html, body {
+		height: 100%;
+		margin: 0;
+		}
 
-        .layout-wrapper {
-            min-height: 100vh;
-        }
+		.layout-wrapper {
+		min-height: 100vh;
+		}
 
-        body {
-            background: url('https://thesciencesurvey.com/wp-content/uploads/2021/11/whoops-900x596.png') no-repeat center center fixed;
-            background-size: cover;
-            font-family: 'Arial', sans-serif;
-        }
+		body {
+		background: url('https://thesciencesurvey.com/wp-content/uploads/2021/11/whoops-900x596.png') no-repeat center center fixed;
+		background-size: cover;
+		font-family: 'Arial', sans-serif;
+		}
 
-        .navbar {
-            background-color: red !important;
-        }
+		.navbar {
+		background-color: red !important;
+		}
 
-        .navbar-brand {
-            font-family: 'Pacifico', cursive;
-            font-size: 24px;
-            color: #fff !important;
-        }
+		.navbar-brand {
+		font-family: 'Pacifico', cursive;
+		font-size: 24px;
+		color: #fff !important;
+		}
 
-        .navbar-nav .nav-link {
-            color: #fff !important;
-            font-weight: 500;
-        }
+		.navbar-nav .nav-link {
+		color: #fff !important;
+		font-weight: 500;
+		}
 
-            .navbar-nav .nav-link:hover {
-                background-color: rgba(255, 255, 255, 0.2);
-                border-radius: 5px;
-            }
+		.navbar-nav .nav-link:hover {
+		background-color: rgba(255, 255, 255, 0.2);
+		border-radius: 5px;
+		}
 
-        footer {
-            background-color: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 15px 0;
-            text-align: center;
-        }
+		footer {
+		background-color: rgba(0, 0, 0, 0.8);
+		color: white;
+		padding: 15px 0;
+		text-align: center;
+		}
 
-            footer a {
-                color: #ffcc00;
-                text-decoration: none;
-            }
+		footer a {
+		color: #ffcc00;
+		text-decoration: none;
+		}
 
-                footer a:hover {
-                    text-decoration: underline;
-                }
+		footer a:hover {
+		text-decoration: underline;
+		}
 
-        .card-custom {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-        }
+		.card-custom {
+		background: rgba(255, 255, 255, 0.9);
+		padding: 20px;
+		border-radius: 10px;
+		box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+		}
 
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 12px 24px;
-            font-size: 16px;
-            font-weight: 600;
-            text-transform: uppercase;
-            border-radius: 8px;
-            border: none;
-            background: linear-gradient(90deg, #ff0000, #ff4d4d);
-            color: #fff;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            cursor: pointer;
-        }
+		.btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 12px 24px;
+		font-size: 16px;
+		font-weight: 600;
+		text-transform: uppercase;
+		border-radius: 8px;
+		border: none;
+		background: linear-gradient(90deg, #ff0000, #ff4d4d);
+		color: #fff;
+		transition: all 0.3s ease;
+		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+		cursor: pointer;
+		}
 
-            .btn:hover {
-                background: linear-gradient(90deg, #ff4d4d, #ff0000);
-                transform: translateY(-2px);
-                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            }
+		.btn:hover {
+		background: linear-gradient(90deg, #ff4d4d, #ff0000);
+		transform: translateY(-2px);
+		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+		}
 
-            .btn:active {
-                transform: translateY(0);
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            }
+		.btn:active {
+		transform: translateY(0);
+		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+		}
 
-            .btn i {
-                margin-right: 8px;
-            }
+		.btn i {
+		margin-right: 8px;
+		}
 
-        .btn-primary {
-            background: linear-gradient(90deg, #ff0000, #ff4d4d);
-            color: #fff;
-        }
+		.btn-primary {
+		background: linear-gradient(90deg, #ff0000, #ff4d4d);
+		color: #fff;
+		}
 
-            .btn-primary:hover {
-                background: linear-gradient(90deg, #ff4d4d, #ff0000);
-            }
+		.btn-primary:hover {
+		background: linear-gradient(90deg, #ff4d4d, #ff0000);
+		}
 
-        .btn-secondary {
-            background: linear-gradient(90deg, #333, #555);
-            color: #fff;
-        }
+		.btn-secondary {
+		background: linear-gradient(90deg, #333, #555);
+		color: #fff;
+		}
 
-            .btn-secondary:hover {
-                background: linear-gradient(90deg, #555, #333);
-            }
+		.btn-secondary:hover {
+		background: linear-gradient(90deg, #555, #333);
+		}
 
-        .btn:disabled, .btn.disabled {
-            background: #ccc;
-            color: #666;
-            cursor: not-allowed;
-            box-shadow: none;
-        }
-    </style>
+		.btn:disabled, .btn.disabled {
+		background: #ccc;
+		color: #666;
+		cursor: not-allowed;
+		box-shadow: none;
+		}
+	</style>
 </head>
 <body>
-    <div class="layout-wrapper d-flex flex-column">
-        <header>
-            @{
-                var userRole = Context.Session.GetString("UserRole");
-            }
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-                <div class="container">
-                    <a class="navbar-brand" asp-page="/Home/Index">Online Ticket Booking</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
-                            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-page="/Home/Index">Trang chủ</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-page="/Promotions/Index">Tin mới & ưu đãi</a>
-                            </li>
-                            @if (userRole == "Admin" || userRole == "Owner")
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-page="/Users/Index">Quản lý tài khoản</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-page="/Users/">Quản lý Khách Hàng</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-page="/Reports">Doanh thu</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-page="/Owner/ViewTransactionsList">Xem lịch sử giao dịch</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-page="/Movies/Manage">Quản lý danh mục phim</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-page="/Theaters/ViewTheater">Xem rạp</a>
-                                </li>
-                            }
-                            @if (userRole == "Customer")
-                            {
-                                var userId = Context.Session.GetString("UserId");
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-page="/Users/ViewBookingHistory" asp-route-userId="@userId">Vé của tôi</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-page="/Users/Profile" asp-route-id="@userId">Profile của tôi</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-page="/Theaters/ViewTheater">Xem rạp</a>
-                                </li>
-                            }
-                        </ul>
-                        <ul class="navbar-nav">
-                            @if (Context.Session.GetString("UserRole") != null)
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-page="/Users/Logout">Đăng xuất</a>
-                                </li>
-                                if (userRole == "Customer")
-                                {
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-page="/Contact">Liên hệ</a>
-                                    </li>
-                                }
-                            }
-                            else
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-page="/Users/Login">Đăng nhập</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-page="/Contact">Liên hệ</a>
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </header>
+	<div class="layout-wrapper d-flex flex-column">
+		<header>
+			@{
+				var userRole = Context.Session.GetString("UserRole");
+			}
+			<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+				<div class="container">
+					<a class="navbar-brand" asp-page="/Home/Index">Online Ticket Booking</a>
+					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+					aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+						<ul class="navbar-nav flex-grow-1">
+							@if (userRole == null || userRole == "Customer")
+							{
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-page="/Home/Index">Trang chủ</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-page="/Promotions/Index">Tin mới & ưu đãi</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-page="/Theaters/ViewTheater">Xem rạp</a>
+								</li>
+							}
+							@if (userRole == "Admin" )
+							{														
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-page="/Users/Index">Quản lý tài khoản</a>
+								</li>							
+							}
+							@if (userRole == "Customer")
+							{
+								var userId = Context.Session.GetString("UserId");
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-page="/Users/ViewBookingHistory" asp-route-userId="@userId">Vé của tôi</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-page="/Users/Profile" asp-route-id="@userId">Profile của tôi</a>
+								</li>
+							}
+							@if (userRole == "Staff" || userRole=="Owner")
+							{
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-page="/Promotions/Manage">Quản lý khuyến mãi</a>
+								</li>
+							}
+							@if (userRole=="Owner")
+							{
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-page="/Theaters/Index">Quản lý rạp</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-page="/Owner/ViewTransactionsList">Xem lịch sử giao dịch</a>
+								</li>
+							}
+						</ul>
+						<ul class="navbar-nav">
+							@if (Context.Session.GetString("UserRole") != null)
+							{
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-page="/Users/Logout">Đăng xuất</a>
+								</li>
+								if (userRole == "Customer")
+								{
+									<li class="nav-item">
+										<a class="nav-link text-dark" asp-page="/Contact">Liên hệ</a>
+									</li>
+								}
+							}
+							else
+							{
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-page="/Users/Login">Đăng nhập</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-page="/Contact">Liên hệ</a>
+								</li>
+							}
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</header>
 
-        <div class="container flex-fill">
-            <main role="main" class="pb-3">
-                @RenderBody()
-            </main>
-        </div>
+		<div class="container flex-fill">
+			<main role="main" class="pb-3">
+				@RenderBody()
+			</main>
+		</div>
 
-        <footer class="border-top footer text-muted mt-auto">
-            <div class="container">
-                © 2025 - OMTB - <a asp-page="/About">Giới thiệu</a>
-            </div>
-        </footer>
-    </div>
+		<footer class="border-top footer text-muted mt-auto">
+			<div class="container">
+				© 2025 - OMTB - <a asp-page="/About">Giới thiệu</a>
+			</div>
+		</footer>
+	</div>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

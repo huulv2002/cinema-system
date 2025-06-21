@@ -18,8 +18,8 @@ builder.Services.AddSession(options =>
 builder.Services.AddAuthentication("Cookies")
     .AddCookie("Cookies", options =>
     {
-        options.LoginPath = "/Users/Login"; // Đường dẫn đến trang đăng nhập của bạn
-        options.AccessDeniedPath = "/Users/AccessDenied"; // (tuỳ chọn)
+        options.LoginPath = "/Users/Login"; 
+        options.AccessDeniedPath = "/Home/AccessDenied"; 
     });
 builder.Services.AddHttpContextAccessor();
 
@@ -34,6 +34,9 @@ builder.Services.AddScoped<SWP391_Gr3.Repositories.IRoleRepo, SWP391_Gr3.Reposit
 
 builder.Services.AddScoped<SWP391_Gr3.Repositories.IMoviesRepository, SWP391_Gr3.Repositories.MoviesRepository>();
 builder.Services.AddScoped<SWP391_Gr3.Services.IMoviesService, SWP391_Gr3.Services.MoviesService>();
+
+builder.Services.AddScoped<SWP391_Gr3.Services.IPromotionService, SWP391_Gr3.Services.PromotionService>();
+builder.Services.AddScoped<SWP391_Gr3.Repositories.IPromotionRepository, SWP391_Gr3.Repositories.PromotionRepository>();
 // Đăng ký EmailSettings
 var emailSettings = new EmailSettings();
 builder.Configuration.GetSection("EmailSettings").Bind(emailSettings);

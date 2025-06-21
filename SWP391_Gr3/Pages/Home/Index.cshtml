@@ -7,13 +7,13 @@
     <div class="overlay"></div>
     <div class="hero-content text-center">
         <h2 class="display-4 text-white fw-bold">Chào mừng đến với OMTB</h2>
-        <!-- Movie Carousel Section -->
+      
         <section class="movie-list py-5">
             <div class="container">
                 @if (Model.Movies != null && Model.Movies.Any())
                 {
                     <div id="movieCarousel" class="carousel slide" data-bs-ride="carousel">
-                        <!-- Carousel Indicators (optional) -->
+                      
                         <div class="carousel-indicators">
                             @for (int i = 0; i < Model.Movies.Count; i++)
                             {
@@ -21,7 +21,7 @@
                             }
                         </div>
 
-                        <!-- Carousel Items -->
+                        
                         <div class="carousel-inner">
                             @for (int i = 0; i < Model.Movies.Count; i += 4)
                             {
@@ -48,7 +48,7 @@
                             }
                         </div>
 
-                        <!-- Carousel Controls -->
+                    
                         <button class="carousel-control-prev" type="button" data-bs-target="#movieCarousel" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Previous</span>
@@ -69,99 +69,6 @@
         <a href="/Movies/index" class="btn btn-warning btn-lg shadow mt-3">Xem</a>
     </div>
 </div>
-
-<style>
-    .hero-section {
-        position: relative;
-        background: url('https://learnenglishteens.britishcouncil.org/sites/teens/files/styles/section_block_landing_image/public/field/image/RS9247_GettyImages-1334662982-hig.jpg?itok=nO7pZDv9') center/cover no-repeat;
-        min-height: 400px;
-        height: auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        color: white;
-        padding: 20px;
-    }
-
-    .overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-    }
-
-    .hero-content {
-        position: relative;
-        z-index: 1;
-        max-width: 90%;
-    }
-
-        .hero-content h2 {
-            font-size: calc(1.5rem + 2vw);
-            margin-bottom: 1rem;
-        }
-
-        .hero-content p.lead {
-            font-size: calc(1rem + 1vw);
-        }
-
-    .btn-warning {
-        transition: transform 0.3s ease-in-out;
-    }
-
-        .btn-warning:hover {
-            background-color: #ffcc00;
-            transform: scale(1.05);
-        }
-
-    /* Carousel Styling */
-    .carousel-control-prev, .carousel-control-next {
-        width: 5%;
-    }
-
-    .carousel-control-prev-icon, .carousel-control-next-icon {
-        background-color: rgba(0, 0, 0, 0.5);
-        border-radius: 50%;
-        padding: 20px;
-    }
-
-    .carousel-indicators {
-        bottom: -50px;
-    }
-
-        .carousel-indicators button {
-            background-color: #888;
-            border-radius: 50%;
-            width: 10px;
-            height: 10px;
-            margin: 0 5px;
-        }
-
-        .carousel-indicators .active {
-            background-color: #ffcc00;
-        }
-
-    @@media (max-width: 768px) {
-        .hero-section {
-            min-height: 300px;
-            padding: 15px;
-        }
-
-        .hero-content h2 {
-            font-size: calc(1.2rem + 1.5vw);
-        }
-
-        .hero-content p.lead {
-            font-size: calc(0.9rem + 0.8vw);
-        }
-    }
-
-    @@media (max-width: 576px) {
-        .hero-section {
-            min-height: 250px;
-        }
-    }
-</style>
+@section Styles {
+    <link rel="stylesheet" href="~/css/home_index.css" asp-append-version="true" />
+}

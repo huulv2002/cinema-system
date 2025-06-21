@@ -3,7 +3,9 @@
 @{
     ViewData["Title"] = "Tin Mới Và Ưu Đãi";
 }
-
+@{
+    var userRole = HttpContext.Session.GetString("UserRole");
+}
 <h2 class="promo-title">TIN MỚI VÀ ƯU ĐÃI</h2>
 <div class="promo-filter-bar">
     <span class="promo-filter active">Xem tất cả</span>
@@ -32,6 +34,7 @@
         </a>
     }
 </div>
+
 
 <style>
     body {
