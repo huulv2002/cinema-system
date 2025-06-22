@@ -1,0 +1,40 @@
+﻿@page
+@model SWP391_Gr3.Pages.ManagerProducts.IndexModel
+@{
+    ViewData["Title"] = "Quản lý sản phẩm";
+}
+
+<div style="background-color: white; padding: 20px; border-radius: 6px;">
+    <h2>Quản lý món ăn / đồ uống</h2>
+
+    <a asp-page="Create" class="btn btn-primary mb-3">+ Thêm món mới</a>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Tên</th>
+                <th>Size</th>
+                <th>Giá (VNĐ)</th>
+                <th>Tồn kho</th>
+                <th>Loại</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Products)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Size</td>
+                    <td>@item.Price.ToString("N0") ₫</td>
+                    <td>@item.Stock</td>
+                    <td>@item.ProductCategory?.Name</td>
+                    <td>
+                        <a asp-page="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Sửa</a>
+                        <a asp-page="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Xóa</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div> 

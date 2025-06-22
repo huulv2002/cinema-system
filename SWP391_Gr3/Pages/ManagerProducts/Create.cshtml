@@ -1,0 +1,63 @@
+﻿@page
+@model SWP391_Gr3.Pages.ManagerProducts.CreateModel
+@{
+    ViewData["Title"] = "Thêm sản phẩm";
+}
+
+<div style="background:white; padding:20px; border-radius:8px;">
+    <h2>Thêm sản phẩm mới</h2>
+
+    <form method="post" enctype="multipart/form-data">
+        <div class="mb-2">
+            <label asp-for="Product.Name" class="form-label"></label>
+            <input asp-for="Product.Name" class="form-control" />
+            <span asp-validation-for="Product.Name" class="text-danger"></span>
+        </div>
+
+        <div class="mb-2">
+            <label asp-for="Product.Size" class="form-label"></label>
+            <input asp-for="Product.Size" class="form-control" />
+            <span asp-validation-for="Product.Size" class="text-danger"></span>
+        </div>
+
+        <div class="mb-2">
+            <label asp-for="Product.Price" class="form-label"></label>
+            <input asp-for="Product.Price" class="form-control" />
+            <span asp-validation-for="Product.Price" class="text-danger"></span>
+        </div>
+
+        <div class="mb-2">
+            <label asp-for="Product.Stock" class="form-label"></label>
+            <input asp-for="Product.Stock" class="form-control" />
+            <span asp-validation-for="Product.Stock" class="text-danger"></span>
+        </div>
+
+        <div class="mb-2">
+            <label asp-for="Product.Description" class="form-label"></label>
+            <textarea asp-for="Product.Description" class="form-control"></textarea>
+            <span asp-validation-for="Product.Description" class="text-danger"></span>
+        </div>
+
+        <div class="mb-2">
+            <label>Ảnh sản phẩm</label>
+            <input type="file" accept="image/*" asp-for="ImageFile" class="form-control" />
+            <span asp-validation-for="ImageFile" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Product.ProductCategoryId" class="form-label"></label>
+            <select asp-for="Product.ProductCategoryId" class="form-control"
+                    asp-items="@(new SelectList(Model.Categories, "Id", "Name"))">
+                <option value="">-- Chọn danh mục --</option>
+            </select>
+            <span asp-validation-for="Product.ProductCategoryId" class="text-danger"></span>
+        </div>
+        
+        <button type="submit" class="btn btn-success">Thêm sản phẩm</button>
+        <a asp-page="Index" class="btn btn-secondary">Quay lại</a>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

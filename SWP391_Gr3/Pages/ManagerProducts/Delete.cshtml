@@ -1,0 +1,47 @@
+﻿@page
+@model SWP391_Gr3.Pages.ManagerProducts.DeleteModel
+@{
+    ViewData["Title"] = "Xóa sản phẩm";
+}
+
+<h2>Xác nhận xóa sản phẩm</h2>
+
+<div class="border p-3 rounded bg-light">
+    <dl class="row">
+        <dt class="col-sm-3">Tên sản phẩm</dt>
+        <dd class="col-sm-9">@Model.Product.Name</dd>
+
+        <dt class="col-sm-3">Kích cỡ</dt>
+        <dd class="col-sm-9">@Model.Product.Size</dd>
+
+        <dt class="col-sm-3">Giá</dt>
+        <dd class="col-sm-9">@Model.Product.Price.ToString("N0") ₫</dd>
+
+        <dt class="col-sm-3">Kho</dt>
+        <dd class="col-sm-9">@Model.Product.Stock</dd>
+
+        <dt class="col-sm-3">Mô tả</dt>
+        <dd class="col-sm-9">@Model.Product.Description</dd>
+
+        <dt class="col-sm-3">Danh mục</dt>
+        <dd class="col-sm-9">@Model.Product.ProductCategory?.Name</dd>
+
+        <dt class="col-sm-3">Ảnh</dt>
+        <dd class="col-sm-9">
+            @if (!string.IsNullOrEmpty(Model.Product.ImageUrl))
+            {
+                <img src="@Model.Product.ImageUrl" style="height: 120px;" />
+            }
+            else
+            {
+                <span>Không có ảnh</span>
+            }
+        </dd>
+    </dl>
+
+    <form method="post">
+        <input type="hidden" asp-for="Product.Id" />
+        <button type="submit" class="btn btn-danger">Xác nhận xóa</button>
+        <a asp-page="Index" class="btn btn-secondary">Hủy</a>
+    </form>
+</div>
