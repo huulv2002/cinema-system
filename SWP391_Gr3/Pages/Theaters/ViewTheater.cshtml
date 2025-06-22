@@ -1,106 +1,156 @@
 ﻿@page
 @model SWP391_Gr3.Pages.Theaters.ViewTheaterModel
 @{
-    ViewData["Title"] = "Danh sách rạp";
+    ViewData["Title"] = "Chọn rạp theo khu vực";
 }
 
-<div class="manage-theaters-container">
-    <h2>Danh sách rạp</h2>
+<div class="location-container">
+    <h2 class="text-center">CHỌN RẠP THEO KHU VỰC</h2>
 
-    @if (Model.Theaters == null || Model.Theaters.Count == 0)
+    <div class="location-list">
+        @foreach (var location in Model.Locations)
+        {
+            <button class="location-btn" onclick="toggleLocation('@location')">@location</button>
+        }
+    </div>
+
+    @foreach (var city in Model.CityTheaterMap)
     {
-        <p>Không có rạp nào để hiển thị.</p>
-    }
-    else
-    {
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Tên rạp</th>
-                    <th>Vị trí</th>
-                    @if (Model.UserRole == "Admin" || Model.UserRole == "Owner")
+        <div id="location-@city.Key" class="theater-list" style="display: none;">
+            @foreach (var theater in city.Value)
+            {
+                <div class="theater-block">
+                    <h4 class="theater-name">@theater.Name</h4>
+
+                    @if (Model.ShowtimesByTheater.TryGetValue(theater.Id, out var movieGroups))
                     {
-                        <th>Trạng thái</th>
-                    }
-                    @if (Model.UserRole == "Customer" || Model.UserRole == null)
-                    {
-                        <th>Hành động</th>
-                    }
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var theater in Model.Theaters)
-                {
-                    <tr>
-                        <td>@theater.Name</td>
-                        <td>@theater.Location</td>
-                        @if (Model.UserRole == "Admin" || Model.UserRole == "Owner")
+                        @foreach (var movieGroup in movieGroups)
                         {
-                            <td>@(theater.IsActive == true ? "Hoạt động" : "Không hoạt động")</td>
+                            <div class="movie-block">
+                                <div class="movie-header">
+                                    <img src="@movieGroup.Key.Images.FirstOrDefault()?.Url ?? " /images/no-image.png"" alt="Poster" class="movie-poster" />
+                                    <div>
+                                        <strong>@movieGroup.Key.Title</strong>
+                                        <div class="desc">@movieGroup.Key.Description</div>
+                                    </div>
+                                </div>
+                                <div class="showtime-list">
+                                    @foreach (var showtime in movieGroup.OrderBy(s => s.StartTime))
+                                    {
+                                        <a href="/Theaters/Seat?roomId=@showtime.RoomId&showtimeId=@showtime.Id" class="showtime-btn">
+                                            @showtime.StartTime?.ToString("HH:mm")
+                                        </a>
+                                    }
+                                </div>
+                            </div>
                         }
-                        @if (Model.UserRole == "Customer" || Model.UserRole == null)
-                        {
-                            <td>
-                                <a href="/Theaters/Room?theaterId=@theater.Id" class="btn btn-primary">Chọn rạp</a>
-                            </td>
-                        }
-                    </tr>
-                }
-            </tbody>
-        </table>
+                    }
+                </div>
+            }
+        </div>
     }
 </div>
 
 <style>
-    .manage-theaters-container {
-        max-width: 1200px;
+    .location-container {
+        max-width: 1000px;
         margin: 50px auto;
         padding: 30px;
-        background: #343a40;
+        background: #1b1b1b;
         color: white;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         border-radius: 10px;
     }
 
-    .table {
-        color: white;
-        background-color: #495057;
+    .location-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        justify-content: center;
+        margin-bottom: 30px;
     }
 
-        .table th, .table td {
-            border-color: #6c757d;
+    .location-btn {
+        background-color: transparent;
+        border: none;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+
+        .location-btn:hover {
+            color: #ff2e00;
+            text-decoration: underline;
         }
 
-        .table thead th {
-            background-color: #212529;
+    .theater-list {
+        margin-bottom: 40px;
+    }
+
+    .theater-block {
+        margin-bottom: 40px;
+        border-bottom: 1px solid gray;
+        padding-bottom: 20px;
+    }
+
+    .theater-name {
+        font-size: 20px;
+        color: yellow;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .movie-block {
+        margin-bottom: 20px;
+    }
+
+    .movie-header {
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+        margin-bottom: 10px;
+    }
+
+    .movie-poster {
+        width: 80px;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
+
+    .desc {
+        font-size: 14px;
+        color: #ccc;
+    }
+
+    .showtime-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .showtime-btn {
+        background-color: #fff;
+        color: #222;
+        padding: 6px 12px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: 0.2s;
+    }
+
+        .showtime-btn:hover {
+            background-color: #ff2e00;
             color: white;
         }
-
-    label {
-        color: white;
-    }
-
-    .btn-info {
-        background-color: #17a2b8;
-        border-color: #17a2b8;
-        color: white;
-    }
-
-    .btn-warning {
-        background-color: #ffc107;
-        border-color: #ffc107;
-        color: black;
-    }
-
-    .btn-danger {
-        background-color: #dc3545;
-        border-color: #dc3545;
-        color: white;
-    }
-
-    .btn-primary {
-        background-color: #007bff;
-        border-color: #007bff;
-        color: white;
-    }
 </style>
+
+<script>
+    function toggleLocation(location) {
+        document.querySelectorAll('.theater-list').forEach(el => el.style.display = 'none');
+        const target = document.getElementById('location-' + location);
+        if (target) {
+            target.style.display = 'block';
+        }
+    }
+</script>
