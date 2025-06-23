@@ -5,6 +5,8 @@ namespace SWP391_Gr3.Services
 {
     public interface IPromotionService
     {
+        Task<bool> DeleteAsync(int id);
+        Task<bool> ToggleUserActiveStatusAsync(int Id);
         Task<IEnumerable<Promotion>> ListAllPromotionAsync();
         Task<bool> CreatePromotionAsync(PromotionViewModel promotion);
         Task<IEnumerable<PromotionType>> ListAllPromotionTypeAsync();

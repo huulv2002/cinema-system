@@ -13,7 +13,7 @@ public partial class Promotion
 
     public decimal? Value { get; set; }
 
-    public bool? IsActive { get; set; }
+    public bool IsActive { get; set; }
 
     public int? Stock { get; set; }
 

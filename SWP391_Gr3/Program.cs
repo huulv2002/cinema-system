@@ -37,6 +37,9 @@ builder.Services.AddScoped<SWP391_Gr3.Services.IMoviesService, SWP391_Gr3.Servic
 
 builder.Services.AddScoped<SWP391_Gr3.Services.IPromotionService, SWP391_Gr3.Services.PromotionService>();
 builder.Services.AddScoped<SWP391_Gr3.Repositories.IPromotionRepository, SWP391_Gr3.Repositories.PromotionRepository>();
+
+builder.Services.AddScoped<SWP391_Gr3.Repositories.ITheatersRepository, SWP391_Gr3.Repositories.TheatersRepository>();
+builder.Services.AddScoped<SWP391_Gr3.Services.ITheatersService, SWP391_Gr3.Services.TheatersService>();
 // Đăng ký EmailSettings
 var emailSettings = new EmailSettings();
 builder.Configuration.GetSection("EmailSettings").Bind(emailSettings);

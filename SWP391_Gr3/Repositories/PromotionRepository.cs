@@ -26,7 +26,7 @@ namespace SWP391_Gr3.Repositories
         public async Task<bool> DeletePromotionAsync(int id)
         {
             var promotion = await _context.Promotions.FindAsync(id);
-            if (promotion == null)
+            if (promotion != null)
             {
                 _context.Promotions.Remove(promotion);
                 return await _context.SaveChangesAsync() > 0;
@@ -47,6 +47,25 @@ namespace SWP391_Gr3.Repositories
         public async Task<IEnumerable<PromotionType>> ListAllPromotionTypeAsync()
         {
             return await _context.PromotionTypes.ToListAsync();
+        }
+
+        public async Task<bool> ToggleUserActiveStatusAsync(int Id)
+        {
+            var date = DateTime.Now;
+
+            var pro = await _context.Promotions.FindAsync(Id);
+            if (pro == null)
+            {
+                return false;
+            }
+            DateTime? exdate = pro.EndDate;
+            if (date > exdate)
+            {
+                pro.IsActive = false;
+                return await _context.SaveChangesAsync() > 0;
+            }
+            pro.IsActive = !pro.IsActive;
+            return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<bool> UpdatePromotionAsync(Promotion promotion)

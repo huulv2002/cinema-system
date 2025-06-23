@@ -1,0 +1,23 @@
+﻿@page
+@model SWP391_Gr3.Pages.Theaters.CreateRoomModel
+@{
+    ViewData["Title"] = "Tạo rạp mới";
+}
+<div class="form-container">
+    <h2 style="color:whitesmoke">Tạo phòng mới</h2>
+    <form method="post">
+        <div class="form-group">
+            <label asp-for="Room.Code" style="color:white">Code phòng</label>
+            <input asp-for="Room.Code" class="form-control" required />
+            <span asp-validation-for="Room.Code" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-warning mt-2">Tạo mới</button>
+        <a asp-page="Index" class="btn btn-secondary mt-2">Quay lại</a>
+    </form>
+</div>
+@section Styles {
+    <link rel="stylesheet" href="~/css/create-styles.css" asp-append-version="true" />
+}
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

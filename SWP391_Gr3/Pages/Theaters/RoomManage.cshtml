@@ -1,0 +1,48 @@
+﻿@page
+@model SWP391_Gr3.Pages.Theaters.RoomManageModel
+@{
+	ViewData["Title"] = "Quản lý phòng";
+}
+
+
+<div class="form-container">
+	<h2 style="color:red">Quản lý phòng phim - rạp: @Model.TheaterName</h2>
+	<h3 style="color:white">Danh sách phòng</h3>
+	<a asp-page="/Theaters/CreateRoom" asp-route-Id="@Model.TheaterId" class="btn btn-warning">Tạo mới</a>
+	@if (Model.Rooms.Any())
+	{
+		<table>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Room Code</th>
+					<th>Theater</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var room in Model.Rooms)
+				{
+					<tr>
+						<td>@room.Id</td>
+						<td>@room.Code</td>
+						<td>@room.Theater.Name</td>
+					</tr>
+				}
+			</tbody>
+
+		</table>
+
+	}
+	else
+	{
+		<h2 class="empty-message">Không có phòng nào</h2>
+	}
+	<br />
+	<a asp-page="/Theaters/Index" class="btn btn-warning">Quay lại</a>
+	<br />
+
+</div>
+
+@section Styles {
+	<link rel="stylesheet" href="~/css/room-manage.css" asp-append-version="true" />
+}

@@ -29,6 +29,11 @@ namespace SWP391_Gr3.Services
             return await _repo.AddPromotionAsync(pro);
         }
 
+        public async Task<bool> DeleteAsync(int id)
+        {
+            return await _repo.DeletePromotionAsync(id);
+        }
+
         public async Task<IEnumerable<Promotion>> ListAllPromotionAsync()
         {
             return await _repo.ListAllPromotionAsync();
@@ -37,6 +42,11 @@ namespace SWP391_Gr3.Services
         public async Task<IEnumerable<PromotionType>> ListAllPromotionTypeAsync()
         {
            return await _repo.ListAllPromotionTypeAsync();
+        }
+
+        public async Task<bool> ToggleUserActiveStatusAsync(int Id)
+        {
+            return await _repo.ToggleUserActiveStatusAsync(Id);
         }
     }
 
