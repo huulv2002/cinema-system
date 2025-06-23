@@ -42,7 +42,7 @@
                         <td>@promotion.Code</td>
                         <td>@promotion.PromotionType?.Title</td>
                         <td>@promotion.Value</td>
-                        <td>@(promotion.IsActive ? "Active" : "Inactive")</td>
+                        <td>@(promotion.IsActive == true ? "Active" : "Inactive")</td>
                         <td>@promotion.Stock</td>
                         <td>@promotion.Description</td>
                         <td>@promotion.StartDate</td>
@@ -50,11 +50,11 @@
                         <td>
                             <a asp-page="/Promotions/Create" class="btn btn-warning">Tạo mới</a>
                             <a href="/Promotion/Delete/@promotion.Id" class="btn btn-sm btn-danger">Delete</a>
-                            @if (userRole=="Owner")
+                            @if (userRole == "Owner")
                             {
                                 <form asp-page-handler="ToggleActive" asp-route-id="@promotion.Id" method="post" style="display:inline;">
                                     <button type="submit" class="btn btn-primary">
-                                        @(promotion.IsActive ? "Khóa" : "Kích hoạt")
+                                        @(promotion.IsActive == true ? "Khóa" : "Kích hoạt")
                                     </button>
                                 </form>
                             }

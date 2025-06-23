@@ -7,21 +7,18 @@
     <div class="overlay"></div>
     <div class="hero-content text-center">
         <h2 class="display-4 text-white fw-bold">Chào mừng đến với OMTB</h2>
-      
+
         <section class="movie-list py-5">
             <div class="container">
                 @if (Model.Movies != null && Model.Movies.Any())
                 {
                     <div id="movieCarousel" class="carousel slide" data-bs-ride="carousel">
-                      
                         <div class="carousel-indicators">
                             @for (int i = 0; i < Model.Movies.Count; i++)
                             {
                                 <button type="button" data-bs-target="#movieCarousel" data-bs-slide-to="@i" class="@(i == 0 ? "active" : "")" aria-current="@(i == 0 ? "true" : "false")" aria-label="Slide @(i + 1)"></button>
                             }
                         </div>
-
-                        
                         <div class="carousel-inner">
                             @for (int i = 0; i < Model.Movies.Count; i += 4)
                             {
@@ -47,8 +44,6 @@
                                 </div>
                             }
                         </div>
-
-                    
                         <button class="carousel-control-prev" type="button" data-bs-target="#movieCarousel" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Previous</span>
@@ -69,6 +64,61 @@
         <a href="/Movies/index" class="btn btn-warning btn-lg shadow mt-3">Xem</a>
     </div>
 </div>
+<hr style="margin: 0; border-top: 2px solid #eee;">
+
+<section class="movie-review-section py-5" style="background-color: #fff;">
+    <div class="container">
+        <h3 class="mb-4">Bình luận phim mới nhất</h3>
+        @if (Model.TopReviews != null && Model.TopReviews.Any())
+        {
+            <div class="row">
+                <div class="col-md-7">
+                    @{
+                        var mainReview = Model.TopReviews.First();
+                    }
+                    <a href="/MovieReviews/Detail/@mainReview.Id" style="text-decoration:none; color:inherit;">
+                        <div class="card mb-3">
+                            <img src="@mainReview.ImageUrl" class="card-img-top" style="height:350px;object-fit:cover;" alt="@mainReview.Title" />
+                            <div class="card-body">
+                                <h5 class="card-title">[Review] @mainReview.Title</h5>
+                                <div>
+                                    <span class="btn btn-primary btn-sm">Thích</span>
+                                    <span><i class="bi bi-eye"></i> @mainReview.Views</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-5">
+                    @foreach (var review in Model.TopReviews.Skip(1))
+                    {
+                        <a href="/MovieReviews/Detail/@review.Id" style="text-decoration:none; color:inherit;">
+                            <div class="d-flex mb-3">
+                                <img src="@review.ImageUrl" style="width:100px;height:70px;object-fit:cover;" alt="@review.Title" />
+                                <div class="ms-2">
+                                    <strong>[Review] @review.Title</strong>
+                                    <div>
+                                        <span class="btn btn-primary btn-sm">Thích</span>
+                                        <span><i class="bi bi-eye"></i> @review.Views</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    }
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <a href="/MovieReviews" class="btn btn-outline-warning">Xem thêm</a>
+            </div>
+        }
+        else
+        {
+            <p>Chưa có bình luận phim nào.</p>
+        }
+    </div>
+</section>
+
 @section Styles {
     <link rel="stylesheet" href="~/css/home_index.css" asp-append-version="true" />
 }
+

@@ -9,11 +9,11 @@ public partial class Promotion
 
     public string? Code { get; set; }
 
-    public int PromotionTypeId { get; set; }
+    public int? PromotionTypeId { get; set; }
 
     public decimal? Value { get; set; }
 
-    public bool IsActive { get; set; }
+    public bool? IsActive { get; set; }
 
     public int? Stock { get; set; }
 
