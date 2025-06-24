@@ -72,9 +72,10 @@ h2 {
     }
 
 .validation-message {
-    color: #ffcccc;
-    font-size: 0.9rem;
-    margin-top: 5px;
+    color: white;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    display: block;
 }
 
 @media (max-width: 768px) {

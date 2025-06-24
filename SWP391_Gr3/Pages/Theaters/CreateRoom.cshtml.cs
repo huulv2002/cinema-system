@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using SWP391_Gr3.Autho;
 using SWP391_Gr3.Models;
 using SWP391_Gr3.Services;
 using SWP391_Gr3.ViewModels;
 
 namespace SWP391_Gr3.Pages.Theaters
 {
+    [AuthorizeRole("Owner")]
     public class CreateRoomModel : PageModel
     {
         private readonly ITheatersService _theatersService;
