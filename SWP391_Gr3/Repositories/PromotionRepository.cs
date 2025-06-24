@@ -18,9 +18,10 @@ namespace SWP391_Gr3.Repositories
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<bool> AddPromotionTypeAsync(Promotion promotion)
+        public async Task<bool> AddPromotionTypeAsync(PromotionType promotiontype)
         {
-            throw new NotImplementedException();
+            await _context.PromotionTypes.AddAsync(promotiontype);
+            return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<bool> DeletePromotionAsync(int id)
@@ -34,9 +35,14 @@ namespace SWP391_Gr3.Repositories
             return false;
         }
 
-        public Task<Promotion> GetPromotionByIdAsync(int id)
+        public async Task<Promotion> GetPromotionByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var pro= await _context.Promotions.FindAsync(id);
+            if(pro == null)
+            {
+                throw new NotImplementedException();               
+            }
+            return pro;
         }
 
         public async Task<IEnumerable<Promotion>> ListAllPromotionAsync()
@@ -74,9 +80,10 @@ namespace SWP391_Gr3.Repositories
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<bool> UpdatePromotionTypeAsync(Promotion promotion)
+        public async Task<bool> UpdatePromotionTypeAsync(PromotionType promotion)
         {
-            throw new NotImplementedException();
+            _context.PromotionTypes.Update(promotion);
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }

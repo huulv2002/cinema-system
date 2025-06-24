@@ -10,5 +10,7 @@ namespace SWP391_Gr3.Services
         Task<IEnumerable<Promotion>> ListAllPromotionAsync();
         Task<bool> CreatePromotionAsync(PromotionViewModel promotion);
         Task<IEnumerable<PromotionType>> ListAllPromotionTypeAsync();
+        Task<bool> CreatePromotionTypeAsync(PromotionType promotion);
+        Task<bool> UpdatePromotionAsync(PromotionViewModel promotion);
     }
 }

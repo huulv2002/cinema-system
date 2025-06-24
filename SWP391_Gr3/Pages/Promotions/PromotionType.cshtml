@@ -1,0 +1,49 @@
+﻿@page
+@model SWP391_Gr3.Pages.Promotions.PromotionTypeModel
+@{
+    ViewData["Title"] = "Quản lý tin mới & khuyến mãi";
+}
+
+<h2 style="color:white">Quản lý loại khuyến mại khả dụng</h2>
+
+<div class="form-container mt-4">
+    <div class="mb-3">
+        <a asp-page="/Promotions/CreatePromotionType" class="btn btn-primary">Tạo mới loại khuyến mại</a>
+    </div>
+    @if (Model.PromotionTypes.Any())
+    {
+        <table class="table table-striped table-bordered text-white">
+            <thead class="bg-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Tiêu đề</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var type in Model.PromotionTypes)
+                {
+                    <tr>
+                        <td style="color:white">@type.Id</td>
+                        <td style="color:white">@type.Title</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="text-white">Không có loại khuyến mại nào.</p>
+    }
+</div>
+<style>
+    .form-container{
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+</style>

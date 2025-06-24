@@ -1,91 +1,94 @@
 ﻿@page
 @model SWP391_Gr3.Pages.Promotions.ManageModel
 @{
-    ViewData["Title"] = "Quản lý tin mới & khuyến mãi";
+	ViewData["Title"] = "Quản lý tin mới & khuyến mãi";
 }
 
-
-
 @{
-    var userRole = HttpContext.Session.GetString("UserRole");
+	var userRole = HttpContext.Session.GetString("UserRole");
 }
 @if (TempData["Message"] != null)
 {
-    <div style="text-align:center" class="alert-success">@TempData["Message"]</div>
+	<div style="text-align:center" class="alert-success">@TempData["Message"]</div>
 }
 <div class="form-container">
-    <h2>Trình quản lý tin mới & khuyến mại</h2>
-    <form method="get" class="mb-4" id="searchForm">
-        <div class="input-group">
-            <input type="text" class="form-control" id="proIdInput" name="proId" placeholder="Search by Promotion ID" value="@Model.SearchUserId">
-            <button class="btn btn-primary" type="submit">Search</button>
-        </div>
-    </form>
-    <br />
-    <a asp-page="/Promotions/Create" class="btn btn-warning">Tạo mới</a>
-    <br />
-    @if (Model.FilteredPro.Any())
-    {
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Code</th>
-                    <th>Promotion Title</th>
-                    <th>Discount</th>
-                    <th>Status</th>
-                    <th>Tồn kho</th>
-                    <th>Descriptions</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var promotion in Model.FilteredPro)
-                {
-                    <tr>
-                        <td>@promotion.Id</td>
-                        <td>@promotion.Code</td>
-                        <td>@promotion.PromotionType?.Title</td>
-                        <td>@promotion.Value</td>
-                        <td>@(promotion.IsActive ? "Active" : "Inactive")</td>
-                        <td>@promotion.Stock</td>
-                        <td>@promotion.Description</td>
-                        <td>@promotion.StartDate</td>
-                        <td>@promotion.EndDate</td>
-                        <td>
+	<h2>Trình quản lý tin mới & khuyến mại</h2>
+	<form method="get" class="mb-4" id="searchForm">
+		<div class="input-group mb-3">
+			<input type="text" class="form-control" id="proIdInput" name="proId" placeholder="Search by Promotion ID" value="@Model.SearchUserId">
+			<button class="btn btn-primary" type="submit">Search</button>
+		</div>
+		@if (userRole == "Owner")
+		{
+			<a asp-page="/Promotions/PromotionType" class="btn btn-warning">Loại khuyến mại</a>
+		}
+	</form>
+
+	<a asp-page="/Promotions/Create" class="btn btn-warning">Tạo mới</a><br />
+
+	<br />    @if (Model.FilteredPro.Any())
+	{
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Code</th>
+					<th>Promotion Title</th>
+					<th>Discount</th>
+					<th>Status</th>
+					<th>Tồn kho</th>
+					<th>Descriptions</th>
+					<th>Start Date</th>
+					<th>End Date</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var promotion in Model.FilteredPro)
+				{
+					<tr>
+						<td>@promotion.Id</td>
+						<td>@promotion.Code</td>
+						<td>@promotion.PromotionType?.Title</td>
+						<td>@promotion.Value</td>
+						<td>@(promotion.IsActive ? "Active" : "Inactive")</td>
+						<td>@promotion.Stock</td>
+						<td>@promotion.Description</td>
+						<td>@promotion.StartDate</td>
+						<td>@promotion.EndDate</td>
+						<td>
 
 
-                            <form asp-page-handler="Delete" asp-route-id="@promotion.Id" method="post" style="display:inline;">
-                                <button type="submit" class="btn btn-primary">
-                                    <div>Delete</div>
-                                </button>
-                            </form>
+							<form asp-page-handler="Delete" asp-route-id="@promotion.Id" method="post" style="display:inline;">
+								<button type="submit" class="btn btn-primary">
+									<div>Delete</div>
+								</button>
+							</form>
+							<a asp-page="/Promotions/PromotionUpdate" asp-route-id="@promotion.Id" class="btn btn-warning">Update</a>
 
-                            @if (userRole == "Owner")
-                            {
-                                <form asp-page-handler="ToggleActive" asp-route-id="@promotion.Id" method="post" style="display:inline;">
-                                    <button type="submit" class="btn btn-primary">
-                                        @(promotion.IsActive ? "Khóa" : "Kích hoạt")
-                                    </button>
-                                </form>
-                            }
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    }
-    else
-    {
-        <p class="no-data">No promotions found.</p>
-    }
+							@if (userRole == "Owner")
+							{
+								<form asp-page-handler="ToggleActive" asp-route-id="@promotion.Id" method="post" style="display:inline;">
+									<button type="submit" class="btn btn-primary">
+										@(promotion.IsActive ? "Khóa" : "Kích hoạt")
+									</button>
+								</form>
+							}
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	}
+	else
+	{
+		<p class="no-data">No promotions found.</p>
+	}
 </div>
 
 @section Scripts {
-    <script src="~/js/promotion_manage.js"></script>
+	<script src="~/js/promotion_manage.js"></script>
 }
 @section Styles {
-    <link rel="stylesheet" href="~/css/Promotion_manage.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/css/Promotion_manage.css" asp-append-version="true" />
 }

@@ -1,0 +1,60 @@
+﻿.contact-container {
+    padding: 40px 0;
+    background: linear-gradient(120deg, #f0f8ff, #e6e6fa);
+    border-radius: 10px;
+}
+
+.card {
+    border: none;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.card-title {
+    color: #1b6ec2;
+    font-weight: bold;
+}
+
+.form-control {
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    padding: 10px;
+}
+
+    .form-control:focus {
+        border-color: #1b6ec2;
+        box-shadow: 0 0 5px rgba(27, 110, 194, 0.3);
+    }
+
+.btn-primary {
+    background-color: #1b6ec2;
+    border-color: #1b6ec2;
+    padding: 10px;
+    font-weight: 600;
+}
+
+    .btn-primary:hover {
+        background-color: #155a99;
+        border-color: #155a99;
+    }
+
+.map-container {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.list-unstyled i {
+    color: #1b6ec2;
+    width: 20px;
+}
+
+@media (max-width: 768px) {
+    .contact-container {
+        padding: 20px;
+    }
+
+    .card {
+        margin-bottom: 20px;
+    }
+}
