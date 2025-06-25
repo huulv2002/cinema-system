@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace SWP391_Gr3.Models;
 
@@ -20,8 +21,7 @@ public partial class MovieReview
     public int Likes { get; set; }
 
     public int Views { get; set; }
-
+    [Required]
     public int MovieId { get; set; }
-
-    public virtual Movie Movie { get; set; } = null!;
+    public virtual Movie? Movie { get; set; }
 }

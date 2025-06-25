@@ -1,38 +1,54 @@
 ﻿@page "{id:int}"
 @model SWP391_Gr3.Pages.MovieReviews.DetailModel
 @{
-    ViewData["Title"] = "[Review] " + Model.MovieReview?.Title;
+    var review = Model.MovieReview;
+    ViewData["Title"] = review != null ? "[Review] " + review.Title : "Chi tiết Review";
 }
+
 <div class="container py-4" style="background: #fff;">
-    @if (Model.MovieReview != null)
+    @if (review != null)
     {
-        <h2 class="fw-bold mb-3">[Review] @Model.MovieReview.Title</h2>
+        <h2 class="fw-bold mb-3">[Review] @review.Title</h2>
+
         <div class="mb-2 text-muted">
-            <span><i class="bi bi-eye"></i> @Model.MovieReview.Views</span>
-            <span class="ms-3"><i class="bi bi-hand-thumbs-up"></i> @Model.MovieReview.Likes</span>
-            <span class="ms-3">@Model.MovieReview.PublishedDate.ToString("dd/MM/yyyy")</span>
+            <span><i class="bi bi-eye"></i> @review.Views</span>
+            <span class="ms-3"><i class="bi bi-hand-thumbs-up"></i> @review.Likes</span>
+            <span class="ms-3">@review.PublishedDate.ToString("dd/MM/yyyy")</span>
         </div>
-        <div class="mb-3">
-            @if (!string.IsNullOrEmpty(Model.MovieReview.ImageUrl))
-            {
-                <img src="@Model.MovieReview.ImageUrl" alt="@Model.MovieReview.Title" class="img-fluid" style="max-height:400px;object-fit:cover;" />
-            }
-        </div>
-        <div class="mb-4" style="font-size:1.1rem;line-height:1.7;">
+
+        @if (!string.IsNullOrWhiteSpace(review.ImageUrl))
+        {
+            <div class="mb-3">
+                <img src="@review.ImageUrl" alt="@review.Title" class="img-fluid" style="max-height:400px; object-fit:cover;" />
+            </div>
+        }
+
+        <div class="mb-4" style="font-size:1.1rem; line-height:1.7;">
             @{
-                // Nếu content là plain text, chia đoạn theo dấu xuống dòng
-                var paragraphs = (Model.MovieReview.Content ?? "")
+                var paragraphs = (review.Content ?? "")
                 .Replace("\r\n", "\n")
                 .Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
                 foreach (var p in paragraphs)
                 {
                     <p>@Html.Raw(p.Trim())</p>
                 }
             }
         </div>
+
+        @if (review.Movie != null)
+        {
+            <div class="mb-3">
+                <a asp-page="/Movies/Detail" asp-route-id="@review.Movie.Id" class="btn btn-outline-primary">
+                    Xem thông tin phim: @review.Movie.Title
+                </a>
+            </div>
+        }
     }
     else
     {
-        <div class="alert alert-warning">Không tìm thấy bài review này.</div>
+        <div class="alert alert-warning">
+            Không tìm thấy bài review này.
+        </div>
     }
 </div>

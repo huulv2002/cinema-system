@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using SWP391_Gr3.Models;
@@ -67,41 +67,54 @@ namespace SWP391_Gr3.Pages.Foods
                 .Include(s => s.Movie)
                 .FirstOrDefaultAsync(s => s.Id == ShowtimeId);
 
-            string movieTitle = showtime?.Movie?.Title ?? "Kh�ng x�c ??nh";
+            string movieTitle = showtime?.Movie?.Title ?? "Không xác định";
             string showTimeStr = showtime?.StartTime != null
                 ? showtime.StartTime.Value.ToString("HH:mm dd/MM/yyyy")
-                : "Kh�ng x�c ??nh";
+                : "Không xác định";
 
             var selectedFoods = await _context.Products
                 .Where(p => SelectedFoodIds.Contains(p.Id))
-                .Select(p => p.Name)
+                .Select(p => new { p.Name, p.Price })
                 .ToListAsync();
 
             var selectedCombos = await _context.Combos
                 .Where(c => SelectedComboIds.Contains(c.Id))
-                .Select(c => c.Title)
+                .Select(c => new { c.Title, c.Price })
                 .ToListAsync();
 
-            var subject = "X�c nh?n ??t ?? ?n t?i r?p phim";
-            var body = $"<b>B?n ?� ??t th�nh c�ng c�c m�n sau cho phim:</b><br/>" +
-                       $"<b>Phim:</b> {movieTitle}<br/>" +
-                       $"<b>Gi? chi?u:</b> {showTimeStr}<br/><br/>";
+            decimal totalPrice = selectedFoods.Sum(f => f.Price ?? 0) + selectedCombos.Sum(c => c.Price ?? 0);
+
+            var subject = "Xác nhận đặt đồ ăn tại rạp phim";
+            var body = $"<b>Bạn đã đặt thành công các món sau cho phim:</b><br/>" +
+           $"<b>Phim:</b> {movieTitle}<br/>" +
+           $"<b>Giờ chiếu:</b> {showTimeStr}<br/><br/>";
+
             if (selectedFoods.Any())
             {
-                body += "<b>?? ?n ri�ng:</b><br/>- " + string.Join("<br/>- ", selectedFoods) + "<br/>";
+                body += "<b>Đồ ăn riêng:</b><br/>";
+                foreach (var food in selectedFoods)
+                {
+                    body += $"- {food.Name} ({food.Price:N0} đ)<br/>";
+                }
             }
+
             if (selectedCombos.Any())
             {
-                body += "<b>Combo:</b><br/>- " + string.Join("<br/>- ", selectedCombos) + "<br/>";
+                body += "<b>Combo:</b><br/>";
+                foreach (var combo in selectedCombos)
+                {
+                    body += $"- {combo.Title} ({combo.Price:N0} đ)<br/>";
+                }
             }
-            body += "<br/>C?m ?n b?n ?� s? d?ng d?ch v?!";
+
+            body += $"<br/><b>Tổng cộng:</b> {totalPrice:N0} đ";
+            body += "<br/><br/>Cảm ơn bạn đã sử dụng dịch vụ!";
 
             if (!string.IsNullOrEmpty(userEmail))
             {
                 await _emailService.SendEmailAsync(userEmail, subject, body);
             }
 
-            // Chuy?n h??ng sang trang x�c nh?n ??t v�
             return RedirectToPage("ConfirmBooking", new
             {
                 ShowtimeId,
