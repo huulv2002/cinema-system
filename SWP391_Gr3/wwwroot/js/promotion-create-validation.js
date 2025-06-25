@@ -18,11 +18,11 @@
     const imageError = document.querySelector('span[data-valmsg-for="ImageFile"]');
     const descriptionError = document.querySelector('span[data-valmsg-for="Promotion.Description"]');
 
-    // Regular expressions
+
     const emojiRegex = /[\u{1F000}-\u{1FFFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{2B50}\u{2B55}\u{2B06}\u{2B07}\u{2B05}\u{25A0}-\u{25FF}\u{2190}-\u{21FF}]/u;
     const descriptionRegex = /^[a-zA-Z0-9\s]*$/;
 
-    // Validation function for Code
+
     function validateCode() {
         let value = codeInput.value.trim();
         value = value.replace(emojiRegex, '');
@@ -47,7 +47,7 @@
         }
     }
 
-    // Validation function for PromotionTypeId
+  
     function validatePromotionType() {
         const value = promotionTypeSelect.value;
         if (!value) {
@@ -61,7 +61,7 @@
         }
     }
 
-    // Validation function for Value
+  
     function validateValue() {
         const value = valueInput.value.trim();
         const numValue = parseFloat(value);
@@ -85,7 +85,7 @@
         }
     }
 
-    // Validation function for Stock
+  
     function validateStock() {
         const value = stockInput.value.trim();
         const numValue = parseInt(value);
@@ -109,7 +109,7 @@
         }
     }
 
-    // Validation function for StartDate
+    
     function validateStartDate() {
         const value = startDateInput.value;
         if (!value) {
@@ -123,7 +123,7 @@
         }
     }
 
-    // Validation function for EndDate
+   
     function validateEndDate() {
         const value = endDateInput.value;
         const startDate = startDateInput.value;
@@ -143,7 +143,7 @@
         }
     }
 
-    // Validation function for ImageFile
+    
     function validateImage() {
         const file = imageInput.files[0];
         const allowedExtensions = ['.jpg', '.jpeg', '.png', '.gif'];
@@ -160,10 +160,10 @@
                 return true;
             }
         }
-        return true; // Image is optional
+        return true; 
     }
 
-    // Validation function for Description
+  
     function validateDescription() {
         let value = descriptionInput.value.trim();
         value = value.replace(emojiRegex, '');

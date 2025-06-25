@@ -4,13 +4,13 @@
     const errorSpan = document.querySelector('span[data-valmsg-for="Room.Code"]');
 
     roomCodeInput.addEventListener('input', function (e) {
-        // Remove non-numeric characters and whitespace
+   
         let value = e.target.value.replace(/[^0-9]/g, '').trim();
 
-        // Update input value
+  
         e.target.value = value;
 
-        // Validate input
+   
         if (!value || value.length === 0) {
             errorSpan.textContent = 'Mã phòng không được để trống';
             roomCodeInput.setCustomValidity('Required');
@@ -29,7 +29,7 @@
         }
     });
 
-    // Prevent form submission if validation fails
+
     form.addEventListener('submit', function (e) {
         const value = roomCodeInput.value.trim();
         const numValue = parseInt(value);

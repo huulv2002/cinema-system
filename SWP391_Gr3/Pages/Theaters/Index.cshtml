@@ -4,6 +4,10 @@
     ViewData["Title"] = "Quản lý rạp";
 
 }
+@if (TempData["Message"] != null)
+{
+    <div style="text-align:center" class="alert-success">@TempData["Message"]</div>
+}
 
 <div class="form-container mt-4">
     <h2 style="color:white">Trình quản lý rạp</h2>
@@ -30,7 +34,17 @@
                         <td>@theater.Location</td>
                         <td>@(theater.IsActive.HasValue && theater.IsActive.Value ? "Hoạt động" : "Không hoạt động")</td>
                         <td>
+                            <form asp-page-handler="ToggleActive" asp-route-Theaterid="@theater.Id" method="post" style="display:inline;">
+                                <button type="submit" class="btn btn-primary">
+                                    @(theater.IsActive == true ? "Khóa" : "Kích hoạt")
+                                </button>
+                            </form>
                             <a asp-page="/ManagerRoom/RoomManage" asp-route-id="@theater.Id" asp-route-name="@theater.Name" class="btn btn-warning">Chi tiết</a>
+                            <form asp-page-handler="Delete" asp-route-id="@theater.Id" method="post" style="display:inline;">
+                                <button type="submit" class="btn btn-primary">
+                                    <div>Delete</div>
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 }

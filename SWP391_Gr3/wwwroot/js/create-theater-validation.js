@@ -5,14 +5,14 @@
     const nameErrorSpan = document.querySelector('span[data-valmsg-for="TheaterViewModel.Name"]');
     const locationErrorSpan = document.querySelector('span[data-valmsg-for="TheaterViewModel.Location"]');
 
-    // Regular expression to detect emojis/icons
+ 
     const emojiRegex = /[\u{1F000}-\u{1FFFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{2B50}\u{2B55}\u{2B06}\u{2B07}\u{2B05}\u{25A0}-\u{25FF}\u{2190}-\u{21FF}]/u;
 
-    // Function to validate input fields
+
     function validateInput(input, errorSpan, fieldName) {
         return function (e) {
             let value = input.value.trim();
-            // Remove emojis/icons
+    
             value = value.replace(emojiRegex, '');
             input.value = value;
 
