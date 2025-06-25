@@ -9,7 +9,7 @@ using SWP391_Gr3.Models;
 
 namespace SWP391_Gr3.Pages.Reviews
 {
-    [Authorize(Roles = "Staff")]
+    [Authorize(Roles = "Staff, Owner")]
     public class EditModel : PageModel
     {
         private readonly Swp391Context _context;

@@ -18,6 +18,7 @@ namespace SWP391_Gr3.Pages.MovieReviews
         public async Task<IActionResult> OnGetAsync(int id)
         {
             MovieReview = await _context.MovieReviews
+                .Include(r => r.Movie)
                 .FirstOrDefaultAsync(r => r.Id == id);
 
             if (MovieReview == null)
@@ -30,5 +31,6 @@ namespace SWP391_Gr3.Pages.MovieReviews
 
             return Page();
         }
+
     }
 }

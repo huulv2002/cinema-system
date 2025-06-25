@@ -10,7 +10,7 @@ using SWP391_Gr3.Models;
 
 namespace SWP391_Gr3.Pages.Reviews
 {
-    [Authorize(Roles = "Staff")]
+    [Authorize(Roles = "Staff, Owner")]
     public class IndexModel : PageModel
     {
         private readonly SWP391_Gr3.Models.Swp391Context _context;

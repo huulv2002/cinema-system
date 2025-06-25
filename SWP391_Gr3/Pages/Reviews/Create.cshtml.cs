@@ -4,8 +4,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SWP391_Gr3.Models;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization;
 namespace SWP391_Gr3.Pages.Reviews
 {
+    [Authorize(Roles = "Staff, Owner")]
     public class CreateModel : PageModel
     {
         private readonly Swp391Context _context;
