@@ -8,7 +8,10 @@
     <h2>Ghế phòng: @Model.RoomCode</h2>
     <p><strong>Tên phim:</strong> @Model.Movie?.Title</p>
     <p><strong>Giờ chiếu:</strong> @Model.Showtime?.StartTime?.ToString("HH:mm dd-MM-yyyy")</p>
-
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div class="alert alert-danger">@Model.ErrorMessage</div>
+    }
     <div class="my-3 d-flex justify-content-between">
         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addSeatModal">+ Thêm ghế</button>
     </div>
@@ -72,7 +75,8 @@
                     <input type="hidden" name="MovieId" value="@Model.MovieId" />
                     <div class="mb-3">
                         <label class="form-label">Mã ghế</label>
-                        <input type="text" name="NewSeatCode" class="form-control" required />
+                        <input type="text" name="NewSeatCode" class="form-control"
+                               pattern="^[A-Za-z0-9]{1,4}$" title="Chỉ được nhập chữ cái và số, tối đa 4 ký tự" required />
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Loại ghế</label>
@@ -106,7 +110,8 @@
                     <input type="hidden" name="MovieId" value="@Model.MovieId" />
                     <div class="mb-3">
                         <label class="form-label">Mã ghế</label>
-                        <input type="text" name="EditSeatCode" id="editSeatCode" class="form-control" required />
+                        <input type="text" name="EditSeatCode" id="editSeatCode" class="form-control"
+                               pattern="^[A-Za-z0-9]{1,4}$" title="Chỉ được nhập chữ cái và số, tối đa 4 ký tự" required />
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Loại ghế</label>

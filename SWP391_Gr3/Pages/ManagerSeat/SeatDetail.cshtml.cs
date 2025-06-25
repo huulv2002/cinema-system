@@ -53,6 +53,23 @@ namespace SWP391_Gr3.Pages.ManagerSeat
 
         public async Task<IActionResult> OnPostAddAsync(string NewSeatCode, int NewSeatTypeId)
         {
+            // Validate mã ghế
+            if (string.IsNullOrWhiteSpace(NewSeatCode) || NewSeatCode.Length > 4 || !NewSeatCode.All(char.IsLetterOrDigit))
+            {
+                ErrorMessage = "Mã ghế chỉ được chứa chữ cái và số, tối đa 4 ký tự.";
+                return RedirectToPage(new { showtimeId = ShowtimeId, roomId = RoomId, movieId = MovieId });
+            }
+
+            // Check trùng mã ghế trong cùng Room
+            bool exists = await _context.Seats
+                .AnyAsync(s => s.RoomId == RoomId && s.Code.ToLower() == NewSeatCode.ToLower());
+
+            if (exists)
+            {
+                ErrorMessage = "Mã ghế đã tồn tại trong phòng này.";
+                return RedirectToPage(new { showtimeId = ShowtimeId, roomId = RoomId, movieId = MovieId });
+            }
+
             var seat = new Seat
             {
                 Code = NewSeatCode,
@@ -67,6 +84,23 @@ namespace SWP391_Gr3.Pages.ManagerSeat
 
         public async Task<IActionResult> OnPostEditAsync(int EditSeatId, string EditSeatCode, int EditSeatTypeId)
         {
+            // Validate mã ghế
+            if (string.IsNullOrWhiteSpace(EditSeatCode) || EditSeatCode.Length > 4 || !EditSeatCode.All(char.IsLetterOrDigit))
+            {
+                ErrorMessage = "Mã ghế chỉ được chứa chữ cái và số, tối đa 4 ký tự.";
+                return RedirectToPage(new { showtimeId = ShowtimeId, roomId = RoomId, movieId = MovieId });
+            }
+
+            // Check trùng mã nhưng loại trừ chính nó
+            bool exists = await _context.Seats
+                .AnyAsync(s => s.RoomId == RoomId && s.Id != EditSeatId && s.Code.ToLower() == EditSeatCode.ToLower());
+
+            if (exists)
+            {
+                ErrorMessage = "Mã ghế đã tồn tại trong phòng này.";
+                return RedirectToPage(new { showtimeId = ShowtimeId, roomId = RoomId, movieId = MovieId });
+            }
+
             var seat = await _context.Seats.FindAsync(EditSeatId);
             if (seat != null)
             {
