@@ -30,6 +30,11 @@ namespace SWP391_Gr3.Services
             return await _repo.AddTheaterAsync(ths);
         }
 
+        public async Task<OperationResult> DeleteAsync(int id)
+        {
+            return await _repo.DeleteTheaterAsync(id);
+        }
+
         public async Task<IEnumerable<Room>> ListAllRoomrAsync(int thid)
         {
            return await _repo.GetAllRoomsAsync(thid);
@@ -43,6 +48,11 @@ namespace SWP391_Gr3.Services
         public async Task<bool> RoomCodeExistsAsync(string code, int theaterId)
         {
             return await _repo.RoomCodeExistsAsync(code, theaterId);
+        }
+
+        public async Task<bool> ToggleTheaterActiveStatusAsync(int theaterId)
+        {
+            return await _repo.ToggleTheaterActiveStatusAsync(theaterId);
         }
     }
 }
