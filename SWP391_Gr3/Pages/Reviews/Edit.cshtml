@@ -1,0 +1,70 @@
+﻿@page
+@model SWP391_Gr3.Pages.Reviews.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>MovieReview</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4 white-frame">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="MovieReview.Id" />
+            <div class="form-group">
+                <label asp-for="MovieReview.Title" class="control-label"></label>
+                <input asp-for="MovieReview.Title" class="form-control" />
+                <span asp-validation-for="MovieReview.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MovieReview.Summary" class="control-label"></label>
+                <input asp-for="MovieReview.Summary" class="form-control" />
+                <span asp-validation-for="MovieReview.Summary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MovieReview.Content" class="control-label"></label>
+                <textarea asp-for="MovieReview.Content" class="form-control" rows="5"></textarea>
+                <span asp-validation-for="MovieReview.Content" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MovieReview.ImageUrl" class="control-label"></label>
+                <input asp-for="MovieReview.ImageUrl" class="form-control" />
+                <span asp-validation-for="MovieReview.ImageUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MovieReview.PublishedDate" class="control-label"></label>
+                <input asp-for="MovieReview.PublishedDate" class="form-control" />
+                <span asp-validation-for="MovieReview.PublishedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MovieReview.Likes" class="control-label"></label>
+                <input asp-for="MovieReview.Likes" class="form-control" />
+                <span asp-validation-for="MovieReview.Likes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MovieReview.Views" class="control-label"></label>
+                <input asp-for="MovieReview.Views" class="form-control" />
+                <span asp-validation-for="MovieReview.Views" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MovieReview.MovieId" class="control-label"></label>
+                <select asp-for="MovieReview.MovieId" class="form-control" asp-items="ViewBag.MovieId"></select>
+                <span asp-validation-for="MovieReview.MovieId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-page="Index" class="btn btn-secondary ml-2">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
