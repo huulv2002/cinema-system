@@ -1,10 +1,10 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SWP391_Gr3.Autho;
 using SWP391_Gr3.Models;
 using SWP391_Gr3.Services;
 
-namespace SWP391_Gr3.Pages.Theaters
+namespace SWP391_Gr3.Pages.ManagerRoom
 {
     [AuthorizeRole("Owner")]
     public class RoomManageModel : PageModel

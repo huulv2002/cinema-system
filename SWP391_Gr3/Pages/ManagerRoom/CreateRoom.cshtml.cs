@@ -38,7 +38,7 @@ namespace SWP391_Gr3.Pages.Theaters
             var result = await _theatersService.CreateRoomAsync(Room,id);
             if (result)
             {
-                return RedirectToPage("/Theaters/RoomManage", new { id });
+                return RedirectToPage("/ManagerRoom/RoomManage", new { id });
             }
 
             ModelState.AddModelError(string.Empty, "Không thể phòng. Vui lòng thử lại.");

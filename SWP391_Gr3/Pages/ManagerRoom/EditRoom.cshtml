@@ -1,0 +1,24 @@
+﻿@page 
+@model SWP391_Gr3.Pages.ManagerRoom.EditRoomModel
+@{
+    ViewData["Title"] = "Chỉnh sửa phòng";
+}
+
+<div class="form-container">
+    <h2 style="color:whitesmoke">Chỉnh sửa mã phòng</h2>
+    <form method="post">
+        <div class="form-group">
+            <label asp-for="Room.Code" style="color:white">Mã phòng</label>
+            <input asp-for="Room.Code" class="form-control" required />
+            <span asp-validation-for="Room.Code" class="text-danger"></span>
+        </div>
+        <input type="hidden" asp-for="Room.Id" />
+        <input type="hidden" asp-for="Room.TheaterId" />
+        <button type="submit" class="btn btn-success mt-2">Lưu thay đổi</button>
+        <a asp-page="/ManagerRoom/RoomManage" asp-route-id="@Model.Room.TheaterId" asp-route-name="@Model.Room.Theater?.Name" class="btn btn-secondary mt-2">Quay lại</a>
+    </form>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/create-room-validation.js"></script>
+}

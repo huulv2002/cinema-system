@@ -1,0 +1,46 @@
+﻿@page
+@model SWP391_Gr3.Pages.ManagerMovie.CreateMovieModel
+@{
+    ViewData["Title"] = "Thêm phim mới";
+}
+
+<h2>Thêm phim mới</h2>
+
+<form method="post">
+    @* Sử dụng các input phù hợp với model Movie *@
+    <div class="mb-3">
+        <label asp-for="Movie.Title" class="form-label"></label>
+        <input asp-for="Movie.Title" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Movie.Description" class="form-label"></label>
+        <textarea asp-for="Movie.Description" class="form-control"></textarea>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Movie.OverAge" class="form-label"></label>
+        <input asp-for="Movie.OverAge" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Movie.Director" class="form-label"></label>
+        <input asp-for="Movie.Director" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Movie.Performer" class="form-label"></label>
+        <input asp-for="Movie.Performer" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Movie.Duration" class="form-label"></label>
+        <input asp-for="Movie.Duration" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Movie.Language" class="form-label"></label>
+        <input asp-for="Movie.Language" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Movie.ReleaseDate" class="form-label"></label>
+        <input asp-for="Movie.ReleaseDate" type="date" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Lưu</button>
+    <a asp-page="./Index" class="btn btn-secondary">Hủy</a>
+</form>

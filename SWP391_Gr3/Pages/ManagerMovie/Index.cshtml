@@ -1,0 +1,41 @@
+﻿@page
+@model SWP391_Gr3.Pages.ManagerMovie.IndexModel
+@{
+    ViewData["Title"] = "Quản lý Phim";
+}
+<div class="container mt-5">
+    <h2 class="mb-4">Danh sách phim</h2>
+
+    <a class="btn btn-primary mb-3" asp-page="AddMovie">+ Thêm phim</a>
+
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Tiêu đề</th>
+                <th>Đạo diễn</th>
+                <th>Ngôn ngữ</th>
+                <th>Thời lượng (phút)</th>
+                <th>Ngày phát hành</th>
+                <th>Tuổi giới hạn</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var movie in Model.Movies)
+            {
+                <tr>
+                    <td>@movie.Title</td>
+                    <td>@movie.Director</td>
+                    <td>@movie.Language</td>
+                    <td>@movie.Duration</td>
+                    <td>@(movie.ReleaseDate?.ToString("dd-MM-yyyy"))</td>
+                    <td>@movie.OverAge+</td>
+                    <td>
+                        <a class="btn btn-sm btn-danger" asp-page="UpdateMovie" asp-route-id="@movie.Id">Sửa</a>
+                        <a class="btn btn-sm btn-danger" asp-page="DeleteMovie" asp-route-id="@movie.Id">Xoá</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

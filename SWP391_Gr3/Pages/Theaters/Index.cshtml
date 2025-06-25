@@ -30,7 +30,7 @@
                         <td>@theater.Location</td>
                         <td>@(theater.IsActive.HasValue && theater.IsActive.Value ? "Hoạt động" : "Không hoạt động")</td>
                         <td>
-                            <a asp-page="/Theaters/RoomManage" asp-route-id="@theater.Id" asp-route-name="@theater.Name" class="btn btn-warning">Chi tiết</a>
+                            <a asp-page="/ManagerRoom/RoomManage" asp-route-id="@theater.Id" asp-route-name="@theater.Name" class="btn btn-warning">Chi tiết</a>
                         </td>
                     </tr>
                 }
