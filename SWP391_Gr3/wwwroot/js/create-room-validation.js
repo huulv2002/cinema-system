@@ -19,8 +19,8 @@
             roomCodeInput.setCustomValidity('No whitespace');
         } else {
             const numValue = parseInt(value);
-            if (numValue < 1001 || numValue > 9999) {
-                errorSpan.textContent = 'Mã phòng phải nằm trong khoảng từ 1001 đến 9999';
+            if (numValue < 1000 || numValue > 9999) {
+                errorSpan.textContent = 'Mã phòng phải nằm trong khoảng từ 1000 đến 9999';
                 roomCodeInput.setCustomValidity('Invalid range');
             } else {
                 errorSpan.textContent = '';
@@ -42,8 +42,8 @@
             errorSpan.textContent = 'Mã phòng không được chứa khoảng trắng';
             roomCodeInput.setCustomValidity('No whitespace');
             e.preventDefault();
-        } else if (numValue < 1001 || numValue > 9999) {
-            errorSpan.textContent = 'Mã phòng phải nằm trong khoảng từ 1001 đến 9999';
+        } else if (numValue < 1000 || numValue > 9999) {
+            errorSpan.textContent = 'Mã phòng phải nằm trong khoảng từ 1000 đến 9999';
             roomCodeInput.setCustomValidity('Invalid range');
             e.preventDefault();
         }

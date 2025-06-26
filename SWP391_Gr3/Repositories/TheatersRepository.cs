@@ -59,41 +59,62 @@ namespace SWP391_Gr3.Repositories
 
         public async Task<OperationResult> DeleteTheaterAsync(int id)
         {
-            var theater = await _context.Theaters.FindAsync(id);
-            if (theater == null)
+            try
             {
-                return new OperationResult
+                var theater = await _context.Theaters.FindAsync(id);
+                if (theater == null)
                 {
-                    Success = false,
-                    Message = "Không tìm thấy rạp chiếu phim."
-                };
-            }
-            var hasRooms = await _context.Rooms.AnyAsync(r => r.TheaterId == id);
-            var hasUsers = await _context.Users.AnyAsync(u => u.TheaterId == id);
-            if (hasUsers)
-            {
-                return new OperationResult
+                    return new OperationResult
+                    {
+                        Success = false,
+                        Message = "Không tìm thấy rạp chiếu phim."
+                    };
+                }
+
+                var hasFoodCombo = await _context.Combos.AnyAsync(f => f.TheaterId == id);
+                if (hasFoodCombo)
                 {
-                    Success = false,
-                    Message = "Rạp đang có người dùng không thể xóa."
-                };
-            }
-            if (hasRooms)
-            {
-                return new OperationResult
+                    return new OperationResult
+                    {
+                        Success = false,
+                        Message = "Không thể xóa rạp vì vẫn còn combo thức ăn liên quan."
+                    };
+                }
+
+                var hasUsers = await _context.Users.AnyAsync(u => u.TheaterId == id);
+                if (hasUsers)
                 {
-                    Success = false,
-                    Message = "Không thể xóa rạp vì vẫn còn phòng liên quan."
-                };
-            }
-            else
-            {
+                    return new OperationResult
+                    {
+                        Success = false,
+                        Message = "Không thể xóa rạp vì vẫn còn người dùng liên quan."
+                    };
+                }
+
+                var hasRooms = await _context.Rooms.AnyAsync(r => r.TheaterId == id);
+                if (hasRooms)
+                {
+                    return new OperationResult
+                    {
+                        Success = false,
+                        Message = "Không thể xóa rạp vì vẫn còn phòng chiếu liên quan."
+                    };
+                }
+
                 _context.Theaters.Remove(theater);
                 var result = await _context.SaveChangesAsync() > 0;
                 return new OperationResult
                 {
                     Success = result,
-                    Message = result ? "Xóa rạp chiếu phim thành công." : "Xóa rạp chiếu phim thất bại."
+                    Message = result ? "Xóa rạp chiếu phim thành công." : "Xóa rạp chiếu phim thất bại do lỗi cơ sở dữ liệu."
+                };
+            }
+            catch (Exception ex)
+            {
+                return new OperationResult
+                {
+                    Success = false,
+                    Message = $"Lỗi hệ thống khi xóa rạp chiếu phim: {ex.Message}"
                 };
             }
         }

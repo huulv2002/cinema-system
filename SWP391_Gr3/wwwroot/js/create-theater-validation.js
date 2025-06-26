@@ -22,8 +22,8 @@
             } else if (/\s{2,}/.test(value)) {
                 errorSpan.textContent = `${fieldName} không được chứa nhiều khoảng trắng liên tiếp`;
                 input.setCustomValidity('No consecutive whitespace');
-            } else if (value.length > 30) {
-                errorSpan.textContent = `${fieldName} không được dài quá 30 ký tự`;
+            } else if (value.length > 100) {
+                errorSpan.textContent = `${fieldName} không được dài quá 100 ký tự`;
                 input.setCustomValidity('Too long');
             } else if (emojiRegex.test(value)) {
                 errorSpan.textContent = `${fieldName} không được chứa biểu tượng hoặc emoji`;
@@ -53,8 +53,8 @@
             nameErrorSpan.textContent = 'Tên rạp không được chứa nhiều khoảng trắng liên tiếp';
             nameInput.setCustomValidity('No consecutive whitespace');
             e.preventDefault();
-        } else if (nameValue.length > 30) {
-            nameErrorSpan.textContent = 'Tên rạp không được dài quá 30 ký tự';
+        } else if (nameValue.length > 100) {
+            nameErrorSpan.textContent = 'Tên rạp không được dài quá 100 ký tự';
             nameInput.setCustomValidity('Too long');
             e.preventDefault();
         } else if (emojiRegex.test(nameValue)) {
@@ -72,8 +72,8 @@
             locationErrorSpan.textContent = 'Địa điểm không được chứa nhiều khoảng trắng liên tiếp';
             locationInput.setCustomValidity('No consecutive whitespace');
             e.preventDefault();
-        } else if (locationValue.length > 30) {
-            locationErrorSpan.textContent = 'Địa điểm không được dài quá 30 ký tự';
+        } else if (locationValue.length > 100) {
+            locationErrorSpan.textContent = 'Địa điểm không được dài quá 100 ký tự';
             locationInput.setCustomValidity('Too long');
             e.preventDefault();
         } else if (emojiRegex.test(locationValue)) {
