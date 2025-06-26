@@ -3,7 +3,9 @@
 @{
     ViewData["Title"] = "Quản lý tài khoản";
 }
-
+@{
+    var userRole = HttpContext.Session.GetString("UserRole");
+}
 
 <div class="manage-users-container">
     <h2>Quản lý tài khoản</h2>
@@ -53,6 +55,10 @@
                                 @(user.IsActive == true ? "Khóa" : "Kích hoạt")
                             </button>
                         </form>
+                        @if (userRole == "Owner" && user.Role?.Name == "Admin" || userRole == "Admin" && user.Role?.Name == "Staff")
+                        {
+                            <a asp-page="/Users/Asigns" asp-route-id="@user.Id" class="btn btn-warning">Asigns</a>
+                        }
                     </td>
                 </tr>
             }
