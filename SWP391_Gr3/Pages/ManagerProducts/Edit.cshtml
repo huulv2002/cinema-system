@@ -4,8 +4,9 @@
     ViewData["Title"] = "Chỉnh sửa sản phẩm";
 }
 
-<h2>Chỉnh sửa sản phẩm</h2>
 
+<div style="background-color: white; padding: 20px; border-radius: 6px;">
+    <h2>Chỉnh sửa sản phẩm</h2>
 <form method="post" enctype="multipart/form-data">
     <input type="hidden" asp-for="Product.Id" />
 
@@ -68,6 +69,7 @@
     <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
     <a asp-page="Index" class="btn btn-secondary">Hủy</a>
 </form>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

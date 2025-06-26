@@ -4,9 +4,10 @@
     ViewData["Title"] = "Xóa sản phẩm";
 }
 
-<h2>Xác nhận xóa sản phẩm</h2>
 
-<div class="border p-3 rounded bg-light">
+
+<div style="background-color: white; padding: 20px; border-radius: 6px;">
+    <h2>Xác nhận xóa sản phẩm</h2>
     <dl class="row">
         <dt class="col-sm-3">Tên sản phẩm</dt>
         <dd class="col-sm-9">@Model.Product.Name</dd>
@@ -15,7 +16,7 @@
         <dd class="col-sm-9">@Model.Product.Size</dd>
 
         <dt class="col-sm-3">Giá</dt>
-        <dd class="col-sm-9">@((Model.Product.Price != null) ? Model.Product.Price.Value.ToString("N0") : "") ₫</dd>
+        <dd class="col-sm-9">@((Model.Product.Price != null) ? Model.Product.Price.ToString("N0") : "") ₫</dd>
 
         <dt class="col-sm-3">Kho</dt>
         <dd class="col-sm-9">@Model.Product.Stock</dd>
