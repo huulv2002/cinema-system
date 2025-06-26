@@ -25,6 +25,8 @@ public partial class Movie
 
     public virtual ICollection<Image> Images { get; set; } = new List<Image>();
 
+    public virtual ICollection<MovieReview> MovieReviews { get; set; } = new List<MovieReview>();
+
     public virtual ICollection<Showtime> Showtimes { get; set; } = new List<Showtime>();
 
     public virtual ICollection<Genre> Genres { get; set; } = new List<Genre>();

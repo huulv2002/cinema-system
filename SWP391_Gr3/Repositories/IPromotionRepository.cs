@@ -4,6 +4,7 @@ namespace SWP391_Gr3.Repositories
 {
     public interface IPromotionRepository
     {
+        Task<bool> ToggleUserActiveStatusAsync(int Id); // active
         Task<Promotion> GetPromotionByIdAsync(int id);
         Task<bool> DeletePromotionAsync(int id);
         Task<IEnumerable<Promotion>> ListAllPromotionAsync();
@@ -11,7 +12,7 @@ namespace SWP391_Gr3.Repositories
         Task<bool> UpdatePromotionAsync(Promotion promotion);
 
         Task<IEnumerable<PromotionType>> ListAllPromotionTypeAsync();
-        Task<bool> AddPromotionTypeAsync(Promotion promotion);
-        Task<bool> UpdatePromotionTypeAsync(Promotion promotion);
+        Task<bool> AddPromotionTypeAsync(PromotionType promotion);
+        Task<bool> UpdatePromotionTypeAsync(PromotionType promotion);
     }
 }

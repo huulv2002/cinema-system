@@ -1,0 +1,67 @@
+﻿@page
+@model SWP391_Gr3.Pages.Reviews.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div class="white-frame">
+    <h4>MovieReview</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MovieReview.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MovieReview.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MovieReview.Summary)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MovieReview.Summary)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MovieReview.Content)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MovieReview.Content)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MovieReview.ImageUrl)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MovieReview.ImageUrl)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MovieReview.PublishedDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MovieReview.PublishedDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MovieReview.Likes)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MovieReview.Likes)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MovieReview.Views)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MovieReview.Views)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MovieReview.Movie)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MovieReview.Movie.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.MovieReview.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

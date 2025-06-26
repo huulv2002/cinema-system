@@ -1,0 +1,131 @@
+﻿@page "{id:int}"
+@model SWP391_Gr3.Pages.ManagerRoom.DetailRoomModel
+@{
+    ViewData["Title"] = "Chi tiết phòng";
+    var selectedDate = Model.SelectedDate;
+}
+
+<div class="container mt-4 text-white">
+    @if (Model.Room != null)
+    {
+        <h2>Chi tiết phòng: @Model.Room.Code</h2>
+        <div><strong>Rạp:</strong> @Model.Room.Theater?.Name</div>
+
+            <!-- Date bar -->
+            <div class="showtime-date-bar my-3">
+                @foreach (var date in Model.Dates)
+                {
+                    <a href="?id=@Model.Room.Id&SelectedDate=@date" class="date-item @(selectedDate == date ? "active" : "")">
+                        <div>@date.Day.ToString("D2")</div>
+                        <div>@date.ToString("ddd")</div>
+                    </a>
+                }
+            </div>
+
+         @if (Model.FilteredShowtimes.Any())
+{
+    <h4>Lịch chiếu ngày @selectedDate?.ToString("dd-MM-yyyy")</h4>
+
+<table class="table custom-showtime-table">
+    <thead>
+        <tr>
+            <th>Giờ bắt đầu</th>
+            <th>Tên phim</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var s in Model.FilteredShowtimes.OrderBy(s => s.StartTime))
+        {
+            <tr>
+                <td>@s.StartTime?.ToString("HH:mm")</td>
+                <td>@s.Movie?.Title</td>
+                <td>
+                 <a asp-page="/ManagerSeat/SeatDetail"
+   asp-route-showtimeId="@s.Id"
+   asp-route-roomId="@s.RoomId"
+   asp-route-movieId="@s.MovieId"
+   class="btn btn-danger btn-sm">
+   XEM CHI TIẾT
+</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+}
+else
+{
+    <div class="text-warning mt-3">Không có suất chiếu nào trong ngày này.</div>
+}
+
+
+        <a asp-page="/ManagerRoom/RoomManage"
+           asp-route-id="@Model.Room.TheaterId"
+           asp-route-name="@Model.Room.Theater?.Name"
+           class="btn btn-secondary mt-4">Quay lại</a>
+    }
+    else
+    {
+        <h3 class="text-danger">Không tìm thấy phòng.</h3>
+    }
+</div>
+
+<style>
+  .showtime-date-bar {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 16px;
+    }
+
+    .date-item {
+        padding: 8px 14px;
+        background: #fff;
+        color: #000;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        text-align: center;
+        text-decoration: none;
+    }
+
+    .date-item.active {
+        background: #222;
+        color: #fff;
+        font-weight: bold;
+        border-color: #222;
+    }
+
+    .custom-showtime-table {
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        border: 1px solid #fff;
+    }
+
+    .custom-showtime-table th,
+    .custom-showtime-table td {
+        border: 1px solid #fff;
+    }
+
+    .custom-showtime-table thead th {
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+    }
+
+    .custom-showtime-table tbody td {
+        vertical-align: middle;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+        color: white;
+        font-weight: bold;
+    }
+
+    .btn-danger:hover {
+        background-color: #bd2130;
+        border-color: #b21f2d;
+    }
+</style>

@@ -1,0 +1,103 @@
+﻿@page
+@model SWP391_Gr3.Pages.ManagerMovie.CreateMovieModel
+@{
+    ViewData["Title"] = "Thêm phim mới";
+}
+
+<div style="background:white; padding:20px; border-radius:8px;">
+    <h2>Thêm phim mới</h2>
+
+    <form method="post" enctype="multipart/form-data">
+        <!-- Tiêu đề -->
+        <div class="mb-3">
+            <label class="form-label">Tiêu đề</label>
+            <input asp-for="Movie.Title" class="form-control" maxlength="100" required />
+            <span asp-validation-for="Movie.Title" class="text-danger"></span>
+        </div>
+
+        <!-- Mô tả -->
+        <div class="mb-3">
+            <label class="form-label">Mô tả</label>
+            <textarea asp-for="Movie.Description" class="form-control" maxlength="10000" required></textarea>
+            <span asp-validation-for="Movie.Description" class="text-danger"></span>
+        </div>
+
+        <!-- Tuổi giới hạn -->
+        <div class="mb-3">
+            <label class="form-label">Tuổi giới hạn</label>
+            <input asp-for="Movie.OverAge" type="number" min="1" max="99" class="form-control" required />
+            <span asp-validation-for="Movie.OverAge" class="text-danger"></span>
+        </div>
+
+        <!-- Đạo diễn -->
+        <div class="mb-3">
+            <label class="form-label">Đạo diễn</label>
+            <input asp-for="Movie.Director" class="form-control" maxlength="100" required />
+            <span asp-validation-for="Movie.Director" class="text-danger"></span>
+        </div>
+
+        <!-- Diễn viên -->
+        <div class="mb-3">
+            <label class="form-label">Diễn viên</label>
+            <input asp-for="Movie.Performer" class="form-control" maxlength="1000" required />
+            <span asp-validation-for="Movie.Performer" class="text-danger"></span>
+        </div>
+
+        <!-- Thời lượng giờ:phút -->
+        <div class="mb-3">
+            <label class="form-label">Thời lượng (giờ:phút)</label>
+            <div class="d-flex gap-2">
+                <input type="number"
+                       name="DurationHours"
+                       class="form-control"
+                       min="0" max="10"
+                       placeholder="Giờ"
+                       required />
+                <input type="number"
+                       name="DurationMinutes"
+                       class="form-control"
+                       min="0" max="59"
+                       placeholder="Phút" />
+            </div>
+            @if (!string.IsNullOrEmpty(Model.DurationErrorMessage))
+            {
+                <span class="text-danger">@Model.DurationErrorMessage</span>
+            }
+        </div>
+
+        <!-- Ngôn ngữ -->
+        <div class="mb-3">
+            <label class="form-label">Ngôn ngữ</label>
+            <input asp-for="Movie.Language" class="form-control" maxlength="100" required />
+            <span asp-validation-for="Movie.Language" class="text-danger"></span>
+        </div>
+
+        <!-- Ngày phát hành -->
+        <div class="mb-3">
+            <label class="form-label">Ngày phát hành</label>
+            <input asp-for="Movie.ReleaseDate" type="date" class="form-control" required />
+            <span asp-validation-for="Movie.ReleaseDate" class="text-danger"></span>
+        </div>
+
+        <!-- Ảnh phim -->
+        <div class="mb-3">
+            <label class="form-label">Ảnh phim</label>
+            <input type="file"
+                   name="UploadedImage"
+                   class="form-control"
+                   accept=".jpg,.jpeg,.png"
+                   required />
+            @if (!string.IsNullOrEmpty(Model.ImageErrorMessage))
+            {
+                <span class="text-danger">@Model.ImageErrorMessage</span>
+            }
+        </div>
+
+        <button type="submit" class="btn btn-success">Thêm phim</button>
+        <a asp-page="Index" class="btn btn-secondary">Quay lại</a>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

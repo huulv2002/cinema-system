@@ -1,0 +1,19 @@
+﻿@page 
+@model SWP391_Gr3.Pages.ManagerRoom.DeleteRoomModel
+@{
+	ViewData["Title"] = "Xóa phòng";
+}
+
+<div class="container mt-4">
+	<h1 class="text-danger">Xác nhận xóa</h1>
+	<h2 style="color:white">Bạn có chắc chắn muốn xóa phòng <strong>@Model.Room?.Code</strong> của rạp <strong>@Model.Room?.Theater?.Name</strong> không?</h2>
+
+	<form method="post">
+		<input type="hidden" asp-for="Room.Id" />
+		<button type="submit" class="btn btn-danger">Xóa</button>
+		<a asp-page="/ManagerRoom/RoomManage"
+		   asp-route-id="@Model.Room.TheaterId"
+		   asp-route-name="@Model.Room.Theater.Name"
+		   class="btn btn-secondary">Hủy</a>
+	</form>
+</div>

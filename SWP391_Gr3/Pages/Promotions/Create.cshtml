@@ -1,71 +1,71 @@
 ﻿@page
 @model SWP391_Gr3.Pages.Promotions.CreateModel
 @{
-    ViewData["Title"] = "Thêm mới khuyến mãi";
+	ViewData["Title"] = "Thêm mới khuyến mãi";
 }
-<h2 style="color:black">Trình thêm mới khuyến mãi</h2>
-
-
-<div class="container">
-    <form method="post" enctype="multipart/form-data">
-        <div class="form-group">
-            <label for="Promotion_Code">Mã khuyến mãi</label>
-            <input asp-for="Promotion.Code" class="form-control" />
-            <span asp-validation-for="Promotion.Code" class="validation-message"></span>
-        </div>
-        <div class="form-group">
-            <label for="Promotion_PromotionTypeId">Loại khuyến mãi</label>
-            <select asp-for="Promotion.PromotionTypeId" class="form-control" asp-items="@(new SelectList(Model.PromotionTypes, "Id", "Title"))">
-                <option value="">Chọn loại khuyến mãi</option>
-            </select>
-            <span asp-validation-for="Promotion.PromotionTypeId" class="validation-message"></span>
-        </div>
-        <div class="form-group">
-            <label for="Promotion_Value">Giá trị giảm giá</label>
-            <input asp-for="Promotion.Value" class="form-control" type="number" step="0.01" />
-            <span asp-validation-for="Promotion.Value" class="validation-message"></span>
-        </div>
-        <div class="form-group">
-            <label for="Promotion_Stock">Tồn kho</label>
-            <input asp-for="Promotion.Stock" class="form-control" type="number" />
-            <span asp-validation-for="Promotion.Stock" class="validation-message"></span>
-        </div>
-        <div class="form-group">
-            <label for="Promotion_EndDate">Ngày kết thúc</label>
-            <input asp-for="Promotion.EndDate" class="form-control" type="datetime-local" />
-            <span asp-validation-for="Promotion.EndDate" class="validation-message"></span>
-        </div>
-        <div class="form-group">
-            <label for="ImageFile">Hình ảnh khuyến mãi</label>
-            <input type="file" asp-for="ImageFile" class="form-control" accept="image/*" />
-            <span asp-validation-for="ImageFile" class="validation-message"></span>
-        </div>
-        <div class="form-group">
-            <label for="Promotion_Description">Mô tả</label>
-            <textarea asp-for="Promotion.Description" class="form-control" rows="4"></textarea>
-            <span asp-validation-for="Promotion.Description" class="validation-message"></span>
-        </div>
-        <button type="submit" class="btn btn-primary">Tạo mới</button>
-        <br />
-        <a style="text-align:center" asp-page="/Promotions/Manage" class="btn btn-secondary">Hủy</a>
-    </form>
+<div class="form-container">
+	<h2 style="color:black">Trình thêm mới khuyến mại</h2>
+	<form method="post" enctype="multipart/form-data">
+		<div class="form-group">
+			<label for="Promotion_Code">Mã khuyến mãi</label>
+			<input asp-for="Promotion.Code" class="form-control" />
+			<span asp-validation-for="Promotion.Code" class="validation-message"></span>
+		</div>
+		<div class="form-group">
+			<label for="Promotion_PromotionTypeId">Loại khuyến mãi</label>
+			<select asp-for="Promotion.PromotionTypeId" class="form-control" asp-items="@(new SelectList(Model.PromotionTypes, "Id", "Title"))">
+				<option value="">Chọn loại khuyến mãi</option>
+			</select>
+			<span asp-validation-for="Promotion.PromotionTypeId" class="validation-message"></span>
+		</div>
+		<div class="form-group">
+			<label for="Promotion_Value">Giá trị giảm giá</label>
+			<input asp-for="Promotion.Value" class="form-control" type="number" step="0.01" />
+			<span asp-validation-for="Promotion.Value" class="validation-message"></span>
+		</div>
+		<div class="form-group">
+			<label for="Promotion_Stock">Tồn kho</label>
+			<input asp-for="Promotion.Stock" class="form-control" type="number" />
+			<span asp-validation-for="Promotion.Stock" class="validation-message"></span>
+		</div>
+		<div class="form-group">
+			<label for="Promotion_EndDate">Ngày kết thúc</label>
+			<input asp-for="Promotion.EndDate" class="form-control" type="datetime-local" />
+			<span asp-validation-for="Promotion.EndDate" class="validation-message"></span>
+		</div>
+		<div class="form-group">
+			<label for="ImageFile">Hình ảnh khuyến mãi</label>
+			<input type="file" asp-for="ImageFile" class="form-control" accept="image/*" />
+			<span asp-validation-for="ImageFile" class="validation-message"></span>
+		</div>
+		<div class="form-group">
+			<label for="Promotion_Description">Mô tả</label>
+			<textarea asp-for="Promotion.Description" class="form-control" rows="4"></textarea>
+			<span asp-validation-for="Promotion.Description" class="validation-message"></span>
+		</div>
+		<button type="submit" class="btn btn-primary">Tạo mới</button>
+		<br />
+		<a style="text-align:center" asp-page="/Promotions/Manage" class="btn btn-secondary">Hủy</a>
+	</form>
 </div>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-    <script>
-        // Client-side validation for image file type
-        document.getElementById('ImageFile').addEventListener('change', function () {
-            const file = this.files[0];
-            if (file && !file.type.startsWith('image/')) {
-                alert('Vui lòng chọn một file hình ảnh (jpg, jpeg, png, gif).');
-                this.value = '';
-            }
-        });
-    </script>
+	<partial name="_ValidationScriptsPartial" />
+	<script>
+		// Client-side validation for image file type
+		document.getElementById('ImageFile').addEventListener('change', function () {
+			const file = this.files[0];
+			if (file && !file.type.startsWith('image/')) {
+				alert('Vui lòng chọn một file hình ảnh (jpg, jpeg, png, gif).');
+				this.value = '';
+			}
+		});
+	</script>
+	<script src="~/js/promotion-create-validation.js" asp-append-version="true"></script>
 }
 
 
 @section Styles {
-    <link rel="stylesheet" href="~/css/promotion_create.css" asp-append-version="true" />
+
+	<link rel="stylesheet" href="~/css/promotion_create.css" asp-append-version="true" />
 }

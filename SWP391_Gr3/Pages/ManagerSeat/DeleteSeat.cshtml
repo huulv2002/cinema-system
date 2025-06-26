@@ -1,0 +1,29 @@
+﻿@page
+@model SWP391_Gr3.Pages.ManagerSeat.DeleteSeatModel
+@{
+    ViewData["Title"] = "Xoá ghế";
+}
+
+<div class="container mt-5 text-white bg-dark p-4 rounded">
+    <h2>Xác nhận xoá ghế</h2>
+
+    <p>Bạn có chắc muốn xoá ghế <strong>@Model.Seat?.Code</strong> không?</p>
+
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div class="alert alert-danger">@Model.ErrorMessage</div>
+    }
+
+    <form method="post">
+        <input type="hidden" name="Id" value="@Model.Seat?.Id" />
+        <input type="hidden" name="RoomId" value="@Model.RoomId" />
+        <input type="hidden" name="ShowtimeId" value="@Model.ShowtimeId" />
+        <input type="hidden" name="MovieId" value="@Model.MovieId" />
+        <button type="submit" class="btn btn-danger">Xoá</button>
+        <a asp-page="/ManagerSeat/SeatDetail"
+           asp-route-roomId="@Model.RoomId"
+           asp-route-showtimeId="@Model.ShowtimeId"
+           asp-route-movieId="@Model.MovieId"
+           class="btn btn-secondary ms-2">Huỷ</a>
+    </form>
+</div>

@@ -1,0 +1,45 @@
+﻿@page
+@model SWP391_Gr3.Pages.ManagerMovie.IndexModel
+@{
+    ViewData["Title"] = "Quản lý Phim";
+}
+<div class="container mt-5">
+    <h2 class="mb-4 text-white" >Danh sách phim</h2>
+
+    <a class="btn btn-primary mb-3" asp-page="CreateMovie">+ Thêm phim</a>
+
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Tiêu đề</th>
+                <th>Đạo diễn</th>
+                <th>Ngôn ngữ</th>
+                <th>Thời lượng (phút)</th>
+                <th>Ngày phát hành</th>
+                <th>Tuổi giới hạn</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var movie in Model.Movies)
+            {
+                <tr>
+                    <td>@movie.Title</td>
+                    <td>@movie.Director</td>
+                    <td>@movie.Language</td>
+                    <td>@movie.Duration</td>
+                    <td>@(movie.ReleaseDate?.ToString("dd-MM-yyyy"))</td>
+                    <td>@movie.OverAge+</td>
+                    <td>
+                        <a class="btn btn-sm btn-danger" asp-page="UpdateMovie" asp-route-id="@movie.Id">Sửa</a>
+                        <a class="btn btn-sm btn-danger" asp-page="DeleteMovie" asp-route-id="@movie.Id">Xoá</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@section Styles {
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/theater_index.css" asp-append-version="true" />
+}

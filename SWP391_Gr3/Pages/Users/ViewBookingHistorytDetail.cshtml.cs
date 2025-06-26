@@ -23,21 +23,28 @@ namespace SWP391_Gr3.Pages.Users
         public async Task<IActionResult> OnGetAsync(int id)
         {
             Ticket = await _context.Tickets
-                .Include(t => t.Seat).ThenInclude(s => s.Type)
-                .Include(t => t.Showtime).ThenInclude(s => s.Movie)
-                .Include(t => t.Order)
-                .FirstOrDefaultAsync(t => t.Id == id);
+            .Include(t => t.Seat)!.ThenInclude(s => s.Type)
+            .Include(t => t.Showtime)!.ThenInclude(s => s.Movie)
+            .Include("Order")
+            .FirstOrDefaultAsync(t => t.Id == id);
 
-            if (Ticket == null || Ticket.Order == null)
+            Order? order = null;
+            if (Ticket != null && Ticket.OrderId != null)
+            {
+                order = await _context.Orders.FirstOrDefaultAsync(o => o.Id == Ticket.OrderId);
+            }
+
+            if (Ticket == null || order == null)
             {
                 return NotFound();
             }
 
-            if (Ticket.Order.PromotionId != null)
+            if (order.PromotionId != null)
             {
                 Promotion = await _context.Promotions
-                    .FirstOrDefaultAsync(p => p.Id == Ticket.Order.PromotionId);
+                    .FirstOrDefaultAsync(p => p.Id == order.PromotionId);
             }
+
 
             OrderCombos = await _context.OrderCombos
                 .Include(oc => oc.Combo)

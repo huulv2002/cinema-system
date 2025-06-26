@@ -19,7 +19,7 @@ public partial class User
 
     public string? Address { get; set; }
 
-    public bool IsActive { get; set; }
+    public bool? IsActive { get; set; }
 
     public int? TheaterId { get; set; }
 
@@ -32,5 +32,4 @@ public partial class User
     public virtual Role? Role { get; set; }
 
     public virtual Theater? Theater { get; set; }
-
 }
