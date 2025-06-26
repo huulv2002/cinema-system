@@ -1,0 +1,69 @@
+﻿@page
+@model SWP391_Gr3.Pages.Reviews.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<div class="white-frame table-responsive">
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MovieReview[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MovieReview[0].Summary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MovieReview[0].PublishedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MovieReview[0].Likes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MovieReview[0].Views)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MovieReview[0].Movie)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.MovieReview) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Summary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PublishedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Likes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Views)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Movie.Id)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</div>
+

@@ -12,7 +12,8 @@ public partial class Payment
     public string? Status { get; set; }
 
     public decimal? Amount { get; set; }
-    public DateTime CreatedAt { get; set; } 
+
+    public DateTime CreatedAt { get; set; }
 
     public virtual Order? Order { get; set; }
 }

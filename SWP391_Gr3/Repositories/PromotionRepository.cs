@@ -18,15 +18,16 @@ namespace SWP391_Gr3.Repositories
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<bool> AddPromotionTypeAsync(Promotion promotion)
+        public async Task<bool> AddPromotionTypeAsync(PromotionType promotiontype)
         {
-            throw new NotImplementedException();
+            await _context.PromotionTypes.AddAsync(promotiontype);
+            return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<bool> DeletePromotionAsync(int id)
         {
             var promotion = await _context.Promotions.FindAsync(id);
-            if (promotion == null)
+            if (promotion != null)
             {
                 _context.Promotions.Remove(promotion);
                 return await _context.SaveChangesAsync() > 0;
@@ -34,9 +35,14 @@ namespace SWP391_Gr3.Repositories
             return false;
         }
 
-        public Task<Promotion> GetPromotionByIdAsync(int id)
+        public async Task<Promotion> GetPromotionByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var pro= await _context.Promotions.FindAsync(id);
+            if(pro == null)
+            {
+                throw new NotImplementedException();               
+            }
+            return pro;
         }
 
         public async Task<IEnumerable<Promotion>> ListAllPromotionAsync()
@@ -49,15 +55,35 @@ namespace SWP391_Gr3.Repositories
             return await _context.PromotionTypes.ToListAsync();
         }
 
+        public async Task<bool> ToggleUserActiveStatusAsync(int Id)
+        {
+            var date = DateTime.Now;
+
+            var pro = await _context.Promotions.FindAsync(Id);
+            if (pro == null)
+            {
+                return false;
+            }
+            DateTime? exdate = pro.EndDate;
+            if (date > exdate)
+            {
+                pro.IsActive = false;
+                return await _context.SaveChangesAsync() > 0;
+            }
+            pro.IsActive = !pro.IsActive;
+            return await _context.SaveChangesAsync() > 0;
+        }
+
         public async Task<bool> UpdatePromotionAsync(Promotion promotion)
         {
             _context.Promotions.Update(promotion);
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<bool> UpdatePromotionTypeAsync(Promotion promotion)
+        public async Task<bool> UpdatePromotionTypeAsync(PromotionType promotion)
         {
-            throw new NotImplementedException();
+            _context.PromotionTypes.Update(promotion);
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }

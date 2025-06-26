@@ -30,8 +30,7 @@ namespace SWP391_Gr3.Pages.Users
             var tickets = await _context.Tickets
                 .Include(t => t.Seat)
                 .Include(t => t.Showtime).ThenInclude(s => s.Movie)
-                .Include(t => t.Order)
-                .Where(t => t.Order != null && t.Order.UserId == userId)
+                .Where(t => t.OrderId != null && _context.Orders.Any(o => o.Id == t.OrderId && o.UserId == userId))
                 .ToListAsync();
 
             var now = DateTime.Now;

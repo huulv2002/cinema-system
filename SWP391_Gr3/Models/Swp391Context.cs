@@ -33,6 +33,8 @@ public partial class Swp391Context : DbContext
 
     public virtual DbSet<Movie> Movies { get; set; }
 
+    public virtual DbSet<MovieReview> MovieReviews { get; set; }
+
     public virtual DbSet<Order> Orders { get; set; }
 
     public virtual DbSet<OrderCombo> OrderCombos { get; set; }
@@ -68,7 +70,7 @@ public partial class Swp391Context : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
- => optionsBuilder.UseSqlServer(GetConnectionString());
+=> optionsBuilder.UseSqlServer(GetConnectionString());
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -135,6 +137,23 @@ public partial class Swp391Context : DbContext
                     });
         });
 
+        modelBuilder.Entity<MovieReview>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__MovieRev__3214EC07C9575E94");
+
+            entity.ToTable("MovieReview");
+
+            entity.Property(e => e.ImageUrl).HasMaxLength(255);
+            entity.Property(e => e.PublishedDate).HasColumnType("datetime");
+            entity.Property(e => e.Summary).HasMaxLength(500);
+            entity.Property(e => e.Title).HasMaxLength(200);
+
+            entity.HasOne(d => d.Movie).WithMany(p => p.MovieReviews)
+                .HasForeignKey(d => d.MovieId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_MovieReview_Movie");
+        });
+
         modelBuilder.Entity<Order>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Order__3214EC076F81D665");
@@ -198,6 +217,9 @@ public partial class Swp391Context : DbContext
 
             entity.Property(e => e.Amount).HasColumnType("decimal(10, 2)");
             entity.Property(e => e.Code).HasMaxLength(50);
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
             entity.Property(e => e.Status).HasMaxLength(50);
         });
 
@@ -300,11 +322,11 @@ public partial class Swp391Context : DbContext
 
             entity.HasOne(d => d.Room).WithMany(p => p.Seats)
                 .HasForeignKey(d => d.RoomId)
-                .HasConstraintName("FK__Seat__RoomId__37A5467C");
+                .HasConstraintName("FK__Seat__RoomId__151B244E");
 
             entity.HasOne(d => d.Type).WithMany(p => p.Seats)
                 .HasForeignKey(d => d.TypeId)
-                .HasConstraintName("FK__Seat__TypeId__36B12243");
+                .HasConstraintName("FK__Seat__TypeId__160F4887");
         });
 
         modelBuilder.Entity<SeatType>(entity =>
@@ -360,12 +382,7 @@ public partial class Swp391Context : DbContext
             entity.HasOne(d => d.Showtime).WithMany(p => p.Tickets)
                 .HasForeignKey(d => d.ShowtimeId)
                 .HasConstraintName("FK__Ticket__Showtime__5AEE82B9");
-            entity.HasOne(d => d.Order)
-                .WithMany(p => p.Tickets)         
-                .HasForeignKey(d => d.OrderId)
-                .HasConstraintName("FK__Ticket__OrderId__XXXXXXX");
         });
-
 
         modelBuilder.Entity<User>(entity =>
         {

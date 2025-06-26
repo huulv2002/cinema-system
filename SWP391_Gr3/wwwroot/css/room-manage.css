@@ -1,0 +1,51 @@
+﻿
+.form-container {
+    background-color: #1e1e2f;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #ffffff;
+    padding: 20px;
+}
+
+
+h2, h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #2c2f4a;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+thead {
+    background-color: #3d4166;
+}
+
+th, td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #444;
+    color: #f0f0f0;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #2a2d45;
+}
+
+tbody tr:hover {
+    background-color: #3f4260;
+}
+
+
+.empty-message {
+    text-align: center;
+    font-size: 20px;
+    color: #ffb84d;
+    margin-top: 40px;
+}

@@ -1,0 +1,198 @@
+﻿@page
+@model SWP391_Gr3.Pages.ManagerSeat.SeatDetailModel
+@{
+    ViewData["Title"] = "Chi tiết ghế";
+}
+<!-- Nội dung chính -->
+<div class="manage-theaters-container">
+    <h2>Ghế phòng: @Model.RoomCode</h2>
+    <p><strong>Tên phim:</strong> @Model.Movie?.Title</p>
+    <p><strong>Giờ chiếu:</strong> @Model.Showtime?.StartTime?.ToString("HH:mm dd-MM-yyyy")</p>
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div class="alert alert-danger">@Model.ErrorMessage</div>
+    }
+    <div class="my-3 d-flex justify-content-between">
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addSeatModal">+ Thêm ghế</button>
+    </div>
+
+    @if (Model.Seats == null || Model.Seats.Count == 0)
+    {
+        <p>Không có ghế nào trong phòng này.</p>
+    }
+    else
+    {
+        int seatsPerRow = 9;
+        var groupedSeats = Model.Seats.GroupBy(s => s.Type.Name?.ToLower()).ToList();
+
+        foreach (var group in groupedSeats)
+        {
+            <h4>Ghế @group.Key.ToUpper()</h4>
+            for (int i = 0; i < group.Count(); i += seatsPerRow)
+            {
+                <div class="seat-row">
+                    @foreach (var seat in group.Skip(i).Take(seatsPerRow))
+                    {
+                        <div class="seat-wrapper">
+                            <div class="seat @(group.Key)">
+                                @seat.Code
+                            </div>
+                            <div>
+                                <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editSeatModal"
+                                        data-seat-id="@seat.Id" data-seat-code="@seat.Code" data-seat-type="@seat.TypeId">
+                                    Sửa
+                                </button>
+                                <a asp-page="/ManagerSeat/DeleteSeat"
+                                   asp-route-id="@seat.Id"
+                                   asp-route-roomId="@Model.RoomId"
+                                   asp-route-showtimeId="@Model.ShowtimeId"
+                                   asp-route-movieId="@Model.MovieId"
+                                   class="btn btn-sm btn-danger">Xoá</a>
+
+
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        }
+    }
+
+    <div class="mt-4">
+        <a class="btn btn-secondary" asp-page="/ManagerRoom/DetailRoom" asp-route-id="@Model.RoomId">Quay lại</a>
+    </div>
+</div>
+
+<!-- Modal Thêm Ghế -->
+<div class="modal fade" id="addSeatModal" tabindex="-1" aria-labelledby="addSeatModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form method="post" asp-page-handler="Add">
+            <div class="modal-content">
+                <div class="modal-header"><h5 class="modal-title">Thêm ghế</h5></div>
+                <div class="modal-body">
+                    <input type="hidden" name="RoomId" value="@Model.RoomId" />
+                    <input type="hidden" name="ShowtimeId" value="@Model.ShowtimeId" />
+                    <input type="hidden" name="MovieId" value="@Model.MovieId" />
+                    <div class="mb-3">
+                        <label class="form-label">Mã ghế</label>
+                        <input type="text" name="NewSeatCode" class="form-control"
+                               pattern="^[A-Za-z0-9]{1,4}$" title="Chỉ được nhập chữ cái và số, tối đa 4 ký tự" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Loại ghế</label>
+                        <select name="NewSeatTypeId" class="form-select" required>
+                            @foreach (var type in Model.SeatTypes)
+                            {
+                                <option value="@type.Id">@type.Name</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+                    <button type="submit" class="btn btn-success">Thêm</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal Sửa Ghế -->
+<div class="modal fade" id="editSeatModal" tabindex="-1" aria-labelledby="editSeatModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form method="post" asp-page-handler="Edit">
+            <div class="modal-content">
+                <div class="modal-header"><h5 class="modal-title">Sửa ghế</h5></div>
+                <div class="modal-body">
+                    <input type="hidden" name="EditSeatId" id="editSeatId" />
+                    <input type="hidden" name="ShowtimeId" value="@Model.ShowtimeId" />
+                    <input type="hidden" name="RoomId" value="@Model.RoomId" />
+                    <input type="hidden" name="MovieId" value="@Model.MovieId" />
+                    <div class="mb-3">
+                        <label class="form-label">Mã ghế</label>
+                        <input type="text" name="EditSeatCode" id="editSeatCode" class="form-control"
+                               pattern="^[A-Za-z0-9]{1,4}$" title="Chỉ được nhập chữ cái và số, tối đa 4 ký tự" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Loại ghế</label>
+                        <select name="EditSeatTypeId" id="editSeatType" class="form-select" required>
+                            @foreach (var type in Model.SeatTypes)
+                            {
+                                <option value="@type.Id">@type.Name</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+                    <button type="submit" class="btn btn-warning">Lưu</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<style>
+    .manage-theaters-container {
+        padding: 30px;
+        background: #343a40;
+        color: white;
+        border-radius: 10px;
+        max-width: 1000px;
+        margin: auto;
+    }
+
+    .seat-row {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 15px;
+        flex-wrap: wrap;
+    }
+
+    .seat-wrapper {
+        text-align: center;
+        min-width: 80px;
+    }
+
+    .seat {
+        padding: 8px 14px;
+        border-radius: 5px;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .normal {
+        background-color: #f8f9fa;
+        color: #000;
+        border: 1px solid #ccc;
+    }
+
+    .advance {
+        background-color: #0d6efd;
+        color: white;
+    }
+
+    .vip {
+        background-color: white;
+        color: #dc3545;
+        border: 2px solid #dc3545;
+    }
+
+    .btn-warning {
+        margin-right: 4px;
+    }
+</style>
+@section Scripts {
+    <script>
+        var editModal = document.getElementById('editSeatModal');
+        editModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;
+            var seatId = button.getAttribute('data-seat-id');
+            var seatCode = button.getAttribute('data-seat-code');
+            var seatType = button.getAttribute('data-seat-type');
+
+            document.getElementById('editSeatId').value = seatId;
+            document.getElementById('editSeatCode').value = seatCode;
+            document.getElementById('editSeatType').value = seatType;
+        });
+    </script>
+}

@@ -9,7 +9,7 @@ public partial class Promotion
 
     public string? Code { get; set; }
 
-    public int PromotionTypeId { get; set; }
+    public int? PromotionTypeId { get; set; }
 
     public decimal? Value { get; set; }
 

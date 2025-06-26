@@ -37,7 +37,7 @@ namespace SWP391_Gr3.Pages.Promotions
                 return Page();
             }
 
-            // Handle image upload
+            //  image validate
             if (ImageFile != null)
             {
                 var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
@@ -50,7 +50,7 @@ namespace SWP391_Gr3.Pages.Promotions
                 }
 
                 var uploadsFolder = Path.Combine(_environment.WebRootPath, "images/promotions");
-                Directory.CreateDirectory(uploadsFolder); // Create directory if it doesn't exist
+                Directory.CreateDirectory(uploadsFolder); 
                 var uniqueFileName = Guid.NewGuid().ToString() + extension;
                 var filePath = Path.Combine(uploadsFolder, uniqueFileName);
 

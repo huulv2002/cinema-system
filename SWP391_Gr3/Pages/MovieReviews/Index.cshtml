@@ -1,0 +1,37 @@
+﻿@page
+@model SWP391_Gr3.Pages.MovieReviews.IndexModel
+@{
+    ViewData["Title"] = "Bình luận phim";
+}
+<div class="container py-4" style="background: #fff;">
+    <h2 class="mb-4 fw-bold">Bình luận phim</h2>
+    @if (Model.Reviews != null && Model.Reviews.Any())
+    {
+        foreach (var review in Model.Reviews)
+        {
+            <div class="row mb-4 border-bottom pb-3">
+                <div class="col-md-4">
+                    <a href="/MovieReviews/Detail/@review.Id">
+                        <img src="@review.ImageUrl" alt="@review.Title" class="img-fluid rounded" style="height:180px;object-fit:cover;width:100%;" />
+                    </a>
+                </div>
+                <div class="col-md-8">
+                    <a href="/MovieReviews/Detail/@review.Id" style="text-decoration:none;color:inherit;">
+                        <h5 class="fw-bold mb-2">[Review] @review.Title</h5>
+                    </a>
+                    <div class="mb-2">
+                        <span class="btn btn-primary btn-sm">Thích</span>
+                        <span class="ms-2"><i class="bi bi-eye"></i> @review.Views</span>
+                    </div>
+                    <div class="mb-2 text-muted" style="font-size:0.95rem;">
+                        @review.Summary
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div>Không có bài review nào.</div>
+    }
+</div>

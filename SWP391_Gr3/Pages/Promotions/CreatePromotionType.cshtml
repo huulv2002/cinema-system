@@ -1,0 +1,41 @@
+﻿@page
+@model SWP391_Gr3.Pages.Promotions.CreatePromotionTypeModel
+@{
+    ViewData["Title"] = "Tạo mới loại khuyến mại";
+}
+
+<h2 style="color:white">Tạo mới loại khuyến mại</h2>
+
+<div class="form-container mt-4">
+    <form method="post" class="text-white">
+        <div class="mb-3">
+            <label asp-for="PromotionType.Title" class="form-label">Tiêu đề</label>
+            <input asp-for="PromotionType.Title" class="form-control" placeholder="Nhập tiêu đề loại khuyến mại" />
+            <span asp-validation-for="PromotionType.Title" class="text-danger"></span>
+        </div>
+        <div class="d-flex">
+            <button type="submit" class="btn btn-primary me-2">Tạo mới</button>
+            <a asp-page="/Promotions/PromotionType" class="btn btn-secondary">Quay lại</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/promotion-type-create-validation.js" asp-append-version="true"></script>
+}
+
+<style>
+    .form-container
+
+    {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+</style>
