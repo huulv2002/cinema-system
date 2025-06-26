@@ -28,9 +28,9 @@
                 @foreach (var ticket in Model.UnusedTickets)
                 {
                     <li class="list-group-item">
-                        <strong>Phim:</strong> @ticket.Showtime?.Movie?.Title<br />
-                        <strong>Suất:</strong> @ticket.Showtime?.StartTime?.ToString("dd/MM/yyyy HH:mm")<br />
-                        <strong>Ghế:</strong> @ticket.Seat?.Code
+                        <strong>Phim:</strong> @ticket.Showtime.Movie.Title<br />
+                        <strong>Suất:</strong> @ticket.Showtime.StartTime?.ToString("dd/MM/yyyy HH:mm")<br />
+                        <strong>Ghế:</strong> @ticket.Seat.Code
                         <a class="btn btn-sm btn-primary mt-2"
                            asp-page="/Users/ViewBookingHistorytDetail"
                            asp-route-id="@ticket.Id">
@@ -53,8 +53,8 @@
                 @foreach (var ticket in Model.UsedTickets)
                 {
                     <li class="list-group-item">
-                        <strong>Phim:</strong> @ticket.Showtime?.Movie?.Title<br />
-                        <strong>Suất:</strong> @ticket.Showtime?.StartTime?.ToString("dd/MM/yyyy HH:mm")<br />
+                        <strong>Phim:</strong> @ticket.Showtime.Movie.Title<br />
+                        <strong>Suất:</strong> @ticket.Showtime.StartTime?.ToString("dd/MM/yyyy HH:mm")<br />
                         <strong>Ghế:</strong> @ticket.Seat?.Code
                         <a class="btn btn-sm btn-primary mt-2"
                            asp-page="/Users/ViewBookingHistorytDetail"

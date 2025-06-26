@@ -10,10 +10,10 @@
 
 <div class="card">
     <div class="card-body">
-        <p><strong>Phim:</strong> @Model.Ticket.Showtime?.Movie?.Title</p>
-        <p><strong>Thời gian chiếu:</strong> @Model.Ticket.Showtime?.StartTime?.ToString("dd/MM/yyyy HH:mm")</p>
-        <p><strong>Ghế:</strong> @Model.Ticket.Seat?.Code (@Model.Ticket.Seat?.Type?.Name)</p>
-        <p><strong>Giá vé:</strong> @Model.Ticket.Seat?.Type?.Price?.ToString("N0") đ</p>
+        <p><strong>Phim:</strong> @Model.Ticket.Showtime.Movie.Title</p>
+        <p><strong>Thời gian chiếu:</strong> @Model.Ticket.Showtime.StartTime?.ToString("dd/MM/yyyy HH:mm")</p>
+        <p><strong>Ghế:</strong> @Model.Ticket.Seat.Code (@Model.Ticket.Seat.Type.Name)</p>
+        <p><strong>Giá vé:</strong> @Model.Ticket.Seat.Type.Price.ToString("N0") đ</p>
 
         @if (Model.Promotion != null)
         {
@@ -58,10 +58,10 @@
                     @foreach (var item in Model.OrderProducts)
                     {
                         <tr>
-                            <td>@item.Product?.Name</td>
-                            <td>@item.Product?.Size</td>
+                            <td>@item.Product.Name</td>
+                            <td>@item.Product.Size</td>
                             <td>@item.Quantity</td>
-                            <td>@item.Product?.Price.ToString("N0") đ</td>
+                            <td>@item.Product.Price.ToString("N0") đ</td>
                         </tr>
                     }
                 </tbody>

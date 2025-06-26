@@ -36,8 +36,8 @@ namespace SWP391_Gr3.Pages.Users
 
             var now = DateTime.Now;
 
-            UnusedTickets = tickets.Where(t => t.Showtime?.StartTime > now).ToList();
-            UsedTickets = tickets.Where(t => t.Showtime?.StartTime <= now).ToList();
+            UnusedTickets = tickets.Where(t => t.Showtime.StartTime > now).ToList();
+            UsedTickets = tickets.Where(t => t.Showtime.StartTime <= now).ToList();
 
             return Page();
         }

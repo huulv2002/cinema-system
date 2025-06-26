@@ -1,0 +1,54 @@
+﻿@page
+@model SWP391_Gr3.Pages.ManagerProductCombo.IndexModel
+@{
+    ViewData["Title"] = "Quản lý Combo";
+}
+
+<div class="container bg-white p-4 rounded shadow-sm">
+    <h2 class="mb-4">Quản lý Combo sản phẩm</h2>
+
+    <a class="btn btn-primary mb-3" asp-page="Create">+ Thêm Combo mới</a>
+
+    <table class="table table-bordered table-hover">
+        <thead class="table-light">
+            <tr>
+                <th>Tiêu đề</th>
+                <th>Giá</th>
+                <th>Mô tả</th>
+                <th>Sản phẩm trong combo</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Combos != null && Model.Combos.Count > 0)
+            {
+                foreach (var combo in Model.Combos)
+                {
+                    <tr>
+                        <td>@combo.Title</td>
+                        <td>@(combo.Price?.ToString("N0")) ₫</td>
+                        <td>@combo.Description</td>
+                        <td>
+                            <ul class="mb-0 ps-3">
+                                @foreach (var item in combo.ProductCombos)
+                                {
+                                    <li>@item.Product?.Name (@item.Quantity)</li>
+                                }
+                            </ul>
+                        </td>
+                        <td>
+                            <a class="btn btn-sm btn-warning me-1" asp-page="Edit" asp-route-id="@combo.Id">Sửa</a>
+                            <a class="btn btn-sm btn-danger" asp-page="Delete" asp-route-id="@combo.Id">Xoá</a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5" class="text-center text-muted">Không có combo nào.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

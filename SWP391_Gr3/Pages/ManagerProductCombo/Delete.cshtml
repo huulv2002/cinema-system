@@ -1,0 +1,28 @@
+﻿@page
+@model SWP391_Gr3.Pages.ManagerProductCombo.DeleteModel
+@{
+    ViewData["Title"] = "Xoá Combo";
+}
+
+<div class="container  bg-white p-4 rounded shadow-sm">
+    <h2 class="mb-3 text-danger">Xác nhận xoá Combo</h2>
+
+    <div class="alert alert-warning">
+        <p>Bạn có chắc chắn muốn xoá combo "<strong>@Model.Combo.Title</strong>" không?</p>
+        <p><strong>Giá:</strong> @Model.Combo.Price?.ToString("N0") ₫</p>
+        <p><strong>Mô tả:</strong> @Model.Combo.Description</p>
+
+        <h5>Sản phẩm trong combo:</h5>
+        <ul>
+            @foreach (var item in Model.Combo.ProductCombos)
+            {
+                <li>@item.Product?.Name (@item.Quantity)</li>
+            }
+        </ul>
+    </div>
+
+    <form method="post">
+        <button type="submit" class="btn btn-danger">Xoá</button>
+        <a asp-page="Index" class="btn btn-secondary">Huỷ</a>
+    </form>
+</div>
