@@ -1,0 +1,38 @@
+﻿@page
+@model SWP391_Gr3.Pages.CartTier.CreateModel
+@{
+    ViewData["Title"] = "Tạo thẻ thành viên mới";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form method="post">
+    <p>Hệ thống sẽ tự tạo thẻ với thông tin cá nhân của bạn:</p>
+
+    <div class="form-group">
+        <label>Họ tên</label>
+        <input value="@Model.UserFullName" class="form-control" readonly />
+    </div>
+
+    <div class="form-group">
+        <label>Email</label>
+        <input value="@Model.UserEmail" class="form-control" readonly />
+    </div>
+
+    <div class="form-group">
+        <label>Số điện thoại</label>
+        <input value="@Model.UserPhone" class="form-control" readonly />
+    </div>
+
+    <div class="form-group">
+        <label>Cấp độ</label>
+        <input value="Basic" class="form-control" readonly />
+    </div>
+
+    <div class="form-group">
+        <label>Trạng thái</label>
+        <input value="Active" class="form-control" readonly />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Tạo thẻ thành viên</button>
+</form>

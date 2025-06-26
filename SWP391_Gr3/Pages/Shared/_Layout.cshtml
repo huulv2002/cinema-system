@@ -151,6 +151,13 @@
 								<li class="nav-item">
 									<a class="nav-link text-dark" asp-page="/Promotions/Index">Tin mới & ưu đãi</a>
 								</li>
+								@if (userRole == "Customer")
+								{
+									<li class="nav-item">
+										<a class="nav-link text-white" asp-page="/LoyaltyCards/Index">Thẻ thành viên</a>
+									</li>
+
+								}
 								<li class="nav-item">
 									<a class="nav-link text-dark" asp-page="/Theaters/ViewTheater">Xem rạp</a>
 								</li>
