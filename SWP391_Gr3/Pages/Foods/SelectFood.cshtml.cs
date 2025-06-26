@@ -82,7 +82,7 @@ namespace SWP391_Gr3.Pages.Foods
                 .Select(c => new { c.Title, c.Price })
                 .ToListAsync();
 
-            decimal totalPrice = selectedFoods.Sum(f => f.Price ?? 0) + selectedCombos.Sum(c => c.Price ?? 0);
+            decimal totalPrice = selectedFoods.Sum(f => f.Price ) + selectedCombos.Sum(c => c.Price ?? 0);
 
             var subject = "Xác nhận đặt đồ ăn tại rạp phim";
             var body = $"<b>Bạn đã đặt thành công các món sau cho phim:</b><br/>" +
