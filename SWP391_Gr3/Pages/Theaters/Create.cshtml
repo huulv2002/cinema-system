@@ -9,6 +9,7 @@
 <div class="form-container">
     <h2 style="color:whitesmoke">Tạo rạp mới</h2>
     <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
             <label asp-for="TheaterViewModel.Name" style="color:white">Tên rạp</label>
             <input asp-for="TheaterViewModel.Name" class="form-control" required />

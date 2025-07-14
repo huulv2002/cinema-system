@@ -5,6 +5,8 @@ namespace SWP391_Gr3.Repositories
 {
     public interface ITheatersRepository
     {
+        Task<bool> LocationExistsAsync(string location);
+        Task<bool> TheaterNameExistsAsync(string name);
         Task<bool> ToggleTheaterActiveStatusAsync(int theaterId);
         Task<bool> AddTheaterAsync(Theater theater);
         Task<bool> AddRoomAsync(int id, Room room);

@@ -1,4 +1,5 @@
-﻿using SWP391_Gr3.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using SWP391_Gr3.Models;
 using SWP391_Gr3.Repositories;
 using SWP391_Gr3.ViewModels;
 
@@ -20,6 +21,15 @@ namespace SWP391_Gr3.Services
 
         public async Task<bool> CreateTheaterAsync(TheaterViewModel theaterViewModel)
         {
+            if (await _repo.TheaterNameExistsAsync(theaterViewModel.Name))
+            {
+                throw new InvalidOperationException("Tên rạp đã tồn tại.");
+            }
+            if (await _repo.LocationExistsAsync(theaterViewModel.Location))
+            {
+                throw new InvalidOperationException("Địa điểm này đã có rạp khác.");
+            }
+
             var ths = new Theater()
             {
                 Id = theaterViewModel.Id,
@@ -27,6 +37,7 @@ namespace SWP391_Gr3.Services
                 Location = theaterViewModel.Location,
                 IsActive = theaterViewModel.IsActive,
             };
+
             return await _repo.AddTheaterAsync(ths);
         }
 
@@ -49,6 +60,8 @@ namespace SWP391_Gr3.Services
         {
             return await _repo.RoomCodeExistsAsync(code, theaterId);
         }
+
+        
 
         public async Task<bool> ToggleTheaterActiveStatusAsync(int theaterId)
         {

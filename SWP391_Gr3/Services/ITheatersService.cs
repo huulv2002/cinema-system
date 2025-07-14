@@ -5,6 +5,7 @@ namespace SWP391_Gr3.Services
 {
     public interface ITheatersService
     {
+       
         Task<bool> ToggleTheaterActiveStatusAsync(int theaterId);
         Task<bool> RoomCodeExistsAsync(string code, int theaterId);
         Task<bool> CreateTheaterAsync(TheaterViewModel theaterViewModel);
