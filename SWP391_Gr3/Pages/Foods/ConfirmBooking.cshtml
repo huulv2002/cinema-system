@@ -1,0 +1,73 @@
+﻿@page
+@model SWP391_Gr3.Pages.Foods.ConfirmBookingModel
+@{
+    ViewData["Title"] = "Xác nhận vé & đồ ăn";
+}
+
+<form method="post">
+    <div class="manage-theaters-container">
+        <h2>Xác nhận đặt vé & đồ ăn</h2>
+
+        <p><strong>Phim:</strong> @Model.Movie.Title</p>
+        <p><strong>Rạp:</strong> @Model.Theater.Name</p>
+        <p><strong>Suất chiếu:</strong> @Model.Showtime.StartTime?.ToString("HH:mm, dd/MM/yyyy")</p>
+        <p><strong>Phòng chiếu:</strong> @Model.Room.Code</p>
+        <p>
+            <strong>Ghế đã chọn:</strong>
+            @foreach (var seat in Model.SelectedSeats)
+            {
+                <span>@seat.Code </span>
+            }
+        </p>
+
+        @if (Model.SelectedFoods.Any())
+        {
+            <h4>🍿 Đồ ăn đã chọn:</h4>
+            <ul>
+                @foreach (var food in Model.SelectedFoods)
+                {
+                    <li>@food.Name - @food.Price.ToString("N0") đ</li>
+                }
+            </ul>
+        }
+
+        @if (Model.SelectedCombos != null && Model.SelectedCombos.Any())
+        {
+            <h4>Combo đã chọn:</h4>
+            <ul>
+                @foreach (var combo in Model.SelectedCombos)
+                {
+                    <li>@combo.Title - @string.Format("{0:N0}", combo.Price) đ</li>
+                }
+            </ul>
+        }
+
+        <h3 style="margin-top: 20px;">🧾 Tổng tiền: @Model.TotalAmount.ToString("N0") đ</h3>
+
+        <p style="color: green; font-weight: bold;">✅ Thông tin xác nhận đã được gửi qua email.</p>
+
+        <div style="margin-top: 20px; display: flex; gap: 10px;">
+            <button type="submit" class="btn btn-success">✅ Xác nhận & Lưu giỏ hàng</button>
+            <a href="/Cart" class="btn btn-primary">🛒 Xem giỏ hàng</a>
+        </div>
+    </div>
+</form>
+
+<style>
+    .manage-theaters-container {
+        max-width: 700px;
+        margin: 50px auto;
+        padding: 30px;
+        background: #f8f9fa;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    ul {
+        padding-left: 20px;
+    }
+
+    button.btn-success {
+        min-width: 200px;
+    }
+</style>

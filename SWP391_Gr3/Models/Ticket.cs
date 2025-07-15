@@ -8,6 +8,7 @@ public partial class Ticket
     public int Id { get; set; }
 
     public int? ShowtimeId { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.Now;
 
     public string? Code { get; set; }
 
@@ -18,4 +19,6 @@ public partial class Ticket
     public virtual Seat? Seat { get; set; }
 
     public virtual Showtime? Showtime { get; set; }
+    public virtual Order? Order { get; set; }
+
 }

@@ -12,6 +12,8 @@ public partial class Order
     public int? PaymentId { get; set; }
 
     public int? PromotionId { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public bool IsConfirmed { get; set; } = false;
 
     public virtual ICollection<OrderCombo> OrderCombos { get; set; } = new List<OrderCombo>();
 
@@ -20,6 +22,7 @@ public partial class Order
     public virtual Payment? Payment { get; set; }
 
     public virtual Promotion? Promotion { get; set; }
+    public virtual ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
 
     public virtual User? User { get; set; }
 }

@@ -16,14 +16,18 @@ namespace SWP391_Gr3.Pages.Foods
     {
         private readonly Swp391Context _context;
         private readonly IEmailService _emailService;
-        public SelectFoodModel(Swp391Context context, IEmailService emailService) { 
+
+        public SelectFoodModel(Swp391Context context, IEmailService emailService)
+        {
             _context = context;
             _emailService = emailService;
         }
 
         [BindProperty(SupportsGet = true)]
         public int ShowtimeId { get; set; }
-        [BindProperty(SupportsGet = true)]
+
+
+        [BindProperty(SupportsGet = true, Name = "seatIds")]
         public string SelectedSeatIds { get; set; } = "";
 
         public List<Product> FoodList { get; set; } = new();
@@ -31,6 +35,7 @@ namespace SWP391_Gr3.Pages.Foods
 
         [BindProperty]
         public List<int> SelectedFoodIds { get; set; } = new();
+
         [BindProperty]
         public List<int> SelectedComboIds { get; set; } = new();
 
@@ -39,24 +44,24 @@ namespace SWP391_Gr3.Pages.Foods
             FoodList = await _context.Products.ToListAsync();
 
             var combos = await _context.Combos
-            .Select(c => new ComboViewModel
-            {
-            Id = c.Id,
-            Title = c.Title,
-            Price = c.Price,
-            Description = c.Description,
-            Products = c.ProductCombos.Select(pc => new ComboProductItem
-            {
-            Name = pc.Product.Name,
-            Quantity = pc.Quantity
-            }).ToList()
-            }).ToListAsync();
+                .Select(c => new ComboViewModel
+                {
+                    Id = c.Id,
+                    Title = c.Title,
+                    Price = c.Price,
+                    Description = c.Description,
+                    Products = c.ProductCombos.Select(pc => new ComboProductItem
+                    {
+                        Name = pc.Product.Name,
+                        Quantity = pc.Quantity
+                    }).ToList()
+                })
+                .ToListAsync();
 
             ComboList = combos
                 .GroupBy(c => new { c.Title, c.Price })
                 .Select(g => g.First())
                 .ToList();
-
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -82,12 +87,12 @@ namespace SWP391_Gr3.Pages.Foods
                 .Select(c => new { c.Title, c.Price })
                 .ToListAsync();
 
-            decimal totalPrice = selectedFoods.Sum(f => f.Price ) + selectedCombos.Sum(c => c.Price ?? 0);
+            decimal totalPrice = selectedFoods.Sum(f => f.Price) + selectedCombos.Sum(c => c.Price ?? 0);
 
             var subject = "Xác nhận đặt đồ ăn tại rạp phim";
             var body = $"<b>Bạn đã đặt thành công các món sau cho phim:</b><br/>" +
-           $"<b>Phim:</b> {movieTitle}<br/>" +
-           $"<b>Giờ chiếu:</b> {showTimeStr}<br/><br/>";
+                       $"<b>Phim:</b> {movieTitle}<br/>" +
+                       $"<b>Giờ chiếu:</b> {showTimeStr}<br/><br/>";
 
             if (selectedFoods.Any())
             {
