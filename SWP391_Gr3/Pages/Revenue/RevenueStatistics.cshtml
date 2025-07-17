@@ -1,0 +1,77 @@
+﻿@page
+@model SWP391_Gr3.Pages.Revenue.RevenueStatisticsModel
+@using Newtonsoft.Json
+
+<h2 style="color:white; text-align: center;">Revenue Statistics</h2>
+
+<div class="revenue-statistics" style="
+    position: relative;
+    width: 1000px; 
+    max-width: 90vw; 
+    margin: 40px auto; 
+    padding: 30px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 15px;
+    box-shadow: 0 0 30px 10px rgba(54, 162, 235, 0.7);
+">
+    <canvas id="revenueChart" width="960" height="480" style="background-color: rgba(255, 255, 255, 0.1); border-radius: 10px;"></canvas>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var labels = @Html.Raw(JsonConvert.SerializeObject(Model.DailyRevenueLabels));
+        var seatData = @Html.Raw(JsonConvert.SerializeObject(Model.DailySeatRevenue));
+        var foodData = @Html.Raw(JsonConvert.SerializeObject(Model.DailyFoodRevenue));
+
+        var ctx = document.getElementById('revenueChart').getContext('2d');
+        var revenueChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Seat Revenue',
+                        data: seatData,
+                        backgroundColor: 'rgba(54, 162, 235, 0.7)'
+                    },
+                    {
+                        label: 'Food Revenue',
+                        data: foodData,
+                        backgroundColor: 'rgba(255, 99, 132, 0.7)'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false, 
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: 'white'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.2)'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: 'white'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.2)'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: 'white'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+}
