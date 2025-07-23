@@ -1,118 +1,85 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using QRCoder;
+using Microsoft.Extensions.Options;
+using Org.BouncyCastle.Asn1.X9;
 using SWP391_Gr3.Models;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Security.Cryptography;
+using System.Text;
+
 
 namespace SWP391_Gr3.Pages.Cart
 {
     public class PaymentModel : PageModel
     {
+        private readonly VnPayConfig _vnpayConfig;
         private readonly Swp391Context _context;
 
-        public PaymentModel(Swp391Context context) => _context = context;
-
-        [BindProperty(SupportsGet = true)]
-        public int OrderId { get; set; }
-
-        [BindProperty]
-        public int? SelectedPromotionId { get; set; }
-
-        [BindProperty]
-        public bool IsPaymentConfirmed { get; set; }
-
-        public List<SelectListItem> AvailablePromotions { get; set; } = new();
-
-        public Order Order { get; set; }
-        public Payment Payment { get; set; }
-        public string QrImage { get; set; }
-        public bool IsExpired { get; set; }
-        public decimal TotalAfterDiscount { get; set; }
-        public bool ShowSuccessPopup { get; set; }
-
-        public async Task<IActionResult> OnGetAsync()
+        public PaymentModel(Swp391Context context, IOptions<VnPayConfig> vnpayConfig)
         {
-            await LoadOrderData();
-            return Page();
+            _context = context;
+            _vnpayConfig = vnpayConfig.Value;
         }
 
-        public async Task<IActionResult> OnPostAsync(string action)
+        public string TransactionStatus { get; set; }
+        [BindProperty]
+        public int Amount { get; set; }
+
+        [BindProperty]
+        public string OrderId { get; set; } = string.Empty;
+
+        [BindProperty]
+        public string OrderInfo { get; set; } = string.Empty;
+        public List<Promotion> Promotions { get; set; } = new();
+
+      
+
+        public IActionResult OnPost(decimal amount, string orderId, string orderInfo)
         {
-            await LoadOrderData();
-
-            if (Order == null || Payment == null)
-                return NotFound();
-
-            // Nếu đơn hết hạn, redirect về Cart
-            if (Order.CreatedAt.AddMinutes(30) < DateTime.Now)
-                return RedirectToPage("/Cart/Index");
-
-            if (action == "confirmPayment")
+            var vnpayParams = new SortedDictionary<string, string>
             {
-                // Áp dụng khuyến mãi được chọn
-                Order.PromotionId = SelectedPromotionId;
-                await _context.SaveChangesAsync();
+                { "vnp_Version", _vnpayConfig.Version },
+                { "vnp_Command", _vnpayConfig.Command },
+                { "vnp_TmnCode", _vnpayConfig.TmnCode },
+                { "vnp_Amount", ((int)(amount * 100)).ToString() },
+                { "vnp_CreateDate", DateTime.Now.ToString("yyyyMMddHHmmss") },
+                { "vnp_CurrCode", _vnpayConfig.CurrCode },
+                { "vnp_IpAddr", HttpContext.Connection.RemoteIpAddress?.ToString() ?? "127.0.0.1" },
+                { "vnp_Locale", _vnpayConfig.Locale },
+                { "vnp_OrderInfo", orderInfo },
+                { "vnp_OrderType", "other" },
+                { "vnp_ReturnUrl", _vnpayConfig.ReturnUrl },
+                { "vnp_TxnRef", orderId },
+                { "vnp_ExpireDate", DateTime.Now.AddMinutes(15).ToString("yyyyMMddHHmmss") }
+            };
 
-                IsPaymentConfirmed = true;
+            var query = string.Join("&", vnpayParams.Select(kvp => $"{kvp.Key}={Uri.EscapeDataString(kvp.Value)}"));
+            var hash = GenerateChecksum(query, _vnpayConfig.HashSecret);
 
-                // Lấy lại khuyến mãi để tính tổng
-                await LoadOrderData(); // Gọi lại để cập nhật Order.Promotion mới
-
-                // Tạo QR
-                string qrContent = $"Đơn hàng #{Order.Id}\nTổng: {TotalAfterDiscount:N0} đ\nTrạng thái: {Payment.Status}";
-                using var qrGen = new QRCodeGenerator();
-                using var data = qrGen.CreateQrCode(qrContent, QRCodeGenerator.ECCLevel.Q);
-                using var qrCode = new PngByteQRCode(data);
-                var qrBytes = qrCode.GetGraphic(20);
-                QrImage = "data:image/png;base64," + Convert.ToBase64String(qrBytes);
-            }
-
-            else if (action == "markPaid")
-            {
-                Payment.Status = "Success";
-                await _context.SaveChangesAsync();
-                ShowSuccessPopup = true;
-            }
-
-            return Page();
+            var paymentUrl = $"{_vnpayConfig.BaseUrl}?{query}&vnp_SecureHash={hash}";
+            return Redirect(paymentUrl);
         }
 
-        private async Task LoadOrderData()
+        public async Task OnGetAsync(int? orderId, int? amount, string? orderInfo)
         {
-            Order = await _context.Orders
-                .Include(o => o.Payment)
-                .Include(o => o.Promotion)
-                .FirstOrDefaultAsync(o => o.Id == OrderId);
-
-            if (Order != null)
+            if (orderId != null && amount != null && orderInfo != null)
             {
-                Payment = Order.Payment;
+                OrderId = orderId.ToString();
+                Amount = amount.Value;
+                OrderInfo = orderInfo;
+            }
 
-                // Tính tổng sau giảm
-                decimal discount = Order.Promotion?.Value ?? 0;
-                TotalAfterDiscount = Payment?.Amount ?? 0;
-                TotalAfterDiscount -= discount;
-
-                // Check hết hạn
-                IsExpired = DateTime.Now > Order.CreatedAt.AddMinutes(30);
-
-                // Nạp danh sách khuyến mãi
-                AvailablePromotions = await _context.Promotions
-                .Where(p => p.IsActive == true)
-                .Select(p => new SelectListItem
-                  {
-                     Value = p.Id.ToString(),
-                    Text = $"{p.Code} - Giảm {p.Value:N0} đ"
-                  })
+            var now = DateTime.Now;
+            Promotions = await _context.Promotions
+                .Where(p => p.IsActive && p.Stock > 0 && p.StartDate <= now && p.EndDate >= now)
                 .ToListAsync();
+        }
 
-            }
+        private string GenerateChecksum(string data, string key)
+        {
+            var hmac = new HMACSHA512(Encoding.UTF8.GetBytes(key));
+            var hash = hmac.ComputeHash(Encoding.UTF8.GetBytes(data));
+            return BitConverter.ToString(hash).Replace("-", "").ToLower();
         }
     }
 }
