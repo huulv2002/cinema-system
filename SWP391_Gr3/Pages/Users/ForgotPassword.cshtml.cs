@@ -25,18 +25,17 @@ namespace SWP391_Gr3.Pages.Users
         public string? Otp { get; set; }
 
         [BindProperty]
-        [Required(ErrorMessage = "Vui lòng nhập mật khẩu mới.")]
         [MinLength(6, ErrorMessage = "Mật khẩu phải có ít nhất 6 ký tự.")]
-        public string NewPassword { get; set; }
+        public string? NewPassword { get; set; }
 
         [BindProperty]
-        [Required(ErrorMessage = "Vui lòng xác nhận mật khẩu.")]
         [Compare("NewPassword", ErrorMessage = "Mật khẩu xác nhận không khớp.")]
-        public string ConfirmPassword { get; set; }
-
+        public string? ConfirmPassword { get; set; }
 
         public string? SuccessMessage { get; set; }
         public string? ErrorMessage { get; set; }
+
+        public bool OtpSent { get; set; } = false;
         public bool ShowResetForm { get; set; } = false;
 
         public async Task<IActionResult> OnPostSendOtpAsync()
@@ -64,6 +63,7 @@ namespace SWP391_Gr3.Pages.Users
                 await _userService.UpdateVerification(user);
 
                 SuccessMessage = "Đã gửi mã OTP đến email của bạn.";
+                OtpSent = true;
                 ShowResetForm = true;
             }
             catch
