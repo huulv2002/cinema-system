@@ -30,13 +30,26 @@ namespace SWP391_Gr3.Pages.Theaters
                 return Page();
             }
 
-            var result = await _theatersService.CreateTheaterAsync(TheaterViewModel);
-            if (result)
+            try
             {
-                return RedirectToPage("Index");
+                var result = await _theatersService.CreateTheaterAsync(TheaterViewModel);
+                if (result)
+                {
+                    return RedirectToPage("Index");
+                }
+
+                ModelState.AddModelError(string.Empty, "Không thể tạo rạp. Vui lòng thử lại.");
+            }
+            catch (InvalidOperationException ex)
+            {
+               
+                ModelState.AddModelError(string.Empty, ex.Message);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError(string.Empty, "Đã xảy ra lỗi hệ thống.");
             }
 
-            ModelState.AddModelError(string.Empty, "Không thể tạo rạp. Vui lòng thử lại.");
             return Page();
         }
     }

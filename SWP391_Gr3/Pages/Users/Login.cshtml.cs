@@ -68,7 +68,7 @@ namespace SWP391_Gr3.Pages.Users
             // Đăng nhập bằng cookie
             await HttpContext.SignInAsync("Cookies", claimsPrincipal);
 
-            // (Tùy chọn) Lưu vào session nếu bạn vẫn cần
+            // Lưu session 
             HttpContext.Session.SetString("UserId", user.Id.ToString());
             HttpContext.Session.SetString("UserEmail", user.Email);
             HttpContext.Session.SetString("UserRole", roleName);

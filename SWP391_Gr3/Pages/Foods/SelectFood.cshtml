@@ -19,15 +19,20 @@
             <div class="food-grid">
                 @foreach (var food in Model.FoodList)
                 {
-                    <label class="food-item">
-                        <input type="checkbox" name="SelectedFoodIds" value="@food.Id" class="food-checkbox" style="display:none;" />
+                    <div class="food-item">
                         <img src="@(food.ImageUrl ?? "/images/no-image.png")" alt="@food.Name" class="food-img" />
                         <div class="food-name">@food.Name</div>
                         <div class="food-price">@string.Format(System.Globalization.CultureInfo.InvariantCulture, "{0:N0}", food.Price) đ</div>
-                    </label>
+                        <div class="food-quantity">
+                            <label>Số lượng:</label>
+                            <input type="number" name="FoodQuantities[@food.Id]" min="0" value="0" class="form-control" style="width: 60px; text-align: center;" />
+                        </div>
+                    </div>
                 }
             </div>
         </div>
+
+        <!-- Combo -->
         <div class="food-section" id="section-combo" style="display:none;">
             <div class="food-grid">
                 @foreach (var combo in Model.ComboList)
@@ -72,16 +77,6 @@
             document.getElementById('tab-combo').classList.add('active');
         }
     }
-
-    document.querySelectorAll('.food-checkbox').forEach(cb => {
-        cb.addEventListener('change', function () {
-            if (this.checked) {
-                this.closest('.food-item').classList.add('selected');
-            } else {
-                this.closest('.food-item').classList.remove('selected');
-            }
-        });
-    });
 </script>
 
 <style>
@@ -89,7 +84,6 @@
         display: flex;
         justify-content: center;
         margin-top: 24px;
-        margin-bottom: 0;
         gap: 0;
         border-radius: 8px 8px 0 0;
         overflow: hidden;
@@ -102,7 +96,6 @@
         background: #222;
         color: #fff;
         border: none;
-        outline: none;
         font-size: 18px;
         font-weight: bold;
         cursor: pointer;
@@ -118,11 +111,8 @@
         display: flex;
         justify-content: center;
         align-items: flex-start;
-        margin-top: 0;
-        gap: 0;
-        border-radius: 0 0 10px 10px;
         background: #222;
-        padding: 24px 0 0 0;
+        padding-top: 24px;
     }
 
     .food-section {
@@ -151,16 +141,9 @@
         border-radius: 10px;
         box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         cursor: pointer;
-        transition: box-shadow 0.2s, border-color 0.2s;
         border: 2px solid transparent;
-        position: relative;
+        transition: box-shadow 0.2s, border-color 0.2s;
     }
-
-        .food-item.selected {
-            border-color: red !important;
-            box-shadow: 0 0 0 4px #dc354533;
-            background: #fff0f0;
-        }
 
         .food-item:hover {
             border-color: #0d6efd;
@@ -189,11 +172,17 @@
         margin-bottom: 8px;
     }
 
+    .food-quantity {
+        text-align: center;
+        margin-top: 6px;
+    }
+
     .food-confirm-btn-container {
         display: flex;
         justify-content: center;
         margin-top: 20px;
     }
+
     .combo-products {
         display: flex;
         flex-wrap: wrap;
@@ -203,27 +192,11 @@
     }
 
     .combo-product {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
         font-size: 13px;
-        margin-bottom: 2px;
-    }
-
-    .combo-desc {
-        font-size: 12px;
-        color: #666;
         text-align: center;
-        margin-top: 4px;
     }
 
     h2 {
         color: yellow;
-    }
-
-    .food-section h3 {
-        color: yellow;
-        text-align: center;
-        margin-bottom: 16px;
     }
 </style>

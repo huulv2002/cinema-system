@@ -1,0 +1,84 @@
+﻿@page
+@model SWP391_Gr3.Pages.Revenue.RevenueStatisticsModel
+@using Newtonsoft.Json
+
+<h2 style="color:white; text-align: center;">
+    Revenue Statistics - Viewing by @Model.Filter.ToUpper()
+</h2>
+
+<div style="text-align: center; margin-top: 20px;">
+    <form method="get" asp-page="./RevenueStatistics">
+        <label for="filter" style="color: white;">View by:</label>
+        <select id="filter" name="filter" onchange="this.form.submit()">
+            <option value="day" selected="@("day" == Model.Filter)">By Day</option>
+            <option value="month" selected="@("month" == Model.Filter)">By Month</option>
+            <option value="year" selected="@("year" == Model.Filter)">By Year</option>
+        </select>
+    </form>
+</div>
+
+<div class="revenue-statistics" style="
+    position: relative;
+    width: 1000px;
+    max-width: 90vw;
+    margin: 40px auto;
+    padding: 30px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 15px;
+    box-shadow: 0 0 30px 10px rgba(54, 162, 235, 0.7);
+">
+    <canvas id="revenueChart" width="960" height="480" style="background-color: rgba(255, 255, 255, 0.1); border-radius: 10px;"></canvas>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var labels = @Html.Raw(JsonConvert.SerializeObject(Model.RevenueLabels));
+        var totalRevenue = @Html.Raw(JsonConvert.SerializeObject(Model.TotalRevenues));
+
+        var ctx = document.getElementById('revenueChart').getContext('2d');
+        var revenueChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Total Revenue',
+                        data: totalRevenue,
+                        backgroundColor: 'rgba(75, 192, 192, 0.7)'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: 'white'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.2)'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: 'white'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.2)'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: 'white'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+}

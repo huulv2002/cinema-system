@@ -1,0 +1,77 @@
+﻿@page "{id:int}"
+@model SWP391_Gr3.Pages.Users.AsignsModel
+@{
+    ViewData["Title"] = "Phân bổ công việc";
+}
+
+<div class="container mt-5 asigns-container">
+    <h2 style="color:white">Phân bổ công việc cho nhân viên</h2>
+
+
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["Message"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if (Model.User != null)
+    {
+        <div class="card p-4 mb-4 shadow-sm text-white" style="background: rgba(255, 255, 255, 0.3);">
+            <h4 class="card-title mb-3">Thông tin nhân viên</h4>
+            <p><strong>ID:</strong> @Model.User.Id</p>
+            <p><strong>Email:</strong> @Model.User.Email</p>
+            <p><strong>Vai trò:</strong> @(Model.User.Role?.Name ?? "Không có vai trò")</p>
+            <p><strong>Rạp hiện tại:</strong> @(Model.User.Theater?.Name ?? "Chưa được phân công")</p>
+        </div>
+
+        <form method="post" class="text-white">
+            <input type="hidden" asp-for="UserId" />
+            <input type="hidden" asp-for="TheaterId" id="TheaterId" />
+            <div class="mb-3">
+                <h4 class="mb-3">Chọn rạp phim</h4>
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 theater-list">
+                    @foreach (var theater in Model.Theaters)
+                    {
+                        <div class="col">
+                            <div class="card theater-card h-100" data-theater-id="@theater.Id">
+                                <div class="card-body">
+                                    <h5 class="card-title">@theater.Name</h5>
+                                    <p class="card-text"><i class="fa fa-map-marker me-2"></i>@theater.Location</p>
+                                    <p class="card-text">
+                                        <i class="fa @(theater.IsActive == true ? "fa-check-circle text-success" : "fa-times-circle text-danger") me-2"></i>
+                                        @(theater.IsActive == true ? "Hoạt động" : "Không hoạt động")
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <span asp-validation-for="TheaterId" class="text-danger"></span>
+            </div>
+            <div class="d-flex">
+                <button type="submit" class="btn btn-primary me-2">Lưu</button>
+                <a asp-page="/Users/Index" class="btn btn-secondary">Quay lại</a>
+            </div>
+        </form>
+    }
+    else
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Không tìm thấy nhân viên.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <a asp-page="/Users/Index" class="btn btn-secondary">Quay lại</a>
+    }
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/asigns.js" asp-append-version="true"></script>
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/asigns.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+}

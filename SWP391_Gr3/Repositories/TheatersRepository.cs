@@ -118,5 +118,16 @@ namespace SWP391_Gr3.Repositories
                 };
             }
         }
+
+        public async Task<bool> TheaterNameExistsAsync(string name)
+        {
+            return await _context.Theaters.AnyAsync(t => t.Name.ToLower() == name.ToLower());
+        }
+
+        public async Task<bool> LocationExistsAsync(string location)
+        {
+            return await _context.Theaters
+            .AnyAsync(t => t.Location.ToLower() == location.ToLower());
+        }
     }
 }

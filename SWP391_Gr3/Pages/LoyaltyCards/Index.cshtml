@@ -1,0 +1,593 @@
+﻿@page
+@model SWP391_Gr3.Pages.LoyaltyCards.IndexModel
+
+@{
+    ViewData["Title"] = "Thẻ thành viên của tôi";
+}
+
+<style>
+    :root {
+        --primary-red: #e50914;
+        --dark-red: #b20710;
+        --light-red: #ff1825;
+        --dark-bg: #141414;
+        --darker-bg: #0a0a0a;
+        --card-bg: #1f1f1f;
+        --text-light: #ffffff;
+        --text-muted: #b3b3b3;
+        --gold: #ffd700;
+        --silver: #c0c0c0;
+        --bronze: #cd7f32;
+        --gradient-gold: linear-gradient(135deg, #ffd700, #ffed4e, #ffc107);
+        --gradient-silver: linear-gradient(135deg, #c0c0c0, #e8e8e8, #d4d4d4);
+        --gradient-bronze: linear-gradient(135deg, #cd7f32, #d2691e, #b8860b);
+    }
+
+    body {
+        background: linear-gradient(135deg, var(--darker-bg) 0%, var(--dark-bg) 100%);
+        color: var(--text-light);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        min-height: 100vh;
+    }
+
+    .user-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    .page-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        position: relative;
+    }
+
+    .page-title {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: var(--text-light);
+        margin-bottom: 0.5rem;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+
+    .page-subtitle {
+        color: var(--text-muted);
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .membership-card {
+        background: var(--card-bg);
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        overflow: hidden;
+        margin-bottom: 2rem;
+        position: relative;
+        transform: perspective(1000px) rotateX(5deg);
+        transition: all 0.3s ease;
+    }
+
+        .membership-card:hover {
+            transform: perspective(1000px) rotateX(0deg) translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+    .card-header {
+        background: linear-gradient(135deg, var(--primary-red), var(--light-red));
+        padding: 2rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .card-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 100px;
+            height: 200%;
+            background: rgba(255,255,255,0.1);
+            transform: rotate(15deg);
+        }
+
+    .card-logo {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 1rem;
+    }
+
+    .cinema-logo {
+        width: 50px;
+        height: 50px;
+        background: rgba(255,255,255,0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: white;
+        margin: 0;
+    }
+
+    .card-body {
+        padding: 2rem;
+    }
+
+    .card-info {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .info-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .info-label {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .info-value {
+        color: var(--text-light);
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+
+    .card-number {
+        background: rgba(255,255,255,0.1);
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-family: 'Courier New', monospace;
+        font-weight: bold;
+        color: var(--gold);
+        font-size: 1.2rem;
+        letter-spacing: 2px;
+        text-align: center;
+        border: 2px solid rgba(255,255,255,0.2);
+    }
+
+    .tier-display {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 20px;
+        border-radius: 25px;
+        font-weight: 700;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .tier-gold {
+        background: var(--gradient-gold);
+        color: #000;
+        box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+    }
+
+    .tier-silver {
+        background: var(--gradient-silver);
+        color: #000;
+        box-shadow: 0 5px 15px rgba(192, 192, 192, 0.3);
+    }
+
+    .tier-bronze {
+        background: var(--gradient-bronze);
+        color: #fff;
+        box-shadow: 0 5px 15px rgba(205, 127, 50, 0.3);
+    }
+
+    .status-display {
+        padding: 8px 16px;
+        border-radius: 15px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .status-active {
+        background: linear-gradient(45deg, #28a745, #20c997);
+        color: white;
+        box-shadow: 0 3px 10px rgba(40, 167, 69, 0.3);
+    }
+
+    .status-inactive {
+        background: linear-gradient(45deg, #dc3545, #fd7e14);
+        color: white;
+        box-shadow: 0 3px 10px rgba(220, 53, 69, 0.3);
+    }
+
+    .benefits-section {
+        margin-top: 2rem;
+        padding: 1.5rem;
+        background: rgba(255,255,255,0.05);
+        border-radius: 15px;
+        border-left: 4px solid var(--primary-red);
+    }
+
+    .benefits-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--text-light);
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .benefits-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+    }
+
+    .benefit-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--text-muted);
+        font-size: 0.95rem;
+    }
+
+    .benefit-icon {
+        width: 20px;
+        height: 20px;
+        background: var(--primary-red);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+    }
+
+    .no-card-state {
+        text-align: center;
+        padding: 4rem 2rem;
+        background: var(--card-bg);
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .no-card-icon {
+        width: 120px;
+        height: 120px;
+        background: linear-gradient(135deg, var(--primary-red), var(--light-red));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        margin: 0 auto 2rem;
+        animation: pulse 2s infinite;
+    }
+
+   
+
+    .no-card-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--text-light);
+        margin-bottom: 1rem;
+    }
+
+    .no-card-description {
+        color: var(--text-muted);
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+    }
+
+    .create-card-button {
+        background: linear-gradient(45deg, var(--primary-red), var(--light-red));
+        border: none;
+        color: white;
+        padding: 15px 40px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border-radius: 30px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 20px rgba(229, 9, 20, 0.4);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+        .create-card-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(229, 9, 20, 0.5);
+            color: white;
+            text-decoration: none;
+        }
+
+    .action-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        margin-top: 2rem;
+    }
+
+    .secondary-button {
+        background: transparent;
+        border: 2px solid var(--primary-red);
+        color: var(--primary-red);
+        padding: 10px 25px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        border-radius: 25px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.3s ease;
+    }
+
+        .secondary-button:hover {
+            background: var(--primary-red);
+            color: white;
+            text-decoration: none;
+            transform: translateY(-2px);
+        }
+
+   
+
+    .page-title {
+        font-size: 1.8rem;
+    }
+
+    .card-info {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .benefits-list {
+        grid-template-columns: 1fr;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .membership-card {
+        transform: none;
+    }
+
+        .membership-card:hover {
+            transform: translateY(-3px);
+        }
+
+    }
+</style>
+
+<div class="user-container">
+    <div class="page-header">
+        <h1 class="page-title">🎬 Thẻ Thành Viên Của Tôi</h1>
+        <p class="page-subtitle">Quản lý thông tin thẻ thành viên và tận hưởng các đặc quyền độc quyền</p>
+    </div>
+
+    @if (Model.Cards?.Any() == true)
+    {
+        var userCard = Model.Cards.First(); // Giả sử user chỉ có 1 thẻ
+                                            <div class="membership-card">
+                                                <div class="card-header">
+                                                    <div class="card-logo">
+                                                        <div class="cinema-logo">🎬</div>
+                                                        <div class="card-title">CINEMA PREMIUM</div>
+                                                    </div>
+                                                </div>
+
+            <div class="card-body">
+                <div class="card-info">
+                    <div class="info-item">
+                        <div class="info-label">Số thẻ</div>
+                        <div class="info-value">
+                            @if (!string.IsNullOrEmpty(userCard.CardNumber))
+                            {
+                                <div class="card-number">@userCard.CardNumber</div>
+                            }
+                            else
+                            {
+                                <span style="color: var(--text-muted);">Đang cập nhật...</span>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-label">Cấp độ thành viên</div>
+                        <div class="info-value">
+                            @if (userCard.Tier != null)
+                            {
+                                var tierClass = userCard.Tier.TierName?.ToLower() switch
+                                {
+                                    "gold" or "vip" => "tier-gold",
+                                    "silver" or "premium" => "tier-silver",
+                                    _ => "tier-bronze"
+                                };
+                                <div class="tier-display @tierClass">
+                                    @switch (userCard.Tier.TierName?.ToLower())
+                                    {
+                                        case "gold":
+                                        case "vip":
+                                            <span>👑</span>
+                                            break;
+                                        case "silver":
+                                        case "premium":
+                                            <span>🥈</span>
+                                            break;
+                                        default:
+                                            <span>🥉</span>
+                                            break;
+                                    }
+                                    @userCard.Tier.TierName
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="tier-display tier-bronze">
+                                    <span>🥉</span>
+                                    Standard
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-label">Trạng thái</div>
+                        <div class="info-value">
+                            @{
+                                var status = userCard.Status?.ToLower() ?? "unknown";
+                                var statusClass = status switch
+                                {
+                                    "active" => "status-active",
+                                    _ => "status-inactive"
+                                };
+                                var statusText = status switch
+                                {
+                                    "active" => "Đang hoạt động",
+                                    _ => "Chưa kích hoạt"
+                                };
+                            }
+                            <div class="status-display @statusClass">
+                                @if (status == "active")
+                                {
+                                    <span>✅</span>
+                                }
+                                else
+                                {
+                                    <span>⏳</span>
+                                }
+                                @statusText
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-label">Ngày đăng ký</div>
+                        <div class="info-value">
+                            @if (userCard.RegisterDate.HasValue)
+                            {
+                                @userCard.RegisterDate.Value.ToString("dd/MM/yyyy")
+                            }
+                            else
+                            {
+                                <span style="color: var(--text-muted);">Chưa xác định</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="benefits-section">
+                    <div class="benefits-title">
+                        <span>🎁</span>
+                        Đặc quyền thành viên
+                    </div>
+                    <div class="benefits-list">
+                        <div class="benefit-item">
+                            <div class="benefit-icon">🎫</div>
+                            <span>Giảm giá vé xem phim</span>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">🍿</div>
+                            <span>Ưu đãi combo bắp nước</span>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">⭐</div>
+                            <span>Tích điểm thưởng</span>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">🎉</div>
+                            <span>Sự kiện độc quyền</span>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">🎂</div>
+                            <span>Quà tặng sinh nhật</span>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">📱</div>
+                            <span>Đặt vé ưu tiên</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <a href="#" class="secondary-button">
+                        📊 Lịch sử giao dịch
+                    </a>
+                    <a href="#" class="secondary-button">
+                        🎁 Điểm thưởng
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        @* User chưa có thẻ - hiển thị form tạo thẻ *@
+        <div class="no-card-state">
+            <div class="no-card-icon">🎬</div>
+            <h2 class="no-card-title">Chào mừng đến với Cinema!</h2>
+            <p class="no-card-description">
+                Bạn chưa có thẻ thành viên. Tạo thẻ ngay để tận hưởng những đặc quyền độc quyền
+                và trải nghiệm xem phim tuyệt vời nhất!
+            </p>
+
+            <div class="benefits-section" style="text-align: left; margin-bottom: 2rem;">
+                <div class="benefits-title">
+                    <span>🌟</span>
+                    Quyền lợi khi trở thành thành viên
+                </div>
+                <div class="benefits-list">
+                    <div class="benefit-item">
+                        <div class="benefit-icon">🎫</div>
+                        <span>Giảm giá 10-20% trên tất cả vé phim</span>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">🍿</div>
+                        <span>Combo bắp nước giá ưu đãi</span>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">⭐</div>
+                        <span>Tích điểm và đổi quà hấp dẫn</span>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">🎉</div>
+                        <span>Mời tham gia sự kiện đặc biệt</span>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">🎂</div>
+                        <span>Vé xem phim miễn phí ngày sinh nhật</span>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">📱</div>
+                        <span>Đặt vé online ưu tiên</span>
+                    </div>
+                </div>
+            </div>
+
+            <a asp-page="/CartTier/Index" class="create-card-button">
+                ✨ Tạo thẻ thành viên ngay
+            </a>
+
+            <div style="margin-top: 1.5rem; color: var(--text-muted); font-size: 0.9rem;">
+                🆓 Miễn phí đăng ký • 📱 Sử dụng ngay lập tức
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,69 @@
+﻿@page "{orderId:int}"
+@model SWP391_Gr3.Pages.Cart.PaymentModel
+@{
+    ViewData["Title"] = "Thanh toán đơn hàng";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<div class="container mt-5">
+    <div class="card shadow p-4">
+        <h2 class="mb-4 text-center">🔒 Xác nhận thanh toán đơn hàng</h2>
+
+        <form method="post">
+            <input type="hidden" asp-for="OrderId" />
+            <div class="mb-3">
+                <label class="form-label"><strong>Đơn hàng #:</strong></label>
+                <p>@Model.Order.Id</p>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label"><strong>Chọn khuyến mãi:</strong></label>
+                <select asp-for="SelectedPromotionId" asp-items="Model.AvailablePromotions" class="form-select">
+                    <option value="">-- Không áp dụng --</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label"><strong>Tổng tiền sau giảm:</strong></label>
+                <p class="fs-5 text-danger">@Model.TotalAfterDiscount.ToString("N0") đ</p>
+            </div>
+
+            @if (!Model.IsExpired)
+            {
+                @if (!Model.IsPaymentConfirmed)
+                {
+                    <button type="submit" class="btn btn-primary w-100" name="action" value="confirmPayment">💳 Xác nhận & tạo mã QR</button>
+                }
+                else
+                {
+                    <div class="text-center">
+                        <img src="@Model.QrImage" alt="QR Code để thanh toán" style="width: 30%;" class="my-3" />
+                    </div>
+
+                    @if (Model.Payment.Status != "Success")
+                    {
+                        <button type="submit" class="btn btn-success w-100" name="action" value="markPaid">✅ Tôi đã thanh toán</button>
+                    }
+                    else
+                    {
+                        <div class="alert alert-success text-center mt-3">✔ Thanh toán thành công!</div>
+                    }
+                }
+            }
+            else
+            {
+                <div class="alert alert-danger text-center">❌ Đơn hàng đã hết hạn sau 30 phút.</div>
+            }
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        if (@Model.ShowSuccessPopup.ToString().ToLower()) {
+            alert("✅ Thanh toán thành công!");
+            window.location.href = "/Cart/Index";
+        }
+    </script>
+}

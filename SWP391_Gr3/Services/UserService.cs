@@ -99,5 +99,14 @@ namespace SWP391_Gr3.Services
             return await _userRepo.UpdatePassword(email, newPassword);
         }
 
+        //kiểm tra quyền 
+        public async Task<bool> AssignTheaterAsync(int userId, int theaterId)
+        {
+            var user = await _userRepo.GetUserByIdAsync(userId);
+            if (user == null || (user.RoleId != 1 && user.RoleId != 4))
+                return false;
+            user.TheaterId = theaterId;
+            return await _userRepo.UpdateProfile(user);
+        }
     }
 }
