@@ -2,13 +2,26 @@
 @model SWP391_Gr3.Pages.Revenue.RevenueStatisticsModel
 @using Newtonsoft.Json
 
-<h2 style="color:white; text-align: center;">Revenue Statistics</h2>
+<h2 style="color:white; text-align: center;">
+    Revenue Statistics - Viewing by @Model.Filter.ToUpper()
+</h2>
+
+<div style="text-align: center; margin-top: 20px;">
+    <form method="get" asp-page="./RevenueStatistics">
+        <label for="filter" style="color: white;">View by:</label>
+        <select id="filter" name="filter" onchange="this.form.submit()">
+            <option value="day" selected="@("day" == Model.Filter)">By Day</option>
+            <option value="month" selected="@("month" == Model.Filter)">By Month</option>
+            <option value="year" selected="@("year" == Model.Filter)">By Year</option>
+        </select>
+    </form>
+</div>
 
 <div class="revenue-statistics" style="
     position: relative;
-    width: 1000px; 
-    max-width: 90vw; 
-    margin: 40px auto; 
+    width: 1000px;
+    max-width: 90vw;
+    margin: 40px auto;
     padding: 30px;
     background: rgba(0, 0, 0, 0.7);
     border-radius: 15px;
@@ -20,9 +33,8 @@
 @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        var labels = @Html.Raw(JsonConvert.SerializeObject(Model.DailyRevenueLabels));
-        var seatData = @Html.Raw(JsonConvert.SerializeObject(Model.DailySeatRevenue));
-        var foodData = @Html.Raw(JsonConvert.SerializeObject(Model.DailyFoodRevenue));
+        var labels = @Html.Raw(JsonConvert.SerializeObject(Model.RevenueLabels));
+        var totalRevenue = @Html.Raw(JsonConvert.SerializeObject(Model.TotalRevenues));
 
         var ctx = document.getElementById('revenueChart').getContext('2d');
         var revenueChart = new Chart(ctx, {
@@ -31,20 +43,15 @@
                 labels: labels,
                 datasets: [
                     {
-                        label: 'Seat Revenue',
-                        data: seatData,
-                        backgroundColor: 'rgba(54, 162, 235, 0.7)'
-                    },
-                    {
-                        label: 'Food Revenue',
-                        data: foodData,
-                        backgroundColor: 'rgba(255, 99, 132, 0.7)'
+                        label: 'Total Revenue',
+                        data: totalRevenue,
+                        backgroundColor: 'rgba(75, 192, 192, 0.7)'
                     }
                 ]
             },
             options: {
                 responsive: true,
-                maintainAspectRatio: false, 
+                maintainAspectRatio: false,
                 scales: {
                     y: {
                         beginAtZero: true,
