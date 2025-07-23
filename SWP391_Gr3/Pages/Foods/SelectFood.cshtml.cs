@@ -26,7 +26,6 @@ namespace SWP391_Gr3.Pages.Foods
         [BindProperty(SupportsGet = true)]
         public int ShowtimeId { get; set; }
 
-
         [BindProperty(SupportsGet = true, Name = "seatIds")]
         public string SelectedSeatIds { get; set; } = "";
 
@@ -34,7 +33,7 @@ namespace SWP391_Gr3.Pages.Foods
         public List<ComboViewModel> ComboList { get; set; } = new();
 
         [BindProperty]
-        public List<int> SelectedFoodIds { get; set; } = new();
+        public Dictionary<int, int> FoodQuantities { get; set; } = new();
 
         [BindProperty]
         public List<int> SelectedComboIds { get; set; } = new();
@@ -77,17 +76,32 @@ namespace SWP391_Gr3.Pages.Foods
                 ? showtime.StartTime.Value.ToString("HH:mm dd/MM/yyyy")
                 : "Không xác định";
 
+            var selectedFoodIds = FoodQuantities
+                .Where(kv => kv.Value > 0)
+                .Select(kv => kv.Key)
+                .ToList();
+
             var selectedFoods = await _context.Products
-                .Where(p => SelectedFoodIds.Contains(p.Id))
-                .Select(p => new { p.Name, p.Price })
+                .Where(p => selectedFoodIds.Contains(p.Id))
+                .Select(p => new { p.Id, p.Name, p.Price })
                 .ToListAsync();
 
             var selectedCombos = await _context.Combos
                 .Where(c => SelectedComboIds.Contains(c.Id))
-                .Select(c => new { c.Title, c.Price })
+                .Select(c => new { c.Id, c.Title, c.Price })
                 .ToListAsync();
 
-            decimal totalPrice = selectedFoods.Sum(f => f.Price) + selectedCombos.Sum(c => c.Price ?? 0);
+            decimal totalPrice = 0;
+            foreach (var food in selectedFoods)
+            {
+                int quantity = FoodQuantities.ContainsKey(food.Id) ? FoodQuantities[food.Id] : 0;
+                totalPrice += food.Price * quantity;
+            }
+
+            foreach (var combo in selectedCombos)
+            {
+                totalPrice += combo.Price ?? 0;
+            }
 
             var subject = "Xác nhận đặt đồ ăn tại rạp phim";
             var body = $"<b>Bạn đã đặt thành công các món sau cho phim:</b><br/>" +
@@ -99,7 +113,8 @@ namespace SWP391_Gr3.Pages.Foods
                 body += "<b>Đồ ăn riêng:</b><br/>";
                 foreach (var food in selectedFoods)
                 {
-                    body += $"- {food.Name} ({food.Price:N0} đ)<br/>";
+                    int quantity = FoodQuantities.ContainsKey(food.Id) ? FoodQuantities[food.Id] : 0;
+                    body += $"- {food.Name} x {quantity} ({(food.Price * quantity):N0} đ)<br/>";
                 }
             }
 
@@ -108,7 +123,7 @@ namespace SWP391_Gr3.Pages.Foods
                 body += "<b>Combo:</b><br/>";
                 foreach (var combo in selectedCombos)
                 {
-                    body += $"- {combo.Title} ({combo.Price:N0} đ)<br/>";
+                    body += $"- {combo.Title} ({(combo.Price ?? 0):N0} đ)<br/>";
                 }
             }
 
@@ -119,12 +134,17 @@ namespace SWP391_Gr3.Pages.Foods
             {
                 await _emailService.SendEmailAsync(userEmail, subject, body);
             }
+            var foodIdQuantityPairs = FoodQuantities
+                .Where(kv => kv.Value > 0)
+                .Select(kv => $"{kv.Key}:{kv.Value}");
+
+            string foodDataString = string.Join(",", foodIdQuantityPairs);
 
             return RedirectToPage("ConfirmBooking", new
             {
                 ShowtimeId,
                 SelectedSeatIds,
-                FoodIds = string.Join(",", SelectedFoodIds),
+                FoodData = foodDataString,
                 ComboIds = string.Join(",", SelectedComboIds)
             });
         }

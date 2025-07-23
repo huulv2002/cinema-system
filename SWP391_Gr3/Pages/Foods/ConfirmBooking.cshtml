@@ -23,12 +23,25 @@
         @if (Model.SelectedFoods.Any())
         {
             <h4>🍿 Đồ ăn đã chọn:</h4>
-            <ul>
-                @foreach (var food in Model.SelectedFoods)
-                {
-                    <li>@food.Name - @food.Price.ToString("N0") đ</li>
-                }
-            </ul>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Tên</th>
+                        <th>Số lượng</th>
+                        <th>Thành tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var food in Model.SelectedFoods)
+                    {
+                        <tr>
+                            <td>@food.Name</td>
+                            <td>@Model.FoodQuantities[food.Id]</td>
+                            <td>@((food.Price * Model.FoodQuantities[food.Id]).ToString("N0")) đ</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         }
 
         @if (Model.SelectedCombos != null && Model.SelectedCombos.Any())

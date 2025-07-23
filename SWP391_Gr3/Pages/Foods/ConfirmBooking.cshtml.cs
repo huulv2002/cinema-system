@@ -2,10 +2,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using SWP391_Gr3.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace SWP391_Gr3.Pages.Foods
 {
@@ -22,97 +19,53 @@ namespace SWP391_Gr3.Pages.Foods
         public int ShowtimeId { get; set; }
 
         [BindProperty(SupportsGet = true)]
-        public string SelectedSeatIds { get; set; } = "";
+        public string SelectedSeatIds { get; set; } = string.Empty;
 
         [BindProperty(SupportsGet = true)]
-        public string? FoodIds { get; set; }
+        public string ComboIds { get; set; } = string.Empty;
 
         [BindProperty(SupportsGet = true)]
-        public string? ComboIds { get; set; }
+        public string FoodData { get; set; } = string.Empty;
+
+        public Showtime Showtime { get; set; }
+        public Movie Movie { get; set; }
+        public Room Room { get; set; }
+        public Theater Theater { get; set; }
 
         public List<Seat> SelectedSeats { get; set; } = new();
         public List<Product> SelectedFoods { get; set; } = new();
         public List<Combo> SelectedCombos { get; set; } = new();
 
-        public Movie Movie { get; set; }
-        public Theater Theater { get; set; }
-        public Room Room { get; set; }
-        public Showtime Showtime { get; set; }
-
+        public Dictionary<int, int> FoodQuantities { get; set; } = new();
         public decimal TotalAmount { get; set; }
 
         public async Task<IActionResult> OnGetAsync()
         {
-            Showtime = await _context.Showtimes
-                .Include(s => s.Movie)
-                .Include(s => s.Room).ThenInclude(r => r.Theater)
-                .FirstOrDefaultAsync(s => s.Id == ShowtimeId);
-
-            if (Showtime == null) return NotFound();
-
-            Movie = Showtime.Movie;
-            Room = Showtime.Room;
-            Theater = Room.Theater;
-
-            if (!string.IsNullOrEmpty(SelectedSeatIds))
-            {
-                var seatIdList = SelectedSeatIds.Split(',').Select(int.Parse).ToList();
-                SelectedSeats = await _context.Seats.Include(s => s.Type)
-                    .Where(s => seatIdList.Contains(s.Id)).ToListAsync();
-
-                TotalAmount += SelectedSeats.Sum(s => s.Type.Price);
-            }
-
-            if (!string.IsNullOrEmpty(FoodIds))
-            {
-                var foodIdList = FoodIds.Split(',').Select(int.Parse).ToList();
-                SelectedFoods = await _context.Products
-                    .Where(p => foodIdList.Contains(p.Id)).ToListAsync();
-
-                TotalAmount += SelectedFoods.Sum(p => p.Price);
-            }
-
-            if (!string.IsNullOrEmpty(ComboIds))
-            {
-                var comboIdList = ComboIds.Split(',').Select(int.Parse).ToList();
-                SelectedCombos = await _context.Combos
-                    .Where(c => comboIdList.Contains(c.Id)).ToListAsync();
-
-                TotalAmount += SelectedCombos.Sum(c => c.Price ?? 0);
-            }
-
+            await LoadBookingDataAsync();
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (HttpContext.Session.GetString("UserId") == null)
-                return RedirectToPage("/Users/Login");
+            await LoadBookingDataAsync();
 
-            int userId = int.Parse(HttpContext.Session.GetString("UserId"));
+            // Get user ID from claims
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null) return Unauthorized();
 
-            // Lấy lại dữ liệu như bên OnGet
-            var seatIdList = SelectedSeatIds.Split(',').Select(int.Parse).ToList();
-            var foodIdList = string.IsNullOrEmpty(FoodIds) ? new List<int>() : FoodIds.Split(',').Select(int.Parse).ToList();
-            var comboIdList = string.IsNullOrEmpty(ComboIds) ? new List<int>() : ComboIds.Split(',').Select(int.Parse).ToList();
+            int userId = int.Parse(userIdClaim.Value);
 
-            var seats = await _context.Seats.Include(s => s.Type).Where(s => seatIdList.Contains(s.Id)).ToListAsync();
-            var foods = await _context.Products.Where(p => foodIdList.Contains(p.Id)).ToListAsync();
-            var combos = await _context.Combos.Where(c => comboIdList.Contains(c.Id)).ToListAsync();
-
-            decimal totalAmount = seats.Sum(s => s.Type.Price) + foods.Sum(f => f.Price) + combos.Sum(c => c.Price ?? 0);
-
-            // 1. Payment
+            // 1. Create Payment
             var payment = new Payment
             {
                 Status = "Pending",
-                Amount = totalAmount,
+                Amount = TotalAmount,
                 CreatedAt = DateTime.Now
             };
             _context.Payments.Add(payment);
             await _context.SaveChangesAsync();
 
-            // 2. Order
+            // 2. Create Order
             var order = new Order
             {
                 UserId = userId,
@@ -123,32 +76,31 @@ namespace SWP391_Gr3.Pages.Foods
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
 
-            // 3. Ticket
-            foreach (var seat in seats)
+            // 3. Create Tickets
+            foreach (var seat in SelectedSeats)
             {
-                var ticket = new Ticket
+                _context.Tickets.Add(new Ticket
                 {
                     ShowtimeId = ShowtimeId,
                     SeatId = seat.Id,
                     OrderId = order.Id,
                     Code = Guid.NewGuid().ToString("N").Substring(0, 8)
-                };
-                _context.Tickets.Add(ticket);
+                });
             }
 
-            // 4. OrderProduct
-            foreach (var food in foods)
+            // 4. Create OrderProduct with quantity
+            foreach (var food in SelectedFoods)
             {
                 _context.OrderProducts.Add(new OrderProduct
                 {
                     OrderId = order.Id,
                     ProductId = food.Id,
-                    Quantity = 1
+                    Quantity = FoodQuantities[food.Id]
                 });
             }
 
-            // 5. OrderCombo
-            foreach (var combo in combos)
+            // 5. Create OrderCombos (default quantity = 1 per combo)
+            foreach (var combo in SelectedCombos)
             {
                 _context.OrderCombos.Add(new OrderCombo
                 {
@@ -159,8 +111,52 @@ namespace SWP391_Gr3.Pages.Foods
             }
 
             await _context.SaveChangesAsync();
-
             return RedirectToPage("/Cart/Index");
+        }
+
+        private async Task LoadBookingDataAsync()
+        {
+            Showtime = await _context.Showtimes
+                .Include(s => s.Movie)
+                .Include(s => s.Room).ThenInclude(r => r.Theater)
+                .FirstOrDefaultAsync(s => s.Id == ShowtimeId)
+                ?? throw new Exception("Showtime not found");
+
+            Movie = Showtime.Movie!;
+            Room = Showtime.Room!;
+            Theater = Room.Theater!;
+
+            var seatIds = SelectedSeatIds.Split(',').Where(id => int.TryParse(id, out _)).Select(int.Parse).ToList();
+            SelectedSeats = await _context.Seats
+                .Include(s => s.Type)
+                .Where(s => seatIds.Contains(s.Id))
+                .ToListAsync();
+
+            if (!string.IsNullOrEmpty(FoodData))
+            {
+                FoodQuantities = FoodData
+                    .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                    .Select(pair => pair.Split(':'))
+                    .Where(parts => parts.Length == 2 && int.TryParse(parts[0], out _) && int.TryParse(parts[1], out _))
+                    .ToDictionary(pair => int.Parse(pair[0]), pair => int.Parse(pair[1]));
+            }
+
+            var foodIds = FoodQuantities.Keys.ToList();
+            SelectedFoods = await _context.Products
+                .Where(p => foodIds.Contains(p.Id))
+                .ToListAsync();
+
+            var comboIds = string.IsNullOrEmpty(ComboIds)
+                ? new List<int>()
+                : ComboIds.Split(',').Where(id => int.TryParse(id, out _)).Select(int.Parse).ToList();
+
+            SelectedCombos = await _context.Combos
+                .Where(c => comboIds.Contains(c.Id))
+                .ToListAsync();
+
+            TotalAmount = SelectedSeats.Sum(s => s.Type.Price)
+                         + SelectedFoods.Sum(f => f.Price * FoodQuantities[f.Id])
+                         + SelectedCombos.Sum(c => c.Price ?? 0);
         }
     }
 }
