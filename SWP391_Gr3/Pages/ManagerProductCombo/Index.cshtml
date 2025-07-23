@@ -7,7 +7,17 @@
 <div class="container bg-white p-4 rounded shadow-sm">
     <h2 class="mb-4">Quản lý Combo sản phẩm</h2>
 
-    <a class="btn btn-primary mb-3" asp-page="Create">+ Thêm Combo mới</a>
+    <form method="get" class="row mb-3">
+        <div class="col-md-4">
+            <input type="text" name="SearchTerm" class="form-control" placeholder="Tìm theo tiêu đề combo..." value="@Model.SearchTerm" />
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-secondary">Tìm kiếm</button>
+        </div>
+        <div class="col-auto">
+            <a class="btn btn-primary" asp-page="Create">+ Thêm Combo mới</a>
+        </div>
+    </form>
 
     <table class="table table-bordered table-hover">
         <thead class="table-light">
@@ -51,4 +61,21 @@
             }
         </tbody>
     </table>
+
+    @if (Model.TotalPages > 1)
+    {
+        <nav>
+            <ul class="pagination justify-content-center">
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                        <a class="page-link"
+                           asp-page="./Index"
+                           asp-route-SearchTerm="@Model.SearchTerm"
+                           asp-route-PageNumber="@i">@i</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    }
 </div>

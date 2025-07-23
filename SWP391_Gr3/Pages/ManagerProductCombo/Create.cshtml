@@ -3,11 +3,25 @@
 @{
     ViewData["Title"] = "Tạo Combo mới";
 }
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+    </div>
+}
 
-<div class="container  bg-white p-4 rounded shadow-sm">
+
+<div class="container bg-white p-4 rounded shadow-sm">
     <h2 class="mb-4">Tạo Combo mới</h2>
 
     <form method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
+
         <div class="mb-3">
             <label asp-for="Combo.Title" class="form-label">Tiêu đề</label>
             <input asp-for="Combo.Title" class="form-control" />
@@ -28,15 +42,36 @@
 
         <div class="mb-3">
             <label class="form-label">Chọn sản phẩm cho combo</label>
-            @foreach (var product in Model.AllProducts)
+
+            @if (Model.AllProducts != null && Model.AllProducts.Any())
             {
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="SelectedProductIds" value="@product.Id" />
-                    <label class="form-check-label">
-                        @product.Name (@product.Size) - @product.Price.ToString("N0") đ
-                    </label>
-                    <input type="number" name="Quantities[@product.Id]" value="1" min="1" class="form-control form-control-sm d-inline-block ms-2" style="width: 100px;" />
-                </div>
+                foreach (var product in Model.AllProducts)
+                {
+                    var isChecked = Model.SelectedProductIds != null && Model.SelectedProductIds.Contains(product.Id);
+                    var quantity = Model.Quantities != null && Model.Quantities.ContainsKey(product.Id)
+                    ? Model.Quantities[product.Id]
+                    : 1;
+
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" name="SelectedProductIds" value="@product.Id" @(isChecked ? "checked" : "") />
+                        <label class="form-check-label">
+                            @product.Name (@product.Size) - @product.Price.ToString("N0") đ
+                            <span class="text-muted">(Tồn kho: @product.Stock)</span>
+                        </label>
+                        <input type="number"
+                               name="Quantities[@product.Id]"
+                               value="@quantity"
+                               min="1"
+                              
+                               class="form-control form-control-sm d-inline-block ms-2"
+                               style="width: 100px;" />
+
+                    </div>
+                }
+            }
+            else
+            {
+                <p class="text-muted">Không có sản phẩm nào.</p>
             }
         </div>
 

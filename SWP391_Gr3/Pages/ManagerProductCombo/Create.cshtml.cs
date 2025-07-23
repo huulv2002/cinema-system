@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using SWP391_Gr3.Dtos;
 using SWP391_Gr3.Models;
 
 namespace SWP391_Gr3.Pages.ManagerProductCombo
@@ -15,7 +16,7 @@ namespace SWP391_Gr3.Pages.ManagerProductCombo
         }
 
         [BindProperty]
-        public Combo Combo { get; set; } = new();
+        public ComboDto Combo { get; set; } = new();
 
         [BindProperty]
         public List<int> SelectedProductIds { get; set; } = new();
@@ -35,24 +36,62 @@ namespace SWP391_Gr3.Pages.ManagerProductCombo
 
         public async Task<IActionResult> OnPostAsync()
         {
-
             if (!ModelState.IsValid || SelectedProductIds == null || !SelectedProductIds.Any())
             {
-                ModelState.AddModelError("", "Vui lòng chọn ít nhất một sản phẩm.");
+                if (SelectedProductIds == null || !SelectedProductIds.Any())
+                {
+                    ModelState.AddModelError("", "Vui lòng chọn ít nhất một sản phẩm.");
+                }
+
+                AllProducts = await _context.Products
+                    .Where(p => p.IsActive)
+                    .ToListAsync();
+
                 return Page();
             }
 
-            Combo.IsActive = true;
-            _context.Combos.Add(Combo);
+            var selectedProducts = await _context.Products
+                .Where(p => SelectedProductIds.Contains(p.Id))
+                .ToListAsync();
+
+            // Kiểm tra số lượng vượt kho
+            foreach (var product in selectedProducts)
+            {
+                int selectedQuantity = Quantities.ContainsKey(product.Id) ? Quantities[product.Id] : 1;
+                if (selectedQuantity > product.Stock)
+                {
+                    ModelState.AddModelError("", $"Sản phẩm '{product.Name}' chỉ còn {product.Stock} trong kho.");
+                }
+            }
+
+            if (!ModelState.IsValid)
+            {
+                AllProducts = await _context.Products
+                    .Where(p => p.IsActive)
+                    .ToListAsync();
+
+                return Page();
+            }
+
+            var newCombo = new Combo
+            {
+                Title = Combo.Title,
+                Price = Combo.Price,
+                Description = Combo.Description,
+                IsActive = Combo.IsActive,
+                TheaterId = Combo.TheaterId
+            };
+
+            _context.Combos.Add(newCombo);
             await _context.SaveChangesAsync();
 
-            foreach (var productId in SelectedProductIds)
+            foreach (var product in selectedProducts)
             {
-                int quantity = Quantities.ContainsKey(productId) ? Quantities[productId] : 1;
+                int quantity = Quantities.ContainsKey(product.Id) ? Quantities[product.Id] : 1;
                 _context.ProductCombos.Add(new ProductCombo
                 {
-                    ComboId = Combo.Id,
-                    ProductId = productId,
+                    ComboId = newCombo.Id,
+                    ProductId = product.Id,
                     Quantity = quantity
                 });
             }
@@ -61,4 +100,4 @@ namespace SWP391_Gr3.Pages.ManagerProductCombo
             return RedirectToPage("Index");
         }
     }
-}
+    }

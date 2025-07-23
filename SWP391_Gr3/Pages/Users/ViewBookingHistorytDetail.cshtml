@@ -1,75 +1,68 @@
 ﻿@page "{id:int}"
-
 @model SWP391_Gr3.Pages.Users.ViewBookingHistorytDetailModel
 
 @{
-    ViewData["Title"] = "Chi tiết vé";
+    ViewData["Title"] = "Chi tiết đơn hàng";
+    var detail = Model.OrderDetail;
 }
 
-<h2>Chi tiết vé</h2>
+<div class="container bg-white p-4 rounded shadow-sm mt-4">
+    <h2 class="mb-4">Chi tiết đơn hàng </h2>
 
-<div class="card">
-    <div class="card-body">
-        <p><strong>Phim:</strong> @Model.Ticket.Showtime.Movie.Title</p>
-        <p><strong>Thời gian chiếu:</strong> @Model.Ticket.Showtime.StartTime?.ToString("dd/MM/yyyy HH:mm")</p>
-        <p><strong>Ghế:</strong> @Model.Ticket.Seat.Code (@Model.Ticket.Seat.Type.Name)</p>
-        <p><strong>Giá vé:</strong> @Model.Ticket.Seat.Type.Price.ToString("N0") đ</p>
-
-        @if (Model.Promotion != null)
-        {
-            <p><strong>Khuyến mãi:</strong> @Model.Promotion.Code - @Model.Promotion.Value?.ToString("N0") đ</p>
-        }
-
-        <hr />
-        <h5>Combo đi kèm:</h5>
-        @if (Model.OrderCombos.Any())
-        {
-            @foreach (var combo in Model.OrderCombos)
+    @if (detail == null)
+    {
+        <p class="text-danger fw-bold">Không tìm thấy đơn hàng.</p>
+    }
+    else
+    {
+        <p><strong>Phim:</strong> @detail.MovieTitle</p>
+        <p><strong>Suất chiếu:</strong> @detail.Showtime.ToString("dd/MM/yyyy HH:mm")</p>
+        <p><strong>Ghế đã đặt:</strong></p>
+     
+        <ul>
+            @foreach (var t in detail.Tickets)
             {
-                <div class="mb-2">
-                    <p><strong>Combo:</strong> @combo.Combo.Title (x@combo.Quantity)</p>
-                    <ul>
-                        @foreach (var pc in Model.ProductCombos.Where(p => p.ComboId == combo.ComboId))
-                        {
-                            <li>@pc.Product?.Name (x@pc.Quantity)</li>
-                        }
-                    </ul>
-                </div>
+                <li>
+                    Mã vé: @t.TicketCode – Ghế: @t.SeatCode (@t.SeatType) – Giá: @t.Price.ToString("N0") đ
+                </li>
             }
+        </ul>
+
+
+        <h4>Combo đã chọn</h4>
+        @if (detail.Combos.Any())
+        {
+            <ul>
+                @foreach (var combo in detail.Combos)
+                {
+                    <li>@combo.ComboName - Số lượng: @combo.Quantity - Giá: @(combo.Price * combo.Quantity) đ</li>
+                }
+            </ul>
         }
         else
         {
-            <p>Không có combo nào.</p>
+            <p>Không có combo.</p>
         }
-        <hr />
-        <h5>Sản phẩm mua lẻ:</h5>
-        @if (Model.OrderProducts.Any())
+
+        <h4>Sản phẩm đã chọn</h4>
+        @if (detail.Products.Any())
         {
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Tên sản phẩm</th>
-                        <th>Kích cỡ</th>
-                        <th>Số lượng</th>
-                        <th>Giá</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.OrderProducts)
-                    {
-                        <tr>
-                            <td>@item.Product.Name</td>
-                            <td>@item.Product.Size</td>
-                            <td>@item.Quantity</td>
-                            <td>@item.Product.Price.ToString("N0") đ</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+            <ul>
+                @foreach (var product in detail.Products)
+                {
+                    <li>@product.ProductName - Số lượng: @product.Quantity - Giá: @(product.Price * product.Quantity) đ</li>
+                }
+            </ul>
         }
         else
         {
-            <p>Không có sản phẩm lẻ nào.</p>
+            <p>Không có sản phẩm.</p>
         }
-    </div>
+
+        @if (!detail.Combos.Any() && !detail.Products.Any())
+        {
+            <p><em>Không có sản phẩm nào trong đơn hàng này.</em></p>
+        }
+        <p class="mt-3"><strong>Tổng tiền:</strong> @detail.TotalPrice đ</p>
+    }
 </div>

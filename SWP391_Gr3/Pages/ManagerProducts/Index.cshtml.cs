@@ -8,19 +8,43 @@ namespace SWP391_Gr3.Pages.ManagerProducts
     public class IndexModel : PageModel
     {
         private readonly Swp391Context _context;
+        private const int PageSize = 5; 
 
         public IndexModel(Swp391Context context)
         {
             _context = context;
         }
 
-        public IList<Product> Products { get; set; }
+        public IList<Product> Products { get; set; } = new List<Product>();
+
+        [BindProperty(SupportsGet = true)]
+        public string? SearchString { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public int PageNumber { get; set; } = 1;
+
+        public int TotalPages { get; set; }
 
         public async Task OnGetAsync()
         {
-            Products = await _context.Products
-                .Where(p => p.IsActive == true)
+            var query = _context.Products
+                .Where(p => p.IsActive)
                 .Include(p => p.ProductCategory)
+                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(SearchString))
+            {
+                query = query.Where(p => p.Name.Contains(SearchString));
+            }
+
+            int totalItems = await query.CountAsync();
+            TotalPages = (int)Math.Ceiling(totalItems / (double)PageSize);
+
+            Products = await query
+                .OrderByDescending(p => p.Id)
+
+                .Skip((PageNumber - 1) * PageSize)
+                .Take(PageSize)
                 .ToListAsync();
         }
     }

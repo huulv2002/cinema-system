@@ -18,4 +18,5 @@ public partial class Ticket
     public virtual Seat? Seat { get; set; }
 
     public virtual Showtime? Showtime { get; set; }
+    public virtual Order? Order { get; set; }
 }

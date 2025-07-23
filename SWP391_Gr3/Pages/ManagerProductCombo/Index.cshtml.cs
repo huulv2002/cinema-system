@@ -16,14 +16,36 @@ namespace SWP391_Gr3.Pages.ManagerProductCombo
 
         public List<Combo> Combos { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public string SearchTerm { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public int PageNumber { get; set; } = 1;
+
+        public int PageSize { get; set; } = 5;
+        public int TotalPages { get; set; }
+
         public async Task OnGetAsync()
         {
-            Combos = await _context.Combos
+            var query = _context.Combos
                 .Where(c => c.IsActive == true)
                 .Include(c => c.ProductCombos)
                     .ThenInclude(pc => pc.Product)
+                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(SearchTerm))
+            {
+                query = query.Where(c => c.Title.Contains(SearchTerm));
+            }
+
+            int totalItems = await query.CountAsync();
+            TotalPages = (int)Math.Ceiling(totalItems / (double)PageSize);
+
+            Combos = await query
+                .OrderByDescending(c => c.Id)
+                .Skip((PageNumber - 1) * PageSize)
+                .Take(PageSize)
                 .ToListAsync();
         }
     }
 }
-

@@ -3,27 +3,39 @@
 @{
     ViewData["Title"] = "Chỉnh sửa Combo";
 }
+@if (ViewData.ModelState.Values.Any(v => v.Errors.Count > 0))
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+    </div>
+}
 
-<div class="container  bg-white p-4 rounded shadow-sm">
+
+<div class="container bg-white p-4 rounded shadow-sm">
     <h2 class="mb-4">Chỉnh sửa Combo</h2>
 
     <form method="post">
         <div class="mb-3">
-            <label asp-for="Combo.Title" class="form-label">Tiêu đề</label>
-            <input asp-for="Combo.Title" class="form-control" />
-            <span asp-validation-for="Combo.Title" class="text-danger"></span>
+            <label asp-for="ComboDto.Title" class="form-label">Tiêu đề</label>
+            <input asp-for="ComboDto.Title" class="form-control" />
+            <span asp-validation-for="ComboDto.Title" class="text-danger"></span>
         </div>
 
         <div class="mb-3">
-            <label asp-for="Combo.Price" class="form-label">Giá</label>
-            <input asp-for="Combo.Price" class="form-control" type="number" step="0.01" />
-            <span asp-validation-for="Combo.Price" class="text-danger"></span>
+            <label asp-for="ComboDto.Price" class="form-label">Giá</label>
+            <input asp-for="ComboDto.Price" class="form-control" type="number" step="0.01" />
+            <span asp-validation-for="ComboDto.Price" class="text-danger"></span>
         </div>
 
         <div class="mb-3">
-            <label asp-for="Combo.Description" class="form-label">Mô tả</label>
-            <textarea asp-for="Combo.Description" class="form-control"></textarea>
-            <span asp-validation-for="Combo.Description" class="text-danger"></span>
+            <label asp-for="ComboDto.Description" class="form-label">Mô tả</label>
+            <textarea asp-for="ComboDto.Description" class="form-control"></textarea>
+            <span asp-validation-for="ComboDto.Description" class="text-danger"></span>
         </div>
 
         <div class="mb-3">
@@ -32,6 +44,7 @@
             {
                 var isSelected = Model.SelectedProductIds.Contains(product.Id);
                 var quantity = Model.Quantities.ContainsKey(product.Id) ? Model.Quantities[product.Id] : 1;
+                var stock = product.Stock; 
 
                 <div class="form-check mb-2">
                     <input class="form-check-input"
@@ -41,15 +54,17 @@
                     @(isSelected ? "checked" : "") />
                     <label class="form-check-label">
                         @product.Name (@product.Size) - @product.Price.ToString("N0") đ
+                        <span class="text-muted">(Còn lại: @stock)</span>
                     </label>
                     <input type="number"
                            name="Quantities[@product.Id]"
                            value="@quantity"
                            class="form-control form-control-sm d-inline-block ms-2"
-                           style="width: 100px;" />
+                           style="width: 100px;"
+                           min="1"
+                           max="@stock" />
                 </div>
             }
-
         </div>
 
         <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
@@ -60,4 +75,3 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
-

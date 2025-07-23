@@ -25,12 +25,15 @@ namespace SWP391_Gr3.Pages.Users
         public string? Otp { get; set; }
 
         [BindProperty]
+        [Required(ErrorMessage = "Vui lòng nhập mật khẩu mới.")]
         [MinLength(6, ErrorMessage = "Mật khẩu phải có ít nhất 6 ký tự.")]
-        public string? NewPassword { get; set; }
+        public string NewPassword { get; set; }
 
         [BindProperty]
+        [Required(ErrorMessage = "Vui lòng xác nhận mật khẩu.")]
         [Compare("NewPassword", ErrorMessage = "Mật khẩu xác nhận không khớp.")]
-        public string? ConfirmPassword { get; set; }
+        public string ConfirmPassword { get; set; }
+
 
         public string? SuccessMessage { get; set; }
         public string? ErrorMessage { get; set; }

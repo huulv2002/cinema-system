@@ -1,4 +1,5 @@
-﻿using SWP391_Gr3.Models;
+﻿using SWP391_Gr3.Dtos;
+using SWP391_Gr3.Models;
 
 namespace SWP391_Gr3.Services
 {
@@ -12,10 +13,12 @@ namespace SWP391_Gr3.Services
         Task<bool> RegisterUserAsync(User user);
         Task<User?> ValidateUserAsync(string email, string password);
         Task<User?> GetUserById(int userId);
-        Task<bool> UpdateProfile(User user);
+        Task<bool> UpdateProfileAsync(UserProfileDto dto);
         Task<User?> GetUserByEmailAsync(string email);
         Task<bool> UpdateVerification(User user);
-        Task<bool> UpdatePassword(string email, string password);
+       
         Task<bool> ValidateUser(string email, string password);
+        Task<bool> UpdatePassword(string email, string newPassword);
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SWP391_Gr3.Dtos;
 using SWP391_Gr3.Models;
 using SWP391_Gr3.Repositories;
 
@@ -56,10 +57,18 @@ namespace SWP391_Gr3.Services
         {
             return await _userRepo.GetUserById(userId);
         }
-        public async Task<bool> UpdateProfile(User user)
+        public async Task<bool> UpdateProfileAsync(UserProfileDto dto)
         {
+            var user = await _userRepo.GetUserById(dto.Id);
+            if (user == null) return false;
+
+            user.FullName = dto.FullName;
+            user.PhoneNumber = dto.PhoneNumber;
+            user.Address = dto.Address;
+
             return await _userRepo.UpdateProfile(user);
         }
+
 
         public async Task<User?> GetUserByEmailAsync(string email)
         {
@@ -71,10 +80,7 @@ namespace SWP391_Gr3.Services
             return await _userRepo.UpdateVerification(user);
         }
 
-        public async Task<bool> UpdatePassword(string email, String password)
-        {
-            return await _userRepo.UpdatePassword(email, password);
-        }
+        
         public async Task<bool> ValidateUser(string email, string password)
         {
             return await _userRepo.ValidateUser(email, password);
@@ -88,5 +94,10 @@ namespace SWP391_Gr3.Services
         {
             return await _userRepo.UpdateUserRoleAsync(userId, roleId);
         }
+        public async Task<bool> UpdatePassword(string email, string newPassword)
+        {
+            return await _userRepo.UpdatePassword(email, newPassword);
+        }
+
     }
 }

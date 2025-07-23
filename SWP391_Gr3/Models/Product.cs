@@ -10,10 +10,12 @@ public partial class Product
 
     [Required(ErrorMessage = "Tên sản phẩm không được để trống")]
     [StringLength(100, ErrorMessage = "Tên tối đa 100 ký tự")]
+    [RegularExpression(@"\S.*", ErrorMessage = "Không được chỉ chứa khoảng trắng")]
     public string Name { get; set; }
 
     [Required(ErrorMessage = "Size không được để trống")]
     [StringLength(20, ErrorMessage = "Size tối đa 20 ký tự")]
+    [RegularExpression(@"\S.*", ErrorMessage = "Không được chỉ chứa khoảng trắng")]
     public string Size { get; set; }
 
     [Required(ErrorMessage = "Giá không được để trống")]

@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using SWP391_Gr3.Models;
-using SWP391_Gr3.Services;
+using SWP391_Gr3.ViewModels;
 
 namespace SWP391_Gr3.Pages.Users
 {
@@ -15,8 +15,8 @@ namespace SWP391_Gr3.Pages.Users
             _context = context;
         }
 
-        public List<Ticket> UsedTickets { get; set; } = new();
-        public List<Ticket> UnusedTickets { get; set; } = new();
+        public List<OrderSummaryViewModel> UsedOrders { get; set; } = new();
+        public List<OrderSummaryViewModel> UnusedOrders { get; set; } = new();
 
         public async Task<IActionResult> OnGetAsync()
         {
@@ -27,18 +27,47 @@ namespace SWP391_Gr3.Pages.Users
                 return RedirectToPage("/Users/Login");
             }
 
-            var tickets = await _context.Tickets
-                .Include(t => t.Seat)
-                .Include(t => t.Showtime).ThenInclude(s => s.Movie)
-                .Where(t => t.OrderId != null && _context.Orders.Any(o => o.Id == t.OrderId && o.UserId == userId))
+            var orders = await _context.Orders
+                .Where(o => o.UserId == userId)
+                .Include(o => o.Tickets)
+                    .ThenInclude(t => t.Seat)
+                        .ThenInclude(seat => seat.Type)
+                .Include(o => o.Tickets)
+                    .ThenInclude(t => t.Showtime)
+                        .ThenInclude(s => s.Movie)
+                .Include(o => o.OrderCombos)
+                    .ThenInclude(oc => oc.Combo)
                 .ToListAsync();
 
             var now = DateTime.Now;
 
-            UnusedTickets = tickets.Where(t => t.Showtime.StartTime > now).ToList();
-            UsedTickets = tickets.Where(t => t.Showtime.StartTime <= now).ToList();
+            foreach (var order in orders)
+            {
+                var firstShowtime = order.Tickets.FirstOrDefault().Showtime;
+                if (firstShowtime == null) continue;
+
+                var summary = new OrderSummaryViewModel
+                {
+                    OrderId = order.Id,
+                    MovieTitle = firstShowtime.Movie.Title,
+                    ShowtimeDate = firstShowtime.StartTime.Value.Date,
+                    TotalPrice = CalculateTotal(order)
+                };
+
+                if (firstShowtime.StartTime > now)
+                    UnusedOrders.Add(summary);
+                else
+                    UsedOrders.Add(summary);
+            }
 
             return Page();
+        }
+
+        private decimal CalculateTotal(Order order)
+        {
+            decimal ticketTotal = order.Tickets.Sum(t => t.Seat?.Type?.Price ?? 0);
+            decimal comboTotal = order.OrderCombos.Sum(c => (c.Combo?.Price ?? 0) * (c.Quantity ?? 1));
+            return ticketTotal + comboTotal;
         }
     }
 }

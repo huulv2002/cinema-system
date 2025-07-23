@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using SWP391_Gr3.Models;
+using SWP391_Gr3.Dtos;
 using SWP391_Gr3.Services;
 
 namespace SWP391_Gr3.Pages.Users
@@ -15,45 +15,53 @@ namespace SWP391_Gr3.Pages.Users
         }
 
         [BindProperty]
-        public User currentUser { get; set; }
+        public UserProfileDto ProfileDto { get; set; }
 
         public string? SuccessMessage { get; set; }
         public string? ErrorMessage { get; set; }
 
         public async Task<IActionResult> OnGetAsync()
         {
-            int userId;
             try
             {
-                userId = int.Parse(HttpContext.Session.GetString("UserId"));
-                currentUser = await _userService.GetUserById(userId);
-            }
-            catch (Exception e)
-            {
-                ErrorMessage = "Không tìm thấy người dùng";
+                int userId = int.Parse(HttpContext.Session.GetString("UserId"));
+                var user = await _userService.GetUserById(userId);
+
+                if (user == null)
+                {
+                    ErrorMessage = "Không tìm thấy người dùng.";
+                    return Page();
+                }
+
+                ProfileDto = new UserProfileDto
+                {
+                    Id = user.Id,
+                    FullName = user.FullName,
+                    Email = user.Email,
+                    PhoneNumber = user.PhoneNumber,
+                    Address = user.Address
+                };
+
                 return Page();
             }
-            return Page();
+            catch
+            {
+                ErrorMessage = "Lỗi khi tải thông tin người dùng.";
+                return Page();
+            }
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
-                ErrorMessage = "Dữ liệu không hợp lệ";
+                ErrorMessage = "Dữ liệu không hợp lệ.";
                 return Page();
             }
 
-            var result = await _userService.UpdateProfile(currentUser);
-            if (result)
-            {
-                SuccessMessage = "Cập nhập thông tin thành công!";
-            }
-            else
-            {
-                ErrorMessage = "Cập nhập thất bại.";
-            }
+            var result = await _userService.UpdateProfileAsync(ProfileDto);
 
+            SuccessMessage = result ? "Cập nhật thành công!" : "Cập nhật thất bại.";
             return Page();
         }
     }

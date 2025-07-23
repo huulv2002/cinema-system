@@ -22,4 +22,5 @@ public partial class Order
     public virtual Promotion? Promotion { get; set; }
 
     public virtual User? User { get; set; }
+    public virtual ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
 }
