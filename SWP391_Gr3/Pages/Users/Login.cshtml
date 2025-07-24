@@ -3,6 +3,12 @@
 @{
 	ViewData["Title"] = "Đăng nhập";
 }
+@if (!string.IsNullOrEmpty(Request.Query["message"]))
+{
+    <div class="alert alert-success">
+        @Request.Query["message"]
+    </div>
+}
 
 <div class="login-container">
     <h2 class="text-center text-danger">Đăng nhập</h2>

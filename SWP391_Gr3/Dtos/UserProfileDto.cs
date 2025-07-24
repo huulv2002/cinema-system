@@ -17,9 +17,10 @@ namespace SWP391_Gr3.Dtos
         public string Email { get; set; }
 
         [Display(Name = "Số điện thoại")]
-        [Phone(ErrorMessage = "Số điện thoại không hợp lệ")]
-        [StringLength(15, MinimumLength = 9, ErrorMessage = "Số điện thoại phải từ 9 đến 15 ký tự")]
+        [Required(ErrorMessage = "Vui lòng nhập số điện thoại")]
+        [RegularExpression(@"^\d{10}$", ErrorMessage = "Số điện thoại phải gồm đúng 10 chữ số")]
         public string PhoneNumber { get; set; }
+
 
         [Display(Name = "Địa chỉ")]
         [StringLength(200, ErrorMessage = "Địa chỉ không được vượt quá 200 ký tự")]

@@ -70,9 +70,7 @@ namespace SWP391_Gr3.Pages.Users
                 return Page();
             }
 
-            SuccessMessage = "Thành công!";
-            ModelState.Clear();
-            return Page();
+            return RedirectToPage("/Users/Login", new { message = "Đổi mật khẩu thành công. Vui lòng đăng nhập lại." });
         }
 
     }
