@@ -95,7 +95,7 @@ namespace SWP391_Gr3.Pages.ManagerProductCombo
                     Quantity = quantity
                 });
             }
-
+    
             await _context.SaveChangesAsync();
             return RedirectToPage("Index");
         }

@@ -71,6 +71,7 @@ namespace SWP391_Gr3.Pages.Users
         {
             decimal ticketTotal = order.Tickets.Sum(t => t.Seat.Type.Price );
             decimal comboTotal = order.OrderCombos.Sum(c => (c.Combo?.Price ?? 0) * (c.Quantity ?? 1));
+         
             return ticketTotal + comboTotal;
         }
     }

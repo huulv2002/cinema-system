@@ -95,8 +95,7 @@ namespace SWP391_Gr3.Pages.Users
                 return Page();
             }
 
-            SuccessMessage = "Mật khẩu đã được đặt lại thành công.";
-            return Page();
+            return RedirectToPage("/Users/Login", new { message = "Đổi mật khẩu thành công. Vui lòng đăng nhập lại." });
         }
     }
 }
