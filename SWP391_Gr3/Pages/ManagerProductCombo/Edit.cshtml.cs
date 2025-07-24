@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
@@ -66,14 +66,14 @@ namespace SWP391_Gr3.Pages.ManagerProductCombo
 
             if (comboToUpdate == null)
                 return NotFound();
-
-            // Validate: Kh�ng ch?n s?n ph?m
+   
+        
             if (SelectedProductIds == null || !SelectedProductIds.Any())
             {
-                ModelState.AddModelError("", "Vui l?ng ch?n �t nh?t m?t s?n ph?m.");
+                ModelState.AddModelError("", "Vui lòng chọn ít nhất một sản phẩm.");
             }
 
-            // Validate s? l�?ng
+         
             foreach (var productId in SelectedProductIds)
             {
                 var quantity = Quantities.ContainsKey(productId) ? Quantities[productId] : 1;
@@ -81,18 +81,18 @@ namespace SWP391_Gr3.Pages.ManagerProductCombo
 
                 if (product != null && quantity > product.Stock)
                 {
-                    ModelState.AddModelError("", $"S?n ph?m '{product.Name}' ch? c?n {product.Stock} trong kho.");
+                    ModelState.AddModelError("", $"Sản phẩm '{product.Name}' chỉ còn {product.Stock} trong kho.");
                 }
             }
 
-            // ? Ki?m tra l?i SAU khi �? validate custom
+        
             if (!ModelState.IsValid)
             {
                 AllProducts = await _context.Products.Where(p => p.IsActive).ToListAsync();
                 return Page();
             }
 
-            // ? C?p nh?t n?u h?p l?
+           
             comboToUpdate.Title = ComboDto.Title;
             comboToUpdate.Price = ComboDto.Price;
             comboToUpdate.Description = ComboDto.Description;
