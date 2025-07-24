@@ -25,7 +25,7 @@ builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddDbContext<Swp391Context>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MyCnn")));
-
+builder.Services.Configure<VnPayConfig>(builder.Configuration.GetSection("Vnpay"));
 builder.Services.AddScoped<SWP391_Gr3.Services.IUserService, SWP391_Gr3.Services.UserService>(); 
 builder.Services.AddScoped<SWP391_Gr3.Repositories.IUserRepository, SWP391_Gr3.Repositories.UserRepository>();
 

@@ -22,32 +22,24 @@ namespace SWP391_Gr3.Pages.Cart
 
         public async Task OnGetAsync()
         {
-            // Lấy UserId từ session đăng nhập
             var userIdString = HttpContext.Session.GetString("UserId");
             if (string.IsNullOrEmpty(userIdString) || !int.TryParse(userIdString, out int userId))
             {
-                return; // Chưa đăng nhập
+                return;
             }
 
             var now = DateTime.Now;
             var expireThreshold = now.AddMinutes(-30);
 
             Orders = await _context.Orders
-                .Where(o => o.UserId == userId)
+                .Where(o => o.UserId == userId &&
+                            (!o.IsConfirmed || o.Payment == null || o.Payment.Status.ToLower() != "success") &&
+                            o.CreatedAt > expireThreshold)
                 .Include(o => o.Payment)
                 .Include(o => o.Tickets).ThenInclude(t => t.Seat)
                 .Include(o => o.Tickets).ThenInclude(t => t.Showtime).ThenInclude(s => s.Movie)
                 .OrderByDescending(o => o.CreatedAt)
                 .ToListAsync();
-
-            // Gắn cờ hết hạn vào ViewData để sử dụng trong Razor
-            foreach (var order in Orders)
-            {
-                if (order.Payment?.Status != "Success" && order.CreatedAt <= expireThreshold)
-                {
-                    ViewData[$"OrderExpired_{order.Id}"] = true;
-                }
-            }
         }
     }
 }

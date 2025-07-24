@@ -70,7 +70,13 @@ else
                         }
                         else if (order.Payment?.Status != "Success")
                         {
-                            <a asp-page="/Cart/Payment" asp-route-orderId="@order.Id" class="btn btn-sm btn-primary">Thanh toán</a>
+                         <a asp-page="/Cart/Payment"
+                         asp-route-orderId="@order.Id"
+                               asp-route-amount="@(order.Payment?.Amount != null ? (int)order.Payment.Amount : 0)"
+                               asp-route-orderInfo="Mua vé xem phim"
+                         class="btn btn-sm btn-primary">
+                         Thanh toán
+                         </a>
                         }
                         else
                         {

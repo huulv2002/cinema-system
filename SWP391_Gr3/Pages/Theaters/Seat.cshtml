@@ -101,9 +101,15 @@
             <div class="ticket-item"><span>Rạp</span> @Model.Theater.Name</div>
             <div class="ticket-item"><span>Suất chiếu</span> @Model.Showtime.StartTime?.ToString("HH:mm, dd/MM/yyyy")</div>
             <div class="ticket-item"><span>Phòng chiếu</span> @Model.Room.Code</div>
-            <div class="ticket-item"><span>Ghế đã chọn</span> <span id="selectedCount">0</span></div>
-            <div class="ticket-item"><span>Tổng tiền</span> <span id="totalAmount">0 đ</span></div>
-
+            <div class="ticket-item">
+                <span>Ghế đã chọn</span>
+                <span id="selectedCount">0</span>
+                <span id="seatDetails"></span>
+            </div>
+            <div class="ticket-item">
+                <span>Tổng tiền</span>
+                <span id="totalAmount">0 đ</span>
+            </div>
             <input type="hidden" name="RoomId" value="@Model.RoomId" />
             <input type="hidden" name="ShowtimeId" value="@Model.ShowtimeId" />
             <input type="hidden" id="SelectedSeatIds" name="SelectedSeatIds" />
@@ -175,7 +181,9 @@
 
     /* Selected seat outline */
     .selectable-seat.selected {
-        border: 3px solid yellow !important;
+        background-color: orange !important;
+        color: white !important;
+        border: 2px solid darkorange !important;
     }
 
     /* Ticket box */
@@ -321,8 +329,6 @@
 
     function toggleSeat(button) {
         const seatId = button.dataset.id;
-        const price = parseInt(button.dataset.price);
-
         if (button.classList.contains('selected')) {
             selectedSeats.delete(seatId);
             button.classList.remove('selected');
@@ -341,14 +347,36 @@
     function updateInfo() {
         const count = selectedSeats.size;
         let total = 0;
+        let normalCount = 0, advanceCount = 0, vipCount = 0;
+        let priceList = [];
 
         document.querySelectorAll('.selectable-seat.selected').forEach(btn => {
-            total += parseInt(btn.dataset.price);
+            const price = parseInt(btn.dataset.price);
+            total += price;
+            priceList.push(price);
+
+            if (btn.classList.contains('normal')) normalCount++;
+            else if (btn.classList.contains('advance')) advanceCount++;
+            else if (btn.classList.contains('vip')) vipCount++;
         });
 
-        document.getElementById('selectedCount').innerText = count;
-        document.getElementById('totalAmount').innerText = total.toLocaleString() + ' đ';
-        document.getElementById('SelectedSeatIds').value = Array.from(selectedSeats).join(',');
-        document.getElementById('confirmButton').disabled = count === 0;
+        const details = [];
+        if (normalCount > 0) details.push(`${normalCount} thường`);
+        if (vipCount > 0) details.push(`${vipCount} VIP`);
+        if (advanceCount > 0) details.push(`${advanceCount} advance`);
+
+        // Cập nhật ghế đã chọn
+        document.getElementById("selectedCount").innerText = count > 0 ? count : "0";
+        document.getElementById("seatDetails").innerText = count > 0 ? details.join(", ") : "";
+
+        // Cập nhật tổng tiền
+        const totalFormatted = total.toLocaleString('vi-VN');
+        const priceBreakdown = priceList.map(p => p.toLocaleString('vi-VN')).join(' + ');
+        const finalAmount = count > 0 ? `${totalFormatted} đ (${priceBreakdown})` : "0 đ";
+        document.getElementById("totalAmount").innerText = finalAmount;
+
+        // Cập nhật hidden input để submit
+        document.getElementById("SelectedSeatIds").value = Array.from(selectedSeats).join(",");
+        document.getElementById("confirmButton").disabled = count === 0;
     }
 </script>

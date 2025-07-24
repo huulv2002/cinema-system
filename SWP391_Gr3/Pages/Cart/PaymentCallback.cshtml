@@ -1,0 +1,13 @@
+﻿@page
+@model SWP391_Gr3.Pages.Cart.PaymentCallbackModel
+@{
+    ViewData["Title"] = "Kết quả thanh toán";
+}
+
+<div class="alert alert-info mt-5">
+    <h4>Kết quả thanh toán</h4>
+    <p><strong>Đơn hàng #@TempData["OrderId"]:</strong> @TempData["TransactionStatus"]</p>
+    <p><strong>Số tiền:</strong> @TempData["Amount"] ₫</p>
+</div>
+
+<a href="/" class="btn btn-primary">Về trang chủ</a>
