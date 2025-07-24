@@ -69,7 +69,7 @@ namespace SWP391_Gr3.Pages.Cart
                             payment.Code = vnp_TransactionNo;
                             payment.Status = "Success";
                             payment.CreatedAt = DateTime.Now;
-                            // payment.Amount giữ nguyên vì đã được set từ ConfirmBooking
+                            payment.Amount = decimal.Parse(vnp_Amount) / 100;
                         }
 
                         order.IsConfirmed = true;
