@@ -5,11 +5,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using SWP391_Gr3.Autho;
 using SWP391_Gr3.Models;
 
 namespace SWP391_Gr3.Pages.Reviews
 {
-    [Authorize(Roles = "Staff, Owner")]
+    [AuthorizeRole("Owner,Staff")]
     public class EditModel : PageModel
     {
         private readonly Swp391Context _context;
