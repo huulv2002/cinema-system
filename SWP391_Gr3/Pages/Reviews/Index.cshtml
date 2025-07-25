@@ -5,65 +5,72 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Manager Movie Review</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <a asp-page="Create" class="btn btn-danger">+ Create New</a>
 </p>
+
 <div class="white-frame table-responsive">
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.MovieReview[0].Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MovieReview[0].Summary)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MovieReview[0].PublishedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MovieReview[0].Likes)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MovieReview[0].Views)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MovieReview[0].Movie)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.MovieReview) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Summary)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PublishedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Likes)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Views)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Movie.Id)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <table class="table table-bordered table-hover text-center align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.MovieReview[0].Title)</th>
+                <th>@Html.DisplayNameFor(model => model.MovieReview[0].Summary)</th>
+                <th>@Html.DisplayNameFor(model => model.MovieReview[0].PublishedDate)</th>
+                <th>@Html.DisplayNameFor(model => model.MovieReview[0].Views)</th>
+                <th>@Html.DisplayNameFor(model => model.MovieReview[0].Movie)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.MovieReview)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Summary)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PublishedDate)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Views)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Movie.Title)</td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning me-1">✏️ Edit</a>
+                        <a asp-page="./Details" asp-route-id="@item.Id" class="btn btn-sm btn-info me-1 text-white">🔍 Details</a>
+                        <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">🗑️ Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
 
+<style>
+    h1 {
+        color: #ffc107;
+        font-weight: bold;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border: none;
+    }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+    .btn-warning, .btn-info, .btn-danger {
+        border-radius: 6px;
+    }
+
+    .btn-info {
+        background-color: #17a2b8;
+    }
+
+        .btn-info:hover {
+            background-color: #138496;
+        }
+
+    .me-1 {
+        margin-right: 6px;
+    }
+</style>

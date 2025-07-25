@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using SWP391_Gr3.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+
 namespace SWP391_Gr3.Pages.Reviews
 {
     [Authorize(Roles = "Staff, Owner")]
@@ -12,16 +14,22 @@ namespace SWP391_Gr3.Pages.Reviews
     {
         private readonly Swp391Context _context;
         private readonly ILogger<CreateModel> _logger;
-        public CreateModel(Swp391Context context, ILogger<CreateModel> logger)
+        private readonly IWebHostEnvironment _environment;
+
+        public CreateModel(Swp391Context context, ILogger<CreateModel> logger, IWebHostEnvironment environment)
         {
             _context = context;
             _logger = logger;
+            _environment = environment;
         }
 
         [BindProperty]
         public MovieReview MovieReview { get; set; } = new MovieReview();
 
         public SelectList MovieSelectList { get; set; } = default!;
+
+        [BindProperty]
+        public IFormFile? ImageFile { get; set; }
 
         public async Task<IActionResult> OnGetAsync()
         {
@@ -32,25 +40,66 @@ namespace SWP391_Gr3.Pages.Reviews
 
         public async Task<IActionResult> OnPostAsync()
         {
+            var movies = await _context.Movies.ToListAsync();
+            MovieSelectList = new SelectList(movies, "Id", "Title");
+
+            // Kiểm tra khoảng trắng trống
+            if (string.IsNullOrWhiteSpace(MovieReview.Title))
+            {
+                ModelState.AddModelError("MovieReview.Title", "Tiêu đề không được để trống hoặc chỉ chứa khoảng trắng.");
+            }
+            if (string.IsNullOrWhiteSpace(MovieReview.Summary))
+            {
+                ModelState.AddModelError("MovieReview.Summary", "Tóm tắt không được để trống hoặc chỉ chứa khoảng trắng.");
+            }
+            if (string.IsNullOrWhiteSpace(MovieReview.Content))
+            {
+                ModelState.AddModelError("MovieReview.Content", "Nội dung không được để trống hoặc chỉ chứa khoảng trắng.");
+            }
+
             if (!ModelState.IsValid)
             {
-                foreach (var key in ModelState.Keys)
-                {
-                    var state = ModelState[key];
-                    if (state.Errors.Count > 0)
-                    {
-                        foreach (var error in state.Errors)
-                        {
-                            _logger.LogError($"ModelState Error - Field: {key}, Error: {error.ErrorMessage}");
-                        }
-                    }
-                }
-
-                var movies = await _context.Movies.ToListAsync();
-                MovieSelectList = new SelectList(movies, "Id", "Title");
                 return Page();
             }
 
+            // Trim nội dung để lưu gọn gàng
+            MovieReview.Title = MovieReview.Title.Trim();
+            MovieReview.Summary = MovieReview.Summary?.Trim();
+            MovieReview.Content = MovieReview.Content.Trim();
+
+            // Kiểm tra ảnh
+            if (ImageFile == null)
+            {
+                ModelState.AddModelError("ImageFile", "Vui lòng chọn một ảnh.");
+                return Page();
+            }
+
+            var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
+            var extension = Path.GetExtension(ImageFile.FileName).ToLowerInvariant();
+
+            if (!allowedExtensions.Contains(extension))
+            {
+                ModelState.AddModelError("ImageFile", "Chỉ chấp nhận ảnh có đuôi: .jpg, .jpeg, .png, .gif");
+                return Page();
+            }
+
+            if (ImageFile.Length > 2 * 1024 * 1024)
+            {
+                ModelState.AddModelError("ImageFile", "Ảnh quá lớn. Vui lòng chọn ảnh nhỏ hơn 2MB.");
+                return Page();
+            }
+
+            var fileName = Guid.NewGuid().ToString() + extension;
+            var uploadsFolder = Path.Combine(_environment.WebRootPath, "images");
+            Directory.CreateDirectory(uploadsFolder);
+            var filePath = Path.Combine(uploadsFolder, fileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await ImageFile.CopyToAsync(stream);
+            }
+
+            MovieReview.ImageUrl = "/images/" + fileName;
             MovieReview.PublishedDate = DateTime.UtcNow;
             MovieReview.Likes = 0;
             MovieReview.Views = 0;

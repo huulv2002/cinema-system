@@ -29,15 +29,15 @@ namespace SWP391_Gr3.Pages.Reviews
                 return NotFound();
             }
 
-            var moviereview = await _context.MovieReviews.FirstOrDefaultAsync(m => m.Id == id);
-            if (moviereview == null)
+            MovieReview = await _context.MovieReviews
+                .Include(m => m.Movie)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (MovieReview == null)
             {
                 return NotFound();
             }
-            else
-            {
-                MovieReview = moviereview;
-            }
+
             return Page();
         }
     }
