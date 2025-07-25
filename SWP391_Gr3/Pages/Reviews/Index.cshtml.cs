@@ -26,7 +26,8 @@ namespace SWP391_Gr3.Pages.Reviews
         public async Task OnGetAsync()
         {
             MovieReview = await _context.MovieReviews
-                .Include(m => m.Movie).ToListAsync();
+                 .Include(m => m.Movie)
+                 .ToListAsync();
         }
     }
 }
