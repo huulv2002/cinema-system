@@ -38,6 +38,10 @@ namespace SWP391_Gr3.Pages.Foods
         [BindProperty]
         public List<int> SelectedComboIds { get; set; } = new();
 
+        [BindProperty]
+        public Dictionary<int, int> ComboQuantities { get; set; } = new();
+
+
         public async Task OnGetAsync()
         {
             FoodList = await _context.Products.ToListAsync();
@@ -71,6 +75,22 @@ namespace SWP391_Gr3.Pages.Foods
                 .Include(s => s.Movie)
                 .FirstOrDefaultAsync(s => s.Id == ShowtimeId);
 
+            // Parse seat ids từ chuỗi SelectedSeatIds
+            var seatIds = SelectedSeatIds.Split(',', System.StringSplitOptions.RemoveEmptyEntries)
+                .Select(idStr => int.TryParse(idStr, out int id) ? id : -1)
+                .Where(id => id > 0)
+                .ToList();
+
+            // Lấy giá vé tương ứng với từng Seat qua Ticket
+            var seatTickets = await _context.Tickets
+                .Include(t => t.Seat)
+                    .ThenInclude(s => s.Type)
+                .Where(t => t.ShowtimeId == ShowtimeId && t.SeatId != null && seatIds.Contains(t.SeatId.Value))
+                .ToListAsync();
+
+            decimal totalTicketPrice = seatTickets.Sum(t => t.Seat?.Type?.Price ?? 0);
+
+
             string movieTitle = showtime?.Movie?.Title ?? "Không xác định";
             string showTimeStr = showtime?.StartTime != null
                 ? showtime.StartTime.Value.ToString("HH:mm dd/MM/yyyy")
@@ -86,10 +106,16 @@ namespace SWP391_Gr3.Pages.Foods
                 .Select(p => new { p.Id, p.Name, p.Price })
                 .ToListAsync();
 
+            var selectedComboIds = ComboQuantities
+                .Where(kv => kv.Value > 0)
+                .Select(kv => kv.Key)
+                .ToList();
+
             var selectedCombos = await _context.Combos
-                .Where(c => SelectedComboIds.Contains(c.Id))
+                .Where(c => selectedComboIds.Contains(c.Id))
                 .Select(c => new { c.Id, c.Title, c.Price })
                 .ToListAsync();
+
 
             decimal totalPrice = 0;
             foreach (var food in selectedFoods)
@@ -100,7 +126,8 @@ namespace SWP391_Gr3.Pages.Foods
 
             foreach (var combo in selectedCombos)
             {
-                totalPrice += combo.Price ?? 0;
+                int quantity = ComboQuantities.ContainsKey(combo.Id) ? ComboQuantities[combo.Id] : 0;
+                totalPrice += (combo.Price ?? 0) * quantity;
             }
 
             var subject = "Xác nhận đặt đồ ăn tại rạp phim";
@@ -123,11 +150,14 @@ namespace SWP391_Gr3.Pages.Foods
                 body += "<b>Combo:</b><br/>";
                 foreach (var combo in selectedCombos)
                 {
-                    body += $"- {combo.Title} ({(combo.Price ?? 0):N0} đ)<br/>";
+                    int quantity = ComboQuantities.ContainsKey(combo.Id) ? ComboQuantities[combo.Id] : 0;
+                    body += $"- {combo.Title} x {quantity} ({(combo.Price ?? 0) * quantity:N0} đ)<br/>";
                 }
             }
 
-            body += $"<br/><b>Tổng cộng:</b> {totalPrice:N0} đ";
+            body += $"<br/><b>Tổng giá vé:</b> {totalTicketPrice:N0} đ";
+            body += $"<br/><b>Giá đồ ăn:</b> {totalPrice:N0} đ";
+            body += $"<br/><b>Tổng cộng:</b> {(totalTicketPrice + totalPrice):N0} đ";
             body += "<br/><br/>Cảm ơn bạn đã sử dụng dịch vụ!";
 
             if (!string.IsNullOrEmpty(userEmail))
@@ -140,12 +170,17 @@ namespace SWP391_Gr3.Pages.Foods
 
             string foodDataString = string.Join(",", foodIdQuantityPairs);
 
+            var comboIdQuantityPairs = ComboQuantities
+                .Where(kv => kv.Value > 0)
+                .Select(kv => $"{kv.Key}:{kv.Value}");
+
+            string comboDataString = string.Join(",", comboIdQuantityPairs);
             return RedirectToPage("ConfirmBooking", new
             {
                 ShowtimeId,
                 SelectedSeatIds,
                 FoodData = foodDataString,
-                ComboIds = string.Join(",", SelectedComboIds)
+                ComboData = comboDataString
             });
         }
     }

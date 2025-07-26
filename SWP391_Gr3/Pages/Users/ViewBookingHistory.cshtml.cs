@@ -1,11 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using SWP391_Gr3.Autho;
 using SWP391_Gr3.Models;
 using SWP391_Gr3.ViewModels;
 
 namespace SWP391_Gr3.Pages.Users
 {
+    [AuthorizeRole("Customer")]
     public class ViewBookingHistoryModel : PageModel
     {
         private readonly Swp391Context _context;

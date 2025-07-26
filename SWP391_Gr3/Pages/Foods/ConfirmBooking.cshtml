@@ -12,13 +12,26 @@
         <p><strong>Rạp:</strong> @Model.Theater.Name</p>
         <p><strong>Suất chiếu:</strong> @Model.Showtime.StartTime?.ToString("HH:mm, dd/MM/yyyy")</p>
         <p><strong>Phòng chiếu:</strong> @Model.Room.Code</p>
-        <p>
-            <strong>Ghế đã chọn:</strong>
-            @foreach (var seat in Model.SelectedSeats)
-            {
-                <span>@seat.Code </span>
-            }
-        </p>
+        <h4>🎟️ Ghế đã chọn:</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Mã ghế</th>
+                    <th>Loại ghế</th>
+                    <th>Giá vé</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var seat in Model.SelectedSeats)
+                {
+                    <tr>
+                        <td>@seat.Code</td>
+                        <td>@seat.Type?.Name</td>
+                        <td>@(seat.Type?.Price.ToString("N0")) đ</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
 
         @if (Model.SelectedFoods.Any())
         {
@@ -46,13 +59,28 @@
 
         @if (Model.SelectedCombos != null && Model.SelectedCombos.Any())
         {
-            <h4>Combo đã chọn:</h4>
-            <ul>
-                @foreach (var combo in Model.SelectedCombos)
-                {
-                    <li>@combo.Title - @string.Format("{0:N0}", combo.Price) đ</li>
-                }
-            </ul>
+            <h4>🥤 Combo đã chọn:</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Tên</th>
+                        <th>Số lượng</th>
+                        <th>Thành tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var combo in Model.SelectedCombos)
+                    {
+                        var quantity = Model.ComboQuantities[combo.Id];
+                        var price = combo.Price ?? 0;
+                        <tr>
+                            <td>@combo.Title</td>
+                            <td>@quantity</td>
+                            <td>@((price * quantity).ToString("N0")) đ</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         }
 
         <h3 style="margin-top: 20px;">🧾 Tổng tiền: @Model.TotalAmount.ToString("N0") đ</h3>

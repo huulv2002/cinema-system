@@ -1,8 +1,9 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using SWP391_Gr3.Autho;
 using SWP391_Gr3.Models;
+using System.Data.SqlClient;
 
 namespace SWP391_Gr3.Pages.ManagerRoom
 {
@@ -18,6 +19,8 @@ namespace SWP391_Gr3.Pages.ManagerRoom
 
         [BindProperty]
         public Room Room { get; set; }
+
+        public string ErrorMessage { get; set; } = "";
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
@@ -43,14 +46,28 @@ namespace SWP391_Gr3.Pages.ManagerRoom
             int theaterId = (int)roomToDelete.TheaterId;
             string theaterName = roomToDelete.Theater?.Name ?? "";
 
-            _context.Rooms.Remove(roomToDelete);
-            await _context.SaveChangesAsync();
-
-            return RedirectToPage("/ManagerRoom/RoomManage", new
+            try
             {
-                id = theaterId,
-                name = theaterName
-            });
+                _context.Rooms.Remove(roomToDelete);
+                await _context.SaveChangesAsync();
+
+                return RedirectToPage("/ManagerRoom/RoomManage", new
+                {
+                    id = theaterId,
+                    name = theaterName
+                });
+            }
+            catch (DbUpdateException ex)
+            {
+                if (ex.InnerException?.Message.Contains("REFERENCE constraint") == true)
+                {
+                    ModelState.AddModelError(string.Empty, "❌ Không thể xóa phòng vì đã có ghế hoặc vé đặt trong phòng.");
+                    Room = roomToDelete; // để giữ lại dữ liệu hiển thị
+                    return Page();       // quay lại trang xác nhận xóa
+                }
+
+                throw;
+            }
         }
     }
 }

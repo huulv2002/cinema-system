@@ -6,7 +6,7 @@ using SWP391_Gr3.Models;
 
 namespace SWP391_Gr3.Pages.ManageShowtimes
 {
-    [AuthorizeRole("Owner")]
+    [AuthorizeRole("Owner, Staff")]
     public class CreateModel : PageModel
     {
         private readonly Swp391Context _context;

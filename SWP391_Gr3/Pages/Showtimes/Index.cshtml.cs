@@ -82,6 +82,9 @@ namespace SWP391_Gr3.Pages.Showtimes
                 query = query.Where(s => s.Room != null && s.Room.Code == RoomType);
             }
 
+            var now = DateTime.Now;
+            query = query.Where(s => s.StartTime > now);
+
             Showtimes = await query.ToListAsync();
         }
     }

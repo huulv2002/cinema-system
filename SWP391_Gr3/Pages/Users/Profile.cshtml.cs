@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using SWP391_Gr3.Autho;
 using SWP391_Gr3.Dtos;
 using SWP391_Gr3.Services;
 
 namespace SWP391_Gr3.Pages.Users
 {
+    [AuthorizeRole("Customer")]
     public class ProfileModel : PageModel
     {
         private readonly IUserService _userService;

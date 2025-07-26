@@ -2,11 +2,13 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
+using SWP391_Gr3.Autho;
 using SWP391_Gr3.Dtos;
 using SWP391_Gr3.Models;
 
 namespace SWP391_Gr3.Pages.ManagerProductCombo
 {
+    [AuthorizeRole("Owner, Staff")]
     public class EditModel : PageModel
     {
         private readonly Swp391Context _context;

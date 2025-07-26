@@ -37,8 +37,7 @@
             <div class="food-grid">
                 @foreach (var combo in Model.ComboList)
                 {
-                    <label class="food-item">
-                        <input type="checkbox" name="SelectedComboIds" value="@combo.Id" class="food-checkbox" style="display:none;" />
+                    <div class="food-item">
                         <div class="food-name">@combo.Title</div>
                         <div class="food-price">@string.Format(System.Globalization.CultureInfo.InvariantCulture, "{0:N0}", combo.Price) đ</div>
                         @if (combo.Products != null && combo.Products.Count > 0)
@@ -52,7 +51,11 @@
                                 }
                             </div>
                         }
-                    </label>
+                        <div class="food-quantity">
+                            <label>Số lượng:</label>
+                            <input type="number" name="ComboQuantities[@combo.Id]" min="0" value="0" class="form-control" style="width: 60px; text-align: center;" />
+                        </div>
+                    </div>
                 }
             </div>
         </div>

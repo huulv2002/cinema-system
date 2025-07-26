@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using SWP391_Gr3.Autho;
 using SWP391_Gr3.Models;
 
 namespace SWP391_Gr3.Pages.ProductCategorys
 {
+    [AuthorizeRole("Owner, Staff")]
     public class CreateModel : PageModel
     {
         private readonly Swp391Context _context;

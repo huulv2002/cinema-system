@@ -23,7 +23,7 @@
 <div class="movie-list-grid">
     @foreach (var movie in Model.Movies)
     {
-        <a href="/Movies/Detail?id=@movie.Id" class="movie-card-link">
+        <a href="/Movies/Detail/@movie.Id" class="movie-card-link">
             <div class="movie-card">
                 <div class="movie-poster">
                     <img src="@(movie.Images.FirstOrDefault()?.Url ?? "/images/no-image.png")" alt="@movie.Title" />

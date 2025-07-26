@@ -27,6 +27,11 @@ namespace SWP391_Gr3.Pages.Foods
         [BindProperty(SupportsGet = true)]
         public string FoodData { get; set; } = string.Empty;
 
+        [BindProperty(SupportsGet = true)]
+        public string ComboData { get; set; } = string.Empty;
+
+        public Dictionary<int, int> ComboQuantities { get; set; } = new();
+
         public Showtime Showtime { get; set; }
         public Movie Movie { get; set; }
         public Room Room { get; set; }
@@ -106,7 +111,7 @@ namespace SWP391_Gr3.Pages.Foods
                 {
                     OrderId = order.Id,
                     ComboId = combo.Id,
-                    Quantity = 1
+                    Quantity = ComboQuantities[combo.Id]
                 });
             }
 
@@ -146,17 +151,23 @@ namespace SWP391_Gr3.Pages.Foods
                 .Where(p => foodIds.Contains(p.Id))
                 .ToListAsync();
 
-            var comboIds = string.IsNullOrEmpty(ComboIds)
-                ? new List<int>()
-                : ComboIds.Split(',').Where(id => int.TryParse(id, out _)).Select(int.Parse).ToList();
+            if (!string.IsNullOrEmpty(ComboData))
+            {
+                ComboQuantities = ComboData
+                    .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                    .Select(pair => pair.Split(':'))
+                    .Where(parts => parts.Length == 2 && int.TryParse(parts[0], out _) && int.TryParse(parts[1], out _))
+                    .ToDictionary(pair => int.Parse(pair[0]), pair => int.Parse(pair[1]));
+            }
 
+            var comboIds = ComboQuantities.Keys.ToList();
             SelectedCombos = await _context.Combos
                 .Where(c => comboIds.Contains(c.Id))
                 .ToListAsync();
 
             TotalAmount = SelectedSeats.Sum(s => s.Type.Price)
-                         + SelectedFoods.Sum(f => f.Price * FoodQuantities[f.Id])
-                         + SelectedCombos.Sum(c => c.Price ?? 0);
+             + SelectedFoods.Sum(f => f.Price * FoodQuantities[f.Id])
+             + SelectedCombos.Sum(c => (c.Price ?? 0) * ComboQuantities[c.Id]);
         }
     }
 }
