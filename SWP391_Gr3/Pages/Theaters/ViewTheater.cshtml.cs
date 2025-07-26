@@ -63,14 +63,22 @@ namespace SWP391_Gr3.Pages.Theaters
             // Group showtimes by TheaterId => Movie => List<Showtime>
             foreach (var theater in Theaters)
             {
+                // Lấy thời điểm hiện tại và 7 ngày sau
+                var now = DateTime.Now;
+                var sevenDaysFromNow = now.AddDays(7);
+
                 var showtimes = theater.Rooms
                     .SelectMany(r => r.Showtimes)
-                    .Where(s => s.StartTime != null && s.Movie != null)
+                    .Where(s => s.StartTime != null
+                             && s.Movie != null
+                             && s.StartTime >= now
+                             && s.StartTime <= sevenDaysFromNow)
                     .GroupBy(s => s.Movie!)
                     .ToList();
 
                 ShowtimesByTheater[theater.Id] = showtimes;
             }
+
         }
 
         private string ExtractCityFromLocation(string location)

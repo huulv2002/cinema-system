@@ -1,0 +1,113 @@
+﻿@page
+@model SWP391_Gr3.Pages.ManageShowtimes.CreateModel
+@{
+    ViewData["Title"] = "Tạo Suất Chiếu";
+}
+
+<style>
+    body {
+        background-color: #1e1e2f;
+        color: #ffffff;
+    }
+
+    h2 {
+        color: #ffffff;
+        font-weight: 600;
+        margin-bottom: 25px;
+    }
+
+    label.form-label {
+        color: #ffffff;
+        font-weight: 500;
+        margin-bottom: 6px;
+    }
+
+    .form-control,
+    .form-select {
+        background-color: #2c2f48;
+        border: 1px solid #555;
+        color: #ffffff;
+    }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #66afe9;
+            box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+            background-color: #2c2f48;
+            color: #fff;
+        }
+
+    .btn-success {
+        background-color: #28a745;
+        border: none;
+        padding: 10px 20px;
+        font-weight: 600;
+        font-size: 16px;
+        border-radius: 8px;
+        transition: all 0.3s ease-in-out;
+        margin-top: 10px;
+    }
+
+        .btn-success:hover {
+            background-color: #218838;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+        }
+
+    .mb-3, .row {
+        margin-bottom: 20px;
+    }
+
+    form {
+        max-width: 600px;
+        margin: auto;
+        background-color: #2b2d42;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    }
+</style>
+
+<h2>🎬 Tạo Suất Chiếu</h2>
+
+<form method="post" class="mt-4">
+    <div class="mb-3">
+        <label class="form-label">🎥 Chọn Phim</label>
+        <select asp-for="SelectedMovieId" class="form-select" required>
+            <option value="">-- Chọn phim --</option>
+            @foreach (var movie in Model.Movies)
+            {
+                <option value="@movie.Id">@movie.Title</option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">🏢 Chọn Phòng Chiếu</label>
+        <select asp-for="SelectedRoomId" class="form-select" required>
+            <option value="">-- Chọn phòng --</option>
+            @foreach (var room in Model.Rooms)
+            {
+                <option value="@room.Id">@room.Code</option>
+            }
+        </select>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col">
+            <label class="form-label">📅 Ngày Bắt Đầu</label>
+            <input asp-for="StartDate" type="date" class="form-control" required />
+        </div>
+        <div class="col">
+            <label class="form-label">📅 Ngày Kết Thúc</label>
+            <input asp-for="EndDate" type="date" class="form-control" required />
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">🕒 Giờ Chiếu</label>
+        <input asp-for="ShowTimeHour" type="time" class="form-control" required />
+    </div>
+
+    <button type="submit" class="btn btn-success">➕ Tạo Suất Chiếu</button>
+</form>
