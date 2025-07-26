@@ -22,18 +22,28 @@ namespace SWP391_Gr3.Pages.ManagerProducts
 
         public void OnGet()
         {
-            Categories = _context.ProductCategories.ToList();
+            Categories = _context.ProductCategories.Where(pc=> pc.IsActive).ToList();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
-                Categories = _context.ProductCategories.ToList();
+                Categories = _context.ProductCategories.Where(pc => pc.IsActive).ToList();
+                return Page();
+            }
+      
+            var  isDuplicate = _context.Products
+                .Any(p => p.Name == Product.Name && p.IsActive);
+
+            if (isDuplicate)
+            {
+                ModelState.AddModelError("Product.Name", "Tên sản phẩm đã tồn tại.");
+                Categories = _context.ProductCategories.Where(pc => pc.IsActive).ToList();
                 return Page();
             }
 
-        
+
             if (ImageFile != null && ImageFile.Length > 0)
             {
               
@@ -43,7 +53,7 @@ namespace SWP391_Gr3.Pages.ManagerProducts
                 if (!allowedExtensions.Contains(extension))
                 {
                     ModelState.AddModelError("ImageFile", "Chỉ được chọn file ảnh (.jpg, .jpeg, .png, .webp, .jfif )");
-                    Categories = _context.ProductCategories.ToList();
+                    Categories = _context.ProductCategories.Where(pc => pc.IsActive).ToList();
                     return Page();
                 }
 

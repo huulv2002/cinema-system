@@ -15,13 +15,20 @@ namespace SWP391_Gr3.Pages.ProductCategorys
 
         [BindProperty]
         public ProductCategory ProductCategory { get; set; } = new();
-
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
                 return Page();
 
+
             ProductCategory.IsActive = true;
+            var isExist = _context.ProductCategories.Where(pc=>pc.Name == ProductCategory.Name && pc.IsActive).Any();
+            if (isExist)
+            {
+                ModelState.AddModelError("ProductCategory.Name", "? Loai san pham nay da ton tai.");
+                return Page();
+            }
+
             _context.ProductCategories.Add(ProductCategory);
             await _context.SaveChangesAsync();
             return RedirectToPage("Index");

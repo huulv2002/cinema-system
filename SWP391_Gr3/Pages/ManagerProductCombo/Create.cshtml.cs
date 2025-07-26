@@ -54,7 +54,7 @@ namespace SWP391_Gr3.Pages.ManagerProductCombo
                 .Where(p => SelectedProductIds.Contains(p.Id))
                 .ToListAsync();
 
-            // Kiểm tra số lượng vượt kho
+            
             foreach (var product in selectedProducts)
             {
                 int selectedQuantity = Quantities.ContainsKey(product.Id) ? Quantities[product.Id] : 1;
@@ -72,6 +72,19 @@ namespace SWP391_Gr3.Pages.ManagerProductCombo
 
                 return Page();
             }
+          
+            bool isDuplicate = await _context.Combos
+                .AnyAsync(c => c.Title.ToLower() == Combo.Title.ToLower() && c.IsActive == true);
+
+            if (isDuplicate)
+            {
+                ModelState.AddModelError("Combo.Title", "Tên combo đã tồn tại.");
+                AllProducts = await _context.Products
+                    .Where(p => p.IsActive)
+                    .ToListAsync();
+                return Page();
+            }
+
 
             var newCombo = new Combo
             {

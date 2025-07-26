@@ -31,11 +31,28 @@ namespace SWP391_Gr3.Pages.ProductCategorys
             if (!ModelState.IsValid)
                 return Page();
 
-            _context.Attach(ProductCategory).State = EntityState.Modified;
+            var existingCategory = await _context.ProductCategories
+                .FirstOrDefaultAsync(pc => pc.Id == ProductCategory.Id && pc.IsActive);
+
+            if (existingCategory == null)
+            {
+                return NotFound();
+            }
+
+            var isExist = _context.ProductCategories.Where(pc => pc.Name == ProductCategory.Name).Any();
+            if (isExist)
+            {
+                ModelState.AddModelError("ProductCategory.Name", "? Loai san pham nay da ton tai.");
+                return Page();
+            }
+         
+            existingCategory.Name = ProductCategory.Name;
+            
             await _context.SaveChangesAsync();
 
             return RedirectToPage("Index");
         }
+
     }
 
 }

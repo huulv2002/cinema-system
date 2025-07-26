@@ -28,9 +28,10 @@ namespace SWP391_Gr3.Pages.ManagerProductCombo
         public async Task OnGetAsync()
         {
             var query = _context.Combos
-                .Where(c => c.IsActive == true)
                 .Include(c => c.ProductCombos)
                     .ThenInclude(pc => pc.Product)
+                .Where(c => c.IsActive == true )
+                
                 .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(SearchTerm))

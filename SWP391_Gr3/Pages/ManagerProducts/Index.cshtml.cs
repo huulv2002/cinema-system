@@ -28,8 +28,8 @@ namespace SWP391_Gr3.Pages.ManagerProducts
         public async Task OnGetAsync()
         {
             var query = _context.Products
-                .Where(p => p.IsActive)
                 .Include(p => p.ProductCategory)
+                .Where(p => p.IsActive)
                 .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(SearchString))

@@ -66,8 +66,16 @@ namespace SWP391_Gr3.Pages.ManagerProductCombo
 
             if (comboToUpdate == null)
                 return NotFound();
-   
-        
+
+            bool isDuplicate = await _context.Combos
+                .AnyAsync(c => c.Title.ToLower() == ComboDto.Title.ToLower()
+                    && c.IsActive == true
+                    && c.Id != comboToUpdate.Id);
+
+            if (isDuplicate)
+            {
+                ModelState.AddModelError("ComboDto.Title", "Tên combo đã tồn tại.");
+            }
             if (SelectedProductIds == null || !SelectedProductIds.Any())
             {
                 ModelState.AddModelError("", "Vui lòng chọn ít nhất một sản phẩm.");
