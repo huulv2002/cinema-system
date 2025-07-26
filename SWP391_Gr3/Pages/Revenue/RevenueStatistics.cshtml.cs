@@ -1,10 +1,12 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using SWP391_Gr3.Autho;
 using SWP391_Gr3.Models;
 
 namespace SWP391_Gr3.Pages.Revenue
 {
+    [AuthorizeRole("Owner")]
     public class RevenueStatisticsModel : PageModel
     {
         private readonly Swp391Context _context;
@@ -15,64 +17,65 @@ namespace SWP391_Gr3.Pages.Revenue
         }
 
         [BindProperty(SupportsGet = true)]
-        public string Filter { get; set; } = "day";
+        public DateTime? StartDate { get; set; }
 
-        public List<string> RevenueLabels { get; set; } = new();
-        public List<decimal> TotalRevenues { get; set; } = new();
+        [BindProperty(SupportsGet = true)]
+        public DateTime? EndDate { get; set; }
 
-        public decimal TotalRevenue => TotalRevenues.Sum();
+        public decimal TotalRevenue { get; set; }
+
+        public class TopMovie
+        {
+            public string MovieName { get; set; } = string.Empty;
+            public int TicketCount { get; set; }
+        }
+
+        public List<TopMovie> TopMovies { get; set; } = new();
 
         public void OnGet()
         {
-            var tickets = _context.Tickets
-                .Include(t => t.Order)
-                .Include(t => t.Seat).ThenInclude(s => s.Type)
-                .Where(t => t.Order != null && t.Seat != null && t.Seat.Type != null && t.Order.CreatedAt != null)
-                .ToList();
-
-            var orderProducts = _context.OrderProducts
-                .Include(op => op.Order)
-                .Include(op => op.Product)
-                .Where(op => op.Order != null && op.Product != null && op.Order.CreatedAt != null)
-                .ToList();
-
-            var seatRevenueByGroup = tickets
-                .Where(t => t.Order?.CreatedAt != null)
-                .GroupBy(t => GetGroupKey(t.Order.CreatedAt))
-                .Select(g => new { Key = g.Key, Revenue = g.Sum(t => t.Seat.Type.Price) })
-                .ToList();
-
-            var foodRevenueByGroup = orderProducts
-                .Where(op => op.Order?.CreatedAt != null)
-                .GroupBy(op => GetGroupKey(op.Order.CreatedAt))
-                .Select(g => new { Key = g.Key, Revenue = g.Sum(op => op.Product.Price) })
-                .ToList();
-
-
-            var allKeys = seatRevenueByGroup.Select(x => x.Key)
-                .Union(foodRevenueByGroup.Select(x => x.Key))
-                .Distinct()
-                .OrderBy(k => k)
-                .ToList();
-
-            RevenueLabels = allKeys;
-            TotalRevenues = allKeys.Select(k =>
-                (seatRevenueByGroup.FirstOrDefault(x => x.Key == k)?.Revenue ?? 0) +
-                (foodRevenueByGroup.FirstOrDefault(x => x.Key == k)?.Revenue ?? 0)
-            ).ToList();
-        }
-
-        private string GetGroupKey(DateTime? date)
-        {
-            if (!date.HasValue)
-                return "Unknown";
-
-            return Filter switch
+            // ✅ Chỉ tính doanh thu khi có ngày bắt đầu và kết thúc
+            if (StartDate.HasValue && EndDate.HasValue)
             {
-                "year" => date.Value.ToString("yyyy"),
-                "month" => date.Value.ToString("yyyy-MM"),
-                _ => date.Value.ToString("yyyy-MM-dd")
-            };
+                var tickets = _context.Tickets
+                    .Include(t => t.Order)
+                    .Include(t => t.Seat).ThenInclude(s => s.Type)
+                    .Where(t => t.Order != null && t.Seat != null && t.Seat.Type != null && t.Order.CreatedAt != null)
+                    .Where(t => t.Order.CreatedAt >= StartDate && t.Order.CreatedAt <= EndDate)
+                    .ToList();
+
+                var orderProducts = _context.OrderProducts
+                    .Include(op => op.Order)
+                    .Include(op => op.Product)
+                    .Where(op => op.Order != null && op.Product != null && op.Order.CreatedAt != null)
+                    .Where(op => op.Order.CreatedAt >= StartDate && op.Order.CreatedAt <= EndDate)
+                    .ToList();
+
+                var seatRevenue = tickets.Sum(t => t.Seat.Type.Price);
+                var foodRevenue = orderProducts.Sum(op => op.Product.Price);
+                TotalRevenue = seatRevenue + foodRevenue;
+            }
+
+            // ✅ Luôn tính Top 5 phim được đặt nhiều nhất (không theo khoảng thời gian)
+            TopMovies = _context.Tickets
+                .Include(t => t.Order)
+                .Include(t => t.Showtime).ThenInclude(s => s.Movie)
+                .Where(t =>
+                    t.Order != null &&
+                    t.Showtime != null &&
+                    t.Showtime.Movie != null &&
+                    t.Order.CreatedAt != null
+                )
+                .AsEnumerable()
+                .GroupBy(t => t.Showtime.Movie.Title)
+                .Select(g => new TopMovie
+                {
+                    MovieName = g.Key,
+                    TicketCount = g.Count()
+                })
+                .OrderByDescending(m => m.TicketCount)
+                .Take(5)
+                .ToList();
         }
     }
 }

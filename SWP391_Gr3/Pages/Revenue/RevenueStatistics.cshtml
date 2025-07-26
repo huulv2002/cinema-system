@@ -1,76 +1,124 @@
 ﻿@page
 @model SWP391_Gr3.Pages.Revenue.RevenueStatisticsModel
-@using Newtonsoft.Json
+@using System.Text.Json
 
-<h2 style="color:white; text-align: center;">
-    Revenue Statistics - Viewing by @Model.Filter.ToUpper()
-</h2>
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<div style="text-align: center; margin-top: 20px;">
+<style>
+    .report-container {
+        max-width: 600px;
+        margin: 40px auto;
+        padding: 30px;
+        background: rgba(0, 0, 0, 0.7);
+        border-radius: 15px;
+        box-shadow: 0 0 30px 10px rgba(54, 162, 235, 0.5);
+        color: white;
+        text-align: center;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        margin-right: 10px;
+        font-weight: bold;
+    }
+
+    input[type="date"] {
+        padding: 6px 10px;
+        border-radius: 5px;
+        border: none;
+        width: 170px;
+    }
+
+    button {
+        padding: 8px 20px;
+        background-color: #4caf50;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        margin-left: 10px;
+    }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+    .total-result h3 {
+        margin-bottom: 10px;
+    }
+
+    .total-result h1 {
+        font-size: 2.5rem;
+        color: #00ff99;
+        margin-top: 0;
+    }
+</style>
+
+<div class="report-container">
+    <h2>Báo cáo doanh thu</h2>
+
     <form method="get" asp-page="./RevenueStatistics">
-        <label for="filter" style="color: white;">View by:</label>
-        <select id="filter" name="filter" onchange="this.form.submit()">
-            <option value="day" selected="@("day" == Model.Filter)">By Day</option>
-            <option value="month" selected="@("month" == Model.Filter)">By Month</option>
-            <option value="year" selected="@("year" == Model.Filter)">By Year</option>
-        </select>
+        <div class="form-group">
+            <label for="startDate">Từ ngày:</label>
+            <input type="date" id="startDate" name="startDate" value="@Model.StartDate?.ToString("yyyy-MM-dd")" />
+        </div>
+        <div class="form-group">
+            <label for="endDate">Đến ngày:</label>
+            <input type="date" id="endDate" name="endDate" value="@Model.EndDate?.ToString("yyyy-MM-dd")" />
+        </div>
+        <button type="submit">Xem báo cáo</button>
     </form>
+
+    @if (Model.StartDate.HasValue && Model.EndDate.HasValue)
+    {
+        <div class="total-result" style="margin-top: 40px;">
+            <h3>Doanh thu từ ngày @Model.StartDate?.ToString("dd/MM/yyyy") đến @Model.EndDate?.ToString("dd/MM/yyyy")</h3>
+            <h1>@Model.TotalRevenue.ToString("N0") VNĐ</h1>
+        </div>
+    }
+    else
+    {
+        <div style="margin-top: 40px;">
+            <p>Vui lòng chọn khoảng thời gian để xem doanh thu.</p>
+        </div>
+    }
 </div>
 
-<div class="revenue-statistics" style="
-    position: relative;
-    width: 1000px;
-    max-width: 90vw;
-    margin: 40px auto;
-    padding: 30px;
-    background: rgba(0, 0, 0, 0.7);
-    border-radius: 15px;
-    box-shadow: 0 0 30px 10px rgba(54, 162, 235, 0.7);
-">
-    <canvas id="revenueChart" width="960" height="480" style="background-color: rgba(255, 255, 255, 0.1); border-radius: 10px;"></canvas>
-</div>
+<!-- Biểu đồ Top 5 phim -->
+@if (Model.TopMovies != null && Model.TopMovies.Count > 0)
+{
+    <div class="report-container" style="margin-top: 40px;">
+        <h3>🎬 Top 5 bộ phim được đặt vé nhiều nhất</h3>
+        <canvas id="topMoviesChart" width="400" height="400"></canvas>
+    </div>
 
-@section Scripts {
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        var labels = @Html.Raw(JsonConvert.SerializeObject(Model.RevenueLabels));
-        var totalRevenue = @Html.Raw(JsonConvert.SerializeObject(Model.TotalRevenues));
-
-        var ctx = document.getElementById('revenueChart').getContext('2d');
-        var revenueChart = new Chart(ctx, {
-            type: 'bar',
+        const ctx = document.getElementById('topMoviesChart').getContext('2d');
+        const topMoviesChart = new Chart(ctx, {
+            type: 'pie',
             data: {
-                labels: labels,
-                datasets: [
-                    {
-                        label: 'Total Revenue',
-                        data: totalRevenue,
-                        backgroundColor: 'rgba(75, 192, 192, 0.7)'
-                    }
-                ]
+                labels: @Html.Raw(JsonSerializer.Serialize(Model.TopMovies.Select(m => m.MovieName))),
+                datasets: [{
+                    label: 'Số vé đã đặt',
+                    data: @Html.Raw(JsonSerializer.Serialize(Model.TopMovies.Select(m => m.TicketCount))),
+                    backgroundColor: [
+                        '#FF6384',
+                        '#36A2EB',
+                        '#FFCE56',
+                        '#4BC0C0',
+                        '#9966FF'
+                    ],
+                    borderColor: '#222',
+                    borderWidth: 1
+                }]
             },
             options: {
                 responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            color: 'white'
-                        },
-                        grid: {
-                            color: 'rgba(255, 255, 255, 0.2)'
-                        }
-                    },
-                    x: {
-                        ticks: {
-                            color: 'white'
-                        },
-                        grid: {
-                            color: 'rgba(255, 255, 255, 0.2)'
-                        }
-                    }
-                },
                 plugins: {
                     legend: {
                         labels: {

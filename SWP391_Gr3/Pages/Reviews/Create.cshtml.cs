@@ -4,14 +4,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-<<<<<<< HEAD
 using SWP391_Gr3.Autho;
 using SWP391_Gr3.Models;
-=======
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 
->>>>>>> 99deb1117390132e47e998f37cb19f9d395f2a9b
 namespace SWP391_Gr3.Pages.Reviews
 {
     [AuthorizeRole("Owner,Staff")]
