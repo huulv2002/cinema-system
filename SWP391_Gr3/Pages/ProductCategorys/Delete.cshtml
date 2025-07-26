@@ -1,0 +1,15 @@
+﻿@page
+@model SWP391_Gr3.Pages.ProductCategorys.DeleteModel
+@{
+}
+<div class="container bg-white p-4 rounded shadow-sm">
+<h2>Xóa danh mục</h2>
+
+<p>Bạn có chắc chắn muốn xóa danh mục "<strong>@Model.ProductCategory.Name</strong>" không?</p>
+
+<form method="post">
+    <input type="hidden" asp-for="ProductCategory.Id" />
+    <button type="submit" class="btn btn-danger">Xóa</button>
+    <a asp-page="Index" class="btn btn-secondary">Hủy</a>
+</form>
+</div>

@@ -1,0 +1,32 @@
+﻿@page
+@model SWP391_Gr3.Pages.ProductCategorys.IndexModel
+
+@{
+    ViewData["Title"] = "Danh sách danh mục";
+}
+<div class="container bg-white p-4 rounded shadow-sm">
+<h2>Danh sách danh mục</h2>
+
+<a asp-page="Create" class="btn btn-primary mb-3">Thêm mới</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Tên danh mục</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var c in Model.Categories)
+    {
+        <tr>
+            <td>@c.Name</td>
+            <td>
+                <a asp-page="Edit" asp-route-id="@c.Id" class="btn btn-warning btn-sm">Sửa</a>
+                <a asp-page="Delete" asp-route-id="@c.Id" class="btn btn-danger btn-sm">Xóa</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+</div>

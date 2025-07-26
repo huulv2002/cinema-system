@@ -1,0 +1,18 @@
+﻿@page
+@model SWP391_Gr3.Pages.ProductCategorys.EditModel
+@{
+}
+<div class="container bg-white p-4 rounded shadow-sm">
+<h2>Sửa danh mục</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="ProductCategory.Id" />
+    <div class="mb-3">
+        <label asp-for="ProductCategory.Name" class="form-label"></label>
+        <input asp-for="ProductCategory.Name" class="form-control" />
+        <span asp-validation-for="ProductCategory.Name" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Cập nhật</button>
+    <a asp-page="Index" class="btn btn-secondary">Hủy</a>
+</form>
+</div>
