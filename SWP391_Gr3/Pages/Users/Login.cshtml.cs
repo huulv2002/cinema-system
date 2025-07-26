@@ -29,6 +29,7 @@ namespace SWP391_Gr3.Pages.Users
         }
         public async Task<IActionResult> OnPostAsync()
         {
+
             if (!ModelState.IsValid)
             {
                 return Page();
@@ -37,6 +38,11 @@ namespace SWP391_Gr3.Pages.Users
             var user = await _userSer.ValidateUserAsync(Email, Password);
             try
             {
+                if (user == null)
+                {
+                    ErrorMessage = "Sai email hoặc mật khẩu";
+                    return Page();
+                }
                 if (user.IsActive == false)
                 {
                     ErrorMessage = "chưa active tài khoản";
@@ -46,11 +52,6 @@ namespace SWP391_Gr3.Pages.Users
             catch (Exception ex)
             {
                 ErrorMessage = "chưa active tài khoản hoặc chưa có tài khoản";
-                return Page();
-            }
-            if (user == null)
-            {
-                ErrorMessage = "Sai email hoặc mật khẩu";
                 return Page();
             }
             var roleName = await _userSer.GetRoleNameAsync(user.Id);
