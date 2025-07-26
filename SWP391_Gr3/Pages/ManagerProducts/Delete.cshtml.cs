@@ -40,6 +40,16 @@ namespace SWP391_Gr3.Pages.ManagerProducts
                 return NotFound();
             }
             productInDb.IsActive = false;
+            var productCombos = await _context.ProductCombos.Where(c => c.Product == productInDb).ToListAsync();
+
+            foreach (var pc in productCombos)
+            {
+                var combos = await _context.Combos.Where(c => c.ProductCombos.Contains(pc)).ToListAsync();
+                foreach (var c in combos)
+                {
+                    c.IsActive = false;
+                }
+            }
             await _context.SaveChangesAsync();
 
             return RedirectToPage("Index");
