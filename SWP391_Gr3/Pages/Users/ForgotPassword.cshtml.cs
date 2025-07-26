@@ -25,7 +25,7 @@ namespace SWP391_Gr3.Pages.Users
         public string? Otp { get; set; }
 
         [BindProperty]
-        [MinLength(6, ErrorMessage = "Mật khẩu phải có ít nhất 6 ký tự.")]
+        [StringLength(10, MinimumLength = 6, ErrorMessage = "Mật khẩu mới phải từ 6 đến 10 ký tự")]
         public string? NewPassword { get; set; }
 
         [BindProperty]

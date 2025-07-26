@@ -18,7 +18,7 @@ namespace SWP391_Gr3.Dtos
 
         [Display(Name = "Số điện thoại")]
         [Required(ErrorMessage = "Vui lòng nhập số điện thoại")]
-        [RegularExpression(@"^\d{10}$", ErrorMessage = "Số điện thoại phải gồm đúng 10 chữ số")]
+        [RegularExpression(@"^0\d{9}$", ErrorMessage = "Số điện thoại phải bắt đầu bằng số 0 và gồm đúng 10 chữ số")]
         public string PhoneNumber { get; set; }
 
 

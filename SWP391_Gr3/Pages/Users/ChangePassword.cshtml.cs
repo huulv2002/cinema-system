@@ -26,7 +26,7 @@ namespace SWP391_Gr3.Pages.Users
 
         [BindProperty, DataType(DataType.Password)]
         [Required(ErrorMessage = "Bạn phải nhập mật khẩu mới")]
-        [MinLength(6, ErrorMessage = "Mật khẩu mới phải có ít nhất 6 ký tự")]
+        [StringLength(10, MinimumLength = 6, ErrorMessage = "Mật khẩu mới phải từ 6 đến 10 ký tự")]
         public string NewPassword { get; set; }
 
         [BindProperty, DataType(DataType.Password)]
