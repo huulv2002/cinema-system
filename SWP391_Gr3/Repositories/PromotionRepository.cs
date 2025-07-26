@@ -58,18 +58,22 @@ namespace SWP391_Gr3.Repositories
         public async Task<bool> ToggleUserActiveStatusAsync(int Id)
         {
             var date = DateTime.Now;
-
             var pro = await _context.Promotions.FindAsync(Id);
+
             if (pro == null)
-            {
                 return false;
-            }
+
             DateTime? exdate = pro.EndDate;
-            if (date > exdate)
+            if (exdate.HasValue && date > exdate.Value)
             {
-                pro.IsActive = false;
-                return await _context.SaveChangesAsync() > 0;
+                if (pro.IsActive) // chỉ update khi đang active
+                {
+                    pro.IsActive = false;
+                    return await _context.SaveChangesAsync() > 0;
+                }
+                return false; // không cần update nữa
             }
+
             pro.IsActive = !pro.IsActive;
             return await _context.SaveChangesAsync() > 0;
         }

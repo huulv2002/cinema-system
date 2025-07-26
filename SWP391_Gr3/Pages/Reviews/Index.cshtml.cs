@@ -6,11 +6,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using SWP391_Gr3.Autho;
 using SWP391_Gr3.Models;
 
 namespace SWP391_Gr3.Pages.Reviews
 {
-    [Authorize(Roles = "Staff, Owner")]
+    [AuthorizeRole("Owner,Staff")]
     public class IndexModel : PageModel
     {
         private readonly SWP391_Gr3.Models.Swp391Context _context;
@@ -25,7 +26,8 @@ namespace SWP391_Gr3.Pages.Reviews
         public async Task OnGetAsync()
         {
             MovieReview = await _context.MovieReviews
-                .Include(m => m.Movie).ToListAsync();
+                 .Include(m => m.Movie)
+                 .ToListAsync();
         }
     }
 }

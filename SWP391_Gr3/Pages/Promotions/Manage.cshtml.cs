@@ -21,7 +21,17 @@ namespace SWP391_Gr3.Pages.Promotions
         public List<Promotion> FilteredPro { get; private set; }
         public async Task OnGetAsync(string proId)
         {
-            var promotions = await _promotionService.ListAllPromotionAsync();
+           
+            var promotions = await _promotionService.ListAllPromotionAsync();       
+            foreach (var promotion in promotions)
+            {            
+                if (promotion.EndDate.HasValue && DateTime.Now > promotion.EndDate.Value && promotion.IsActive)
+                {
+                    await _promotionService.ToggleUserActiveStatusAsync(promotion.Id);
+                }
+            }          
+            promotions = await _promotionService.ListAllPromotionAsync();
+        
             SearchUserId = proId;
             FilteredPro = string.IsNullOrEmpty(proId)
                 ? promotions.ToList()
@@ -38,12 +48,13 @@ namespace SWP391_Gr3.Pages.Promotions
             }
             else
             {
-                TempData["Message"] = "Không tìm thấy, cập nhật thất bại.";
+                TempData["Message"] = "Không thể active khuyến mãi quá hạn.";
             }
             return RedirectToPage("./Manage");
         }
         public async Task<IActionResult> OnPostDeleteAsync(int id)
         {
+
             var success1 = await _promotionService.DeleteAsync(id);
             if (success1)
             {
@@ -51,7 +62,7 @@ namespace SWP391_Gr3.Pages.Promotions
             }
             else
             {
-                TempData["Message"] = "Không tìm thấy, cập nhật thất bại.";
+                TempData["Message"] = "Không thể active khuyến mãi quá hạn.";
             }
             return RedirectToPage("./Manage");
         }

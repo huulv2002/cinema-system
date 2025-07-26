@@ -29,16 +29,17 @@
                 </select>
             </div>
 
+            <!-- Hiển thị số tiền sau giảm -->
             <div class="mb-3">
                 <label class="form-label fw-bold">Số tiền cần thanh toán:</label>
                 <input type="text" class="form-control-plaintext fs-4 text-danger fw-bold" id="amountDisplay" value="@Model.Amount.ToString("N0") đ" readonly />
-                <input type="hidden" id="amount" name="amount" value="@Model.Amount" />
             </div>
 
+            <!-- Form thanh toán -->
             <form method="post" id="paymentForm">
                 <input type="hidden" name="orderId" value="@Model.OrderId" />
                 <input type="hidden" name="orderInfo" value="@Model.OrderId" />
-                <input type="hidden" id="amount" name="amount" value="@Model.Amount" />
+                <input type="hidden" id="amountHidden" name="amount" value="@Model.Amount" />
                 <button type="submit" class="btn btn-danger w-100 py-3 fs-5 rounded-3 mt-3 shadow">
                     <i class="bi bi-credit-card-2-front-fill me-2"></i> Thanh toán qua VNPAY
                 </button>
@@ -49,6 +50,7 @@
 </div>
 
 @section Scripts {
+
     <script>
         document.getElementById('promotionSelect').addEventListener('change', function () {
             const selectedOption = this.options[this.selectedIndex];
@@ -57,7 +59,8 @@
             const discounted = Math.max(0, originalAmount - promoValue);
 
             document.getElementById('amountDisplay').value = discounted.toLocaleString('vi-VN') + " đ";
-            document.getElementById('amount').value = discounted;
+            document.getElementById('amountHidden').value = discounted;
         });
     </script>
+
 }

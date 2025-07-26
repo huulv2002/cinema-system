@@ -1,8 +1,24 @@
-﻿
+﻿document.addEventListener("DOMContentLoaded", function () {
+    const fullNameInput = document.getElementById("RegisterUser_FullName");
+    const addressInput = document.getElementById("RegisterUser_address");
+    const phoneInput = document.getElementById("RegisterUser_PhoneNumber");
+
+    if (fullNameInput) {
+        fullNameInput.addEventListener("blur", function () {
+            this.value = this.value.trim();
+        });
+    }
+
+    if (addressInput) {
+        addressInput.addEventListener("blur", function () {
+            this.value = this.value.trim();
+        });
+    }
+});
+
 function restrictInput(element) {
     const validPattern = /^[a-zA-Z\u00C0-\u1EF9\s]*$/;
     const errorElement = document.getElementById(element.id + "Error");
-
 
     if (!validPattern.test(element.value)) {
         element.value = element.value.replace(/[^\w\s\u00C0-\u1EF9._-]/g, '');
@@ -11,33 +27,30 @@ function restrictInput(element) {
         errorElement.classList.add("d-none");
     }
 
-
     if (element.value.startsWith(" ")) {
         element.value = element.value.trimStart();
     }
 }
 
-
 function restrictPhoneInput(element) {
     const validPattern = /^[0-9]*$/;
     const errorElement = document.getElementById("phoneError");
 
-
     if (!validPattern.test(element.value)) {
         element.value = element.value.replace(/[^0-9]/g, '');
+    }
+
+    if (element.value.length > 10) {
+        element.value = element.value.substring(0, 10);
+    }
+
+    if (element.value.length !== 10) {
+        errorElement.innerText = "Số điện thoại phải đúng 10 số!";
         errorElement.classList.remove("d-none");
     } else {
         errorElement.classList.add("d-none");
     }
-
-
-    if (element.value.length > 10) {
-        element.value = element.value.substring(0, 11);
-        errorElement.innerText = "Số điện thoại không được vượt quá 10 số!";
-        errorElement.classList.remove("d-none");
-    }
 }
-
 
 function validateForm() {
     let password = document.getElementById("HashPass").value;
@@ -55,45 +68,36 @@ function validateForm() {
     const mustContainLetter = /[a-zA-Z\u00C0-\u1EF9]/;
     const phonePattern = /^[0-9]+$/;
 
-
     if (password.length < 6 || password.length > 10) {
         passwordError.innerText = "Mật khẩu phải từ 6 đến 10 ký tự!";
         passwordError.classList.remove("d-none");
         return false;
-    } else {
-        passwordError.classList.add("d-none");
     }
-
 
     if (password !== confirmPassword) {
         passwordError.innerText = "Mật khẩu xác nhận không khớp!";
         passwordError.classList.remove("d-none");
         return false;
-    } else {
-        passwordError.classList.add("d-none");
     }
 
-
     if (fullName === "" || !textPattern.test(fullName) || !mustContainLetter.test(fullName)) {
-        fullNameError.innerText = "Họ và tên phải chứa ít nhất một chữ cái và không được để trống!";
+        fullNameError.innerText = "Sai format tên!";
         fullNameError.classList.remove("d-none");
         return false;
     } else {
         fullNameError.classList.add("d-none");
     }
 
-
     if (address === "" || !textPattern.test(address) || !mustContainLetter.test(address)) {
-        addressError.innerText = "Địa chỉ không được để trống và phải có ít nhất một chữ cái!";
+        addressError.innerText = "Sai format địa chỉ!";
         addressError.classList.remove("d-none");
         return false;
     } else {
         addressError.classList.add("d-none");
     }
 
-
-    if (!phonePattern.test(phone) || phone.length === 0 || phone.length > 10) {
-        phoneError.innerText = "Số điện thoại không được để trống và tối đa 10 số!";
+    if (!phonePattern.test(phone) || phone.length !== 10) {
+        phoneError.innerText = "Số điện thoại phải đúng 10 số!";
         phoneError.classList.remove("d-none");
         return false;
     } else {
@@ -102,10 +106,3 @@ function validateForm() {
 
     return true;
 }
-
-document.getElementById("RegisterUser_FullName").addEventListener("blur", function () {
-    this.value = this.value.trim();
-});
-document.getElementById("RegisterUser_address").addEventListener("blur", function () {
-    this.value = this.value.trim();
-});

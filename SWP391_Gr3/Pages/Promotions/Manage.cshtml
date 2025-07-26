@@ -57,13 +57,6 @@
 						<td>@promotion.StartDate</td>
 						<td>@promotion.EndDate</td>
 						<td>
-
-
-							<form asp-page-handler="Delete" asp-route-id="@promotion.Id" method="post" style="display:inline;">
-								<button type="submit" class="btn btn-primary">
-									<div>Delete</div>
-								</button>
-							</form>
 							<a asp-page="/Promotions/PromotionUpdate" asp-route-id="@promotion.Id" class="btn btn-warning">Update</a>
 
 							@if (userRole == "Owner")
